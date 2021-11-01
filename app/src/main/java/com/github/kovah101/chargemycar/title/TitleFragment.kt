@@ -19,7 +19,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class TitleFragment : Fragment() {
     // TODO: 1 - Link to Github (30 mins)
-    //  2-Create Blank fragments & navigation, 3-Design Title Fragment, 4-Design about & options fragments, 5-overflow menu to switch list/map view 6-Timber for Logs, 7-Dummy data & Database!
+    //  2- Create Blank fragments & navigation, 3-Design Title Fragment, 4-Design about & options fragments, 5-overflow menu to switch list/map view 6-Timber for Logs, 7-Dummy data & Database!
 
 
 
