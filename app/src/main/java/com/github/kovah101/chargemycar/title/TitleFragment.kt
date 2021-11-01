@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.github.kovah101.chargemycar.R
 
-// TODO: Rename parameter arguments, choose names that match
 
 /**
  * Title Fragment to welcome user, show symbol
