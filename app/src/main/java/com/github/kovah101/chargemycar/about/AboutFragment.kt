@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.github.kovah101.chargemycar.R
+import com.github.kovah101.chargemycar.databinding.FragmentAboutBinding
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
 
 
@@ -20,8 +22,12 @@ class AboutFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding: FragmentTitleBinding = DataBindingUtil.inflate(
+        val binding: FragmentAboutBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_about, container, false)
+
+        // set action bar title
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.about)
+
         return binding.root
     }
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/optionsFragment"
+        android:title="Options" />
+    <item
+        android:id="@+id/liveListFragment"
+        android:title="Live List" />
+    <item
+        android:id="@+id/liveMapFragment"
+        android:title="Live Map" />
+    <item
+        android:id="@+id/savedListFragment"
+        android:title="Saved List" />
+    <item
+        android:id="@+id/savedMapFragment"
+        android:title="Saved Map" />
+    <item
+        android:id="@+id/aboutFragment"
+        android:title="About" />
+</menu>

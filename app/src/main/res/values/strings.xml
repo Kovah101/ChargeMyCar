@@ -8,4 +8,11 @@
     <string name="saved_map_fragment">Saved Map Coming Soon</string>
     <string name="about_fragment">About Fragment Coming Soon</string>
     <string name="options_fragment">Options Coming Soon</string>
+    <string name="liveList">Live List</string>
+    <string name="savedMap">Saved Map</string>
+    <string name="liveMap">Live Map</string>
+    <string name="title">Charge My Car</string>
+    <string name="savedList">Saved List</string>
+    <string name="options">Options</string>
+    <string name="about">About</string>
 </resources>

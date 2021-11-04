@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
@@ -17,7 +18,8 @@ import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
  */
 class TitleFragment : Fragment() {
     // TODO: 1 - Link to Github (30 mins)
-    //  2-Create Blank fragments & navigation (10+15+25), 3-Design Title Fragment, 4-Design about & options fragments, 5-overflow menu to switch list/map view 6-Timber for Logs, 7-Dummy data & Database!
+    //  2-Create Blank fragments & navigation (2.5 hours)
+    //  3-Design Title Fragment, 4-Design about & options fragments, 5-overflow menu to switch list/map view 6-Timber for Logs, 7-Dummy data & Database!
 
 
 
@@ -28,6 +30,10 @@ class TitleFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding: FragmentTitleBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_title, container, false)
+
+        // set action bar title
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.title)
+
         return binding.root
     }
 

@@ -1,12 +1,14 @@
 package com.github.kovah101.chargemycar.savedMap
 
 import android.os.Bundle
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
+import com.github.kovah101.chargemycar.databinding.FragmentSavedMapBinding
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
 
 /**
@@ -19,9 +21,25 @@ class SavedMapFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding: FragmentTitleBinding = DataBindingUtil.inflate(
+        val binding: FragmentSavedMapBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_saved_map, container, false
         )
+        // has overflow menu to swap to list
+        setHasOptionsMenu(true)
+
+        // set action bar title
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.savedMap)
+
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.saved_map_list_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+                || super.onOptionsItemSelected(item)
     }
 }
