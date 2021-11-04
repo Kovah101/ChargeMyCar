@@ -1,4 +1,4 @@
-package com.github.kovah101.chargemycar.title
+package com.github.kovah101.chargemycar.about
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,15 +11,9 @@ import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
 
 
 /**
- * Title Fragment to welcome user, show symbol
- * Buttons for: nearest Charge Points, nearest to postcode, saved list
- * Menu to navigate between fragments
+ * About fragment to describe the functionality of the app.
  */
-class TitleFragment : Fragment() {
-    // TODO: 1 - Link to Github (30 mins)
-    //  2-Create Blank fragments & navigation (10+15+25), 3-Design Title Fragment, 4-Design about & options fragments, 5-overflow menu to switch list/map view 6-Timber for Logs, 7-Dummy data & Database!
-
-
+class AboutFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +21,7 @@ class TitleFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding: FragmentTitleBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_title, container, false)
+            inflater, R.layout.fragment_about, container, false)
         return binding.root
     }
 
