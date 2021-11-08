@@ -12,6 +12,64 @@
         <!-- TODO: Place Holder -->
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/connectorTypeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/maxDistanceLayout">
+
+            <TextView
+                android:id="@+id/connectorTypeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Connector Type:"
+                android:textColor="@color/green_500"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@id/connectorTypeGroup"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioGroup
+                android:id="@+id/connectorTypeGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:checkedButton="@id/connectorTypeAll"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RadioButton
+                    android:id="@+id/connectorTypeAll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="All"
+                    android:textColor="@color/green_500"
+                    android:textSize="24sp" />
+
+                <RadioButton
+                    android:id="@+id/connectorTypeTesla"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tesla"
+                    android:textColor="@color/green_500"
+                    android:textSize="24sp" />
+
+                <RadioButton
+                    android:id="@+id/connectorTypeOther"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Other"
+                    android:textColor="@color/green_500"
+                    android:textSize="24sp" />
+            </RadioGroup>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/maxDistanceLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

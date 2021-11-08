@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.databinding.ActivityMainBinding
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         // set action bar title
         this.supportActionBar?.setTitle(R.string.title)
+
+        Timber.i("Timber is all setup")
     }
 
     // make the back button on Action Bar to navigate up
