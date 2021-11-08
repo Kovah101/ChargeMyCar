@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ChargeMyCar</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Fragment Coming Soon</string>
+    <string name="title_fragment">Charge My Car</string>
     <string name="list_fragment">List Fragment Coming Soon</string>
     <string name="map_fragment">Map Coming Soon</string>
     <string name="saved_list_fragment">Saved List Coming Soon</string>

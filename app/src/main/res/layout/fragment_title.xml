@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".title.TitleFragment">
 
@@ -9,10 +10,74 @@
         android:layout_height="match_parent">
 
         <!-- TODO: Place Holder -->
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="159dp"
+            android:layout_height="146dp"
+            android:layout_marginTop="150dp"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:id="@+id/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_fragment"
+            android:textColor="@color/green_500"
+            android:textSize="34sp"
+            app:layout_constraintBottom_toTopOf="@+id/icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/liveChargePoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Find Nearest Charge Points"
+            app:layout_constraintBottom_toTopOf="@+id/Postcode"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/icon" />
+
+        <EditText
+            android:id="@+id/Postcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:hint="Enter Postcode"
+            android:inputType="textPostalAddress"
+            android:minHeight="48dp"
+            android:textColorHint="@color/green_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/liveChargePoints" />
+
+        <Button
+            android:id="@+id/postcodeChargePoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Find Local Charge Points"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Postcode" />
+
+        <Button
+            android:id="@+id/favouriteChargePoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="Find Favourite Charge Points"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/postcodeChargePoints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

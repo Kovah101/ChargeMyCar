@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
 
@@ -19,7 +20,8 @@ import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
 class TitleFragment : Fragment() {
     // TODO: 1 - Link to Github (30 mins)
     //  2-Create Blank fragments & navigation (2.5 hours)
-    //  3-Design Title Fragment, 4-Design about & options fragments, 5-overflow menu to switch list/map view 6-Timber for Logs, 7-Dummy data & Database!
+    //  3-Design Title Fragment (1 hour)
+    //  , 4-Design about & options fragments, 5-overflow menu to switch list/map view 6-Timber for Logs, 7-Dummy data & Database!
 
 
 
@@ -33,6 +35,20 @@ class TitleFragment : Fragment() {
 
         // set action bar title
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.title)
+
+        // set button click listeners
+        // Nearest live charge points
+        binding.liveChargePoints.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_liveListFragment)
+        )
+        // Local live charge points
+        binding.postcodeChargePoints.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_liveListFragment)
+        )
+        // Favourite charge points
+        binding.favouriteChargePoints.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_savedListFragment)
+        )
 
         return binding.root
     }
