@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".options.OptionsFragment">
 
@@ -9,10 +10,104 @@
         android:layout_height="match_parent">
 
         <!-- TODO: Place Holder -->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/maxDistanceLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/maxResultsLayout">
+
+            <EditText
+                android:id="@+id/maxDistanceNumber"
+                android:layout_width="99dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="10dp"
+                android:ems="10"
+                android:gravity="center_horizontal"
+                android:hint="30"
+                android:inputType="number"
+                android:textColorHint="@color/green_500"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toStartOf="@+id/maxDistanceLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/maxDistanceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:text="Max Distance (Km)"
+                android:textColor="@color/green_500"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/maxDistanceNumber" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/maxResultsLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/optionsTitle">
+
+            <EditText
+                android:id="@+id/maxResultsNumber"
+                android:layout_width="99dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="10dp"
+                android:ems="10"
+                android:gravity="center_horizontal"
+                android:hint="10"
+                android:inputType="number"
+                android:textColorHint="@color/green_500"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toStartOf="@+id/maxResultLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/maxResultLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:text="Max Results"
+                android:textColor="@color/green_500"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/maxResultsNumber" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/options_fragment" />
+            android:id="@+id/optionsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/options_fragment"
+            android:textColor="@color/green_500"
+            android:textSize="34sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/optionsIcon" />
+
+        <ImageView
+            android:id="@+id/optionsIcon"
+            android:layout_width="127dp"
+            android:layout_height="115dp"
+            android:layout_marginTop="100dp"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

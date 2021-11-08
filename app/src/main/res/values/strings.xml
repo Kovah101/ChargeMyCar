@@ -6,8 +6,12 @@
     <string name="map_fragment">Map Coming Soon</string>
     <string name="saved_list_fragment">Saved List Coming Soon</string>
     <string name="saved_map_fragment">Saved Map Coming Soon</string>
-    <string name="about_fragment">About Fragment Coming Soon</string>
-    <string name="options_fragment">Options Coming Soon</string>
+    <string name="about_fragment">This App was made to help you find your nearest electric car charging stations!
+        Nearest to either your current location or to the inputted postcode. You can also save your favourite charge points and view them separately too.
+        \n \n The Options menu will let you adjust the parameters of the Charge Point Search - such as max distance, max results and connector type!
+    </string>
+    <string name="about_title">About</string>
+    <string name="options_fragment">Options</string>
     <string name="liveList">Live List</string>
     <string name="savedMap">Saved Map</string>
     <string name="liveMap">Live Map</string>

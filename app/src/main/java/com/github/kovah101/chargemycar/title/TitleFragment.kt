@@ -19,9 +19,10 @@ import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
  */
 class TitleFragment : Fragment() {
     // TODO: 1 - Link to Github (30 mins)
-    //  2-Create Blank fragments & navigation (2.5 hours)
+    //  2-Create Blank fragments & navigation including overflow menu & nav drawer(2.5 hours)
     //  3-Design Title Fragment (1 hour)
-    //  , 4-Design about & options fragments, 5-overflow menu to switch list/map view 6-Timber for Logs, 7-Dummy data & Database!
+    //  4-Design about & options fragments (45 mins)
+    //  5-Timber for Logs, 7-Dummy data & Database!
 
 
 
