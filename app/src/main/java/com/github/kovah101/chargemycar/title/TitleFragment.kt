@@ -26,7 +26,7 @@ class TitleFragment : Fragment() {
     //  5- Timber for Logs (10 minutes)
     //
     // TODO: Phase 2 - Database & ViewModel (setup 15 mins)
-    //  1- ChargePoint Entity
+    //  1- ChargePoint Entity (25 mins)
     //  2- ChargePointDatabaseDAO
     //  3- Create + Test Room Database
     //  4- Add Favourite ViewModel
