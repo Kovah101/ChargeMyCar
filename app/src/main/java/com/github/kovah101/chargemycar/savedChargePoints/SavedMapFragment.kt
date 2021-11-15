@@ -1,4 +1,4 @@
-package com.github.kovah101.chargemycar.savedMap
+package com.github.kovah101.chargemycar.savedChargePoints
 
 import android.os.Bundle
 import android.view.*

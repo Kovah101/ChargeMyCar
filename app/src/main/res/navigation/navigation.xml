@@ -31,7 +31,7 @@
         tools:layout="@layout/fragment_options" />
     <fragment
         android:id="@+id/liveListFragment"
-        android:name="com.github.kovah101.chargemycar.liveList.LiveListFragment"
+        android:name="com.github.kovah101.chargemycar.liveChargePoints.LiveListFragment"
         android:label="fragment_live_list"
         tools:layout="@layout/fragment_live_list" >
         <action
@@ -42,12 +42,12 @@
     </fragment>
     <fragment
         android:id="@+id/liveMapFragment"
-        android:name="com.github.kovah101.chargemycar.liveMap.LiveMapFragment"
+        android:name="com.github.kovah101.chargemycar.liveChargePoints.LiveMapFragment"
         android:label="fragment_live_map"
         tools:layout="@layout/fragment_live_map" />
     <fragment
         android:id="@+id/savedListFragment"
-        android:name="com.github.kovah101.chargemycar.savedList.SavedListFragment"
+        android:name="com.github.kovah101.chargemycar.savedChargePoints.SavedListFragment"
         android:label="fragment_saved_list"
         tools:layout="@layout/fragment_saved_list" >
         <action
@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/savedMapFragment"
-        android:name="com.github.kovah101.chargemycar.savedMap.SavedMapFragment"
+        android:name="com.github.kovah101.chargemycar.savedChargePoints.SavedMapFragment"
         android:label="fragment_saved_map"
         tools:layout="@layout/fragment_saved_map" />
 </navigation>

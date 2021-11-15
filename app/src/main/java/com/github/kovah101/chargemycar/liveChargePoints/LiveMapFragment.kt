@@ -1,4 +1,4 @@
-package com.github.kovah101.chargemycar.liveMap
+package com.github.kovah101.chargemycar.liveChargePoints
 
 import android.os.Bundle
 import android.view.*

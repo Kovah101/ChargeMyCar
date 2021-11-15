@@ -19,15 +19,23 @@ import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
  */
 class TitleFragment : Fragment() {
     // TODO: Phase 1 - Setup, Navigation & Structure (Total 5 hours 10 mins)
-    //  1 - Link to Github (30 mins)
-    //  2-Create Blank fragments & navigation including overflow menu & nav drawer(2.5 hours)
-    //  3-Design Title Fragment (1 hour)
-    //  4-Design about & options fragments (1 hour)
-    //  5-Timber for Logs (10 minutes)
+    //  1- Link to Github (30 mins)
+    //  2- Create Blank fragments & navigation including overflow menu & nav drawer(2.5 hours)
+    //  3- Design Title Fragment (1 hour)
+    //  4- Design about & options fragments (1 hour)
+    //  5- Timber for Logs (10 minutes)
     //
-    // TODO: Phase 2 - Database, ViewModel & RecyclerView
-    // TODO: Phase 3 - Permissions, Real data & maps
-    // TODO: Phase 4  - Polish & testing
+    // TODO: Phase 2 - Database & ViewModel (setup 15 mins)
+    //  1- ChargePoint Entity
+    //  2- ChargePointDatabaseDAO
+    //  3- Create + Test Room Database
+    //  4- Add Favourite ViewModel
+    //  5- Coroutines for Database interaction
+    //  6- Adding & removing dummy data
+
+    // TODO: Phase 3 - RecyclerView
+    // TODO: Phase 4 - Permissions, Real data & maps
+    // TODO: Phase 5  - Polish & testing
 
 
 

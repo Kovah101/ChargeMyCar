@@ -1,4 +1,4 @@
-package com.github.kovah101.chargemycar.liveList
+package com.github.kovah101.chargemycar.liveChargePoints
 
 import android.os.Bundle
 import android.view.*
@@ -9,7 +9,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentLiveListBinding
-import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
 
 /**
  * Live result of Charge Point Query in List form.

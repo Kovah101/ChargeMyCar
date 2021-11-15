@@ -1,4 +1,4 @@
-package com.github.kovah101.chargemycar.savedList
+package com.github.kovah101.chargemycar.savedChargePoints
 
 import android.os.Bundle
 import android.view.*
@@ -9,7 +9,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentSavedListBinding
-import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
 
 /**
  * Saved Charge points displayed in a list from database
