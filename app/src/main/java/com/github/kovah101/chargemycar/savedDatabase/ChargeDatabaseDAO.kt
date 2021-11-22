@@ -28,6 +28,11 @@ interface ChargeDatabaseDAO {
     @Query("SELECT * FROM saved_charge_points_table WHERE chargePointId = :key")
     fun getPoint(key: Long): ChargePoint?
 
+    // get a specific charge point
+    // might have to change to key: PrimaryKey
+    @Query("SELECT * FROM saved_charge_points_table WHERE postcode = :postcode")
+    fun getPointByPostcode(postcode: String): ChargePoint?
+
     // delete specific charge point
     @Query("DELETE FROM saved_charge_points_table WHERE chargePointId = :key")
     fun removePoint(key: Long)
