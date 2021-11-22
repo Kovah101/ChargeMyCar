@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".savedChargePoints.SavedListFragment">
 
+    <data>
+        <variable
+            name="savedPointsViewModel"
+            type="com.github.kovah101.chargemycar.savedChargePoints.SavedPointsViewModel" />
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/titleConstraint"
         android:layout_width="match_parent"

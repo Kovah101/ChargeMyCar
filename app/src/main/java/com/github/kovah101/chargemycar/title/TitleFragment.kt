@@ -28,8 +28,8 @@ class TitleFragment : Fragment() {
     // TODO: Phase 2 - Database & ViewModel (setup 15 mins)
     //  1- ChargePoint Entity (25 mins)
     //  2- ChargePointDatabaseDAO (15 mins)
-    //  3- Create + Test Room Database (15mins +)
-    //  4- Add Favourite ViewModel
+    //  3- Create + Test Room Database (15mins + 45mins)
+    //  4- Add Favourite ViewModel + Add to savedList layout (30mins +)
     //  5- Coroutines for Database interaction
     //  6- Adding & removing dummy data
 

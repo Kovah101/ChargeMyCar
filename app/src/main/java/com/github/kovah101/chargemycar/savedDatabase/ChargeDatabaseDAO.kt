@@ -9,15 +9,15 @@ import androidx.room.*
 interface ChargeDatabaseDAO {
     // insert 1 specific charge point
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(point: ChargePoint)
+    suspend fun insert(point: ChargePoint)
 
     // insert a list of charge points
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(chargePoints: List<ChargePoint>)
+    suspend fun insertAll(chargePoints: List<ChargePoint>)
 
     // updates the data for a charge point
     @Update
-    fun update(point: ChargePoint)
+    suspend fun update(point: ChargePoint)
 
     // get all saved charge points
     @Query("SELECT * FROM saved_charge_points_table ORDER BY chargePointId DESC")
@@ -26,19 +26,19 @@ interface ChargeDatabaseDAO {
     // get a specific charge point
     // might have to change to key: PrimaryKey
     @Query("SELECT * FROM saved_charge_points_table WHERE chargePointId = :key")
-    fun getPoint(key: Long): ChargePoint?
+    suspend fun getPoint(key: Long): ChargePoint?
 
     // get a specific charge point
     // might have to change to key: PrimaryKey
     @Query("SELECT * FROM saved_charge_points_table WHERE postcode = :postcode")
-    fun getPointByPostcode(postcode: String): ChargePoint?
+    suspend fun getPointByPostcode(postcode: String): ChargePoint?
 
     // delete specific charge point
     @Query("DELETE FROM saved_charge_points_table WHERE chargePointId = :key")
-    fun removePoint(key: Long)
+    suspend fun removePoint(key: Long)
 
     // clear database
     @Query("DELETE FROM saved_charge_points_table")
-    fun clear()
+    suspend fun clear()
 
 }
