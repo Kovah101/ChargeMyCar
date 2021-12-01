@@ -29,7 +29,7 @@ class TitleFragment : Fragment() {
     //  1- ChargePoint Entity (25 mins)
     //  2- ChargePointDatabaseDAO (15 mins)
     //  3- Create + Test Room Database (15mins + 45mins)
-    //  4- Add Favourite ViewModel + Add to savedList layout (30mins +)
+    //  4- Add Favourite ViewModel + Add to savedList layout (30mins +) - Create add + clear button + formatPoints Utils function
     //  5- Coroutines for Database interaction
     //  6- Adding & removing dummy data
 
