@@ -33,7 +33,7 @@ class TitleFragment : Fragment() {
     //  5- Coroutines for Database interaction
     //  6- Adding & removing dummy data
 
-    // TODO: Phase 3 - RecyclerView
+    // TODO: Phase 3 - RecyclerView + single item add/remove
     // TODO: Phase 4 - Permissions, Real data & maps
     // TODO: Phase 5  - Polish & testing
 

@@ -36,12 +36,11 @@ class SavedListFragment : Fragment() {
         // create view model & bind the UI to it
         val dataSource = ChargeDatabase.getInstance(application).chargeDatabaseDAO
         val viewModelFactory = SavedPointsViewModelFactory(dataSource, application)
-        val savedPointsViewModel = ViewModelProvider(this, viewModelFactory)
-            .get(SavedPointsViewModel::class.java)
+        val savedPointsViewModel = ViewModelProvider(this, viewModelFactory)[SavedPointsViewModel::class.java]
 
         binding.savedPointsViewModel = savedPointsViewModel
 
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner =this
 
         return binding.root
     }
