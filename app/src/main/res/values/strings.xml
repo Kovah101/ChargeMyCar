@@ -19,4 +19,13 @@
     <string name="savedList">Saved List</string>
     <string name="options">Options</string>
     <string name="about">About</string>
+
+    <!-- Output to TextView styled with a little HTML -->
+    <string name="text_title">HERE IS THE DUMMY DATA</string>
+    <string name="latitude"><![CDATA[<b>Latitude:</b>]]></string>
+    <string name="longitude"><![CDATA[<b>Longitude:</b>]]></string>
+    <string name="postcode"><![CDATA[<b>Postcode:</b>]]></string>
+    <string name="connector_type"><![CDATA[<b>Connector Type:</b>]]></string>
+    <string name="charge_point_status"><![CDATA[<b>Status:</b>]]></string>
+    <string name="location_type"><![CDATA[<b>Location Type:</b>]]></string>
 </resources>
