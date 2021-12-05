@@ -29,7 +29,7 @@ fun formatChargePoints(chargePoints : List<ChargePoint>, resources : Resources):
             append(resources.getString(R.string.charge_point_status))
             append("\t${it.chargePointStatus}<br>")
             append(resources.getString(R.string.location_type))
-            append("\t${it.locationType}<br>")
+            append("\t${it.locationType}<br><br>")
         }
     }
 
