@@ -34,17 +34,15 @@ class TitleFragment : Fragment() {
     //  6- Adding & removing dummy data (20mins)
 
     // TODO: Phase 3 - RecyclerView + single item add/remove
-    //  1-
-    //  2-
-    //  3-
-    //  4-
-    //  5-
-    //  6-
-    //  7-
-    //  8-
-    //  9-
+    //  0- Setup (15mins)
+    //  1- Create RecyclerView + ViewHolder
+    //  2- Refactor ViewHolder methods
+    //  3- Add Databinding & Custom Adapter
+    //  4- Customise item View
+    //  5- Add Click item function - to maps intent
+    //  6- Add Click item function - add/remove single item
 
-    // TODO: Phase 4 - Permissions, Real data & maps (BIG!!)
+    // TODO: Phase 4 - Permissions, Real data & map fragments (BIG!!)
     // TODO: Phase 5  - Polish & testing
 
 
