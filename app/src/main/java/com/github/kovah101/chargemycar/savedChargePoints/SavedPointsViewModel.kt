@@ -72,6 +72,7 @@ class SavedPointsViewModel(
     // Executes when CLEAR DATA button pressed
     fun clearData(){
         viewModelScope.launch {
+            dummyData.clear()
             clearAll()
         }
     }
@@ -90,13 +91,17 @@ class SavedPointsViewModel(
         dummyData.add(dummy9)
         dummyData.add(dummy10)
 
+        var i = 0
+
         dummyData.forEach {
+
             it.latitude = 51.4532F
             it.longitude = -0.568332F
             it.chargePointStatus = true
             it.postcode = "SW99QC"
             it.connectorType = "Type 2 Mennekes"
-            it.locationType = "On-street"
+            it.locationType = "$i"
+            i++
         }
     }
 

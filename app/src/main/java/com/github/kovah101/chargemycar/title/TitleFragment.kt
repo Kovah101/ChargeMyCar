@@ -24,16 +24,22 @@ class TitleFragment : Fragment() {
     //  3- Design Title Fragment (1 hour)
     //  4- Design about & options fragments (1 hour)
     //  5- Timber for Logs (10 minutes)
-    //
-    // TODO: Phase 2 - Database & ViewModel (setup 15 mins)
-    //  1- ChargePoint Entity (25 mins)
+
+    // TODO: Phase 2 - Database & ViewModel (Total 4 hours 15 mins)
+    //  1- ChargePoint Entity (40 mins)
     //  2- ChargePointDatabaseDAO (15 mins)
     //  3- Create + Test Room Database (15mins + 45mins)
-    //  4- Add Favourite ViewModel + Add to savedList layout (30mins + 55mins + 34mins + 15mins) - add dummy data + link to layout
-    //  5- Coroutines for Database interaction
-    //  6- Adding & removing dummy data
+    //  4- Add Favourite ViewModel + Add to savedList layout (30mins + 55mins)
+    //  5- Coroutines for Database interaction (34mins)
+    //  6- Adding & removing dummy data (20mins)
 
     // TODO: Phase 3 - RecyclerView + single item add/remove
+
+
+
+
+
+
     // TODO: Phase 4 - Permissions, Real data & maps
     // TODO: Phase 5  - Polish & testing
 

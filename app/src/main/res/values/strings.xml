@@ -22,6 +22,7 @@
 
     <!-- Output to TextView styled with a little HTML -->
     <string name="text_title">HERE IS THE DUMMY DATA</string>
+    <string name="ID"><![CDATA[<b>ID:</b>]]></string>
     <string name="latitude"><![CDATA[<b>Latitude:</b>]]></string>
     <string name="longitude"><![CDATA[<b>Longitude:</b>]]></string>
     <string name="postcode"><![CDATA[<b>Postcode:</b>]]></string>

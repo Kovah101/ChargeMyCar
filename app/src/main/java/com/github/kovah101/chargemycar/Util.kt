@@ -18,6 +18,8 @@ fun formatChargePoints(chargePoints : List<ChargePoint>, resources : Resources):
         append(resources.getString(R.string.text_title))
         chargePoints.forEach{
             append("<br>")
+            append(resources.getString(R.string.ID))
+            append("\t${it.chargePointId}<br>")
             append(resources.getString(R.string.latitude))
             append("\t${it.latitude}<br>")
             append(resources.getString(R.string.longitude))
