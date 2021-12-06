@@ -29,4 +29,6 @@
     <string name="connector_type"><![CDATA[<b>Connector Type:</b>]]></string>
     <string name="charge_point_status"><![CDATA[<b>Status:</b>]]></string>
     <string name="location_type"><![CDATA[<b>Location Type:</b>]]></string>
+
+    <string name="cleared">The Database has been cleared</string>
 </resources>

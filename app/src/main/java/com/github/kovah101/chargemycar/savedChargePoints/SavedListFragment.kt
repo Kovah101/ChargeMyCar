@@ -5,12 +5,14 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentSavedListBinding
 import com.github.kovah101.chargemycar.savedDatabase.ChargeDatabase
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * Saved Charge points displayed in a list from database
@@ -41,6 +43,21 @@ class SavedListFragment : Fragment() {
         binding.savedPointsViewModel = savedPointsViewModel
 
         binding.lifecycleOwner =this
+
+        // Add an Observer for the SnackBar variable to initiate message
+        savedPointsViewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
+                Snackbar.make(
+                    requireActivity().findViewById(android.R.id.content),
+                    getString(R.string.cleared),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                // Reset state so message only shown once
+                savedPointsViewModel.doneShowingSnackBar()
+            }
+        })
+
+
 
         return binding.root
     }

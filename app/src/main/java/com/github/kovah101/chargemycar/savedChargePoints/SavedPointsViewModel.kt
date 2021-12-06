@@ -1,13 +1,12 @@
 package com.github.kovah101.chargemycar.savedChargePoints
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.github.kovah101.chargemycar.formatChargePoints
 import com.github.kovah101.chargemycar.savedDatabase.ChargeDatabaseDAO
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class SavedPointsViewModel(
     val database: ChargeDatabaseDAO,
@@ -74,6 +73,7 @@ class SavedPointsViewModel(
         viewModelScope.launch {
             dummyData.clear()
             clearAll()
+            _showSnackBarEvent.value = true
         }
     }
 
@@ -104,5 +104,17 @@ class SavedPointsViewModel(
             i++
         }
     }
+
+    // SnackBar message practise
+    // private mutable variable connected to public non mutable
+    private var _showSnackBarEvent = MutableLiveData<Boolean>()
+
+    val showSnackBarEvent : LiveData<Boolean>
+        get() = _showSnackBarEvent
+
+    fun doneShowingSnackBar(){
+        _showSnackBarEvent.value = false
+    }
+
 
 }

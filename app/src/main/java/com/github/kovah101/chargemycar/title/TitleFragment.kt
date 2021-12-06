@@ -34,13 +34,17 @@ class TitleFragment : Fragment() {
     //  6- Adding & removing dummy data (20mins)
 
     // TODO: Phase 3 - RecyclerView + single item add/remove
+    //  1-
+    //  2-
+    //  3-
+    //  4-
+    //  5-
+    //  6-
+    //  7-
+    //  8-
+    //  9-
 
-
-
-
-
-
-    // TODO: Phase 4 - Permissions, Real data & maps
+    // TODO: Phase 4 - Permissions, Real data & maps (BIG!!)
     // TODO: Phase 5  - Polish & testing
 
 
