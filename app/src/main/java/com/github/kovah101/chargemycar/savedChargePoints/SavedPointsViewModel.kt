@@ -15,7 +15,7 @@ class SavedPointsViewModel(
 
     //TODO Add & remove single charge point on recyclerview item click!
 
-    private val chargePoints = database.getAllPoints()
+    val chargePoints = database.getAllPoints()
 
     private var dummyData = mutableListOf<ChargePoint>()
 
@@ -64,6 +64,7 @@ class SavedPointsViewModel(
         viewModelScope.launch {
             generateDummyData()
             addAll(dummyData)
+            Timber.d("Data Added!")
             //update chargePoint strings?
         }
     }
@@ -74,6 +75,7 @@ class SavedPointsViewModel(
             dummyData.clear()
             clearAll()
             _showSnackBarEvent.value = true
+            Timber.d("Data Cleared")
         }
     }
 

@@ -57,6 +57,15 @@ class SavedListFragment : Fragment() {
             }
         })
 
+        // create adapter and bind the data to it
+        val adapter = ChargePointAdapter()
+        binding.chargeList.adapter = adapter
+
+        savedPointsViewModel.chargePoints.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.data = it
+            }
+        })
 
 
         return binding.root
