@@ -22,13 +22,15 @@ class ChargePointAdapter: RecyclerView.Adapter<TextItemViewHolder>() {
     // test with postcode data
     override fun onBindViewHolder(holder: TextItemViewHolder, position: Int) {
         val item = data[position]
-        holder.textView.text = item.postcode.toString()
+        holder.textView.text = item.locationType
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextItemViewHolder {
+
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater
             .inflate(R.layout.text_item_view, parent, false) as TextView
+
         return TextItemViewHolder(view)
     }
 }

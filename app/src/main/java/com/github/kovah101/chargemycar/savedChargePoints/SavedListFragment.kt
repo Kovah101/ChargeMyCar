@@ -38,11 +38,12 @@ class SavedListFragment : Fragment() {
         // create view model & bind the UI to it
         val dataSource = ChargeDatabase.getInstance(application).chargeDatabaseDAO
         val viewModelFactory = SavedPointsViewModelFactory(dataSource, application)
-        val savedPointsViewModel = ViewModelProvider(this, viewModelFactory)[SavedPointsViewModel::class.java]
+        val savedPointsViewModel =
+            ViewModelProvider(this, viewModelFactory)[SavedPointsViewModel::class.java]
 
         binding.savedPointsViewModel = savedPointsViewModel
 
-        binding.lifecycleOwner =this
+        binding.lifecycleOwner = this
 
         // Add an Observer for the SnackBar variable to initiate message
         savedPointsViewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {

@@ -62,9 +62,11 @@ class SavedPointsViewModel(
     // inserts dummy data then displays in scrollView
     fun addData(){
         viewModelScope.launch {
+            Timber.d("Charge Points has: ${chargePoints.value?.size} elements")
             generateDummyData()
             addAll(dummyData)
             Timber.d("Data Added!")
+            Timber.d("Charge Points has: ${chargePoints.value?.size} elements")
             //update chargePoint strings?
         }
     }
@@ -76,6 +78,7 @@ class SavedPointsViewModel(
             clearAll()
             _showSnackBarEvent.value = true
             Timber.d("Data Cleared")
+            Timber.d("Charge Points has: ${chargePoints.value?.size} elements")
         }
     }
 
