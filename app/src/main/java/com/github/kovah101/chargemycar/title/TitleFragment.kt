@@ -36,7 +36,7 @@ class TitleFragment : Fragment() {
     // TODO: Phase 3 - RecyclerView + single item add/remove
     //  0- Setup (15mins)
     //  1- Create RecyclerView + Adapter + bindings (45 minutes +15mins)
-    //  2- Refactor ViewHolder methods
+    //  2- Design custom list item (20mins +)
     //  3- Add Databinding & Custom Adapter
     //  4- Customise item View
     //  5- Add Click item function - to maps intent
