@@ -31,4 +31,6 @@
     <string name="location_type"><![CDATA[<b>Location Type:</b>]]></string>
 
     <string name="cleared">The Database has been cleared</string>
+    <string name="inService">In Service</string>
+    <string name="outService">Out of Service</string>
 </resources>

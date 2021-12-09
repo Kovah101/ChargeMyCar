@@ -37,7 +37,7 @@ class TitleFragment : Fragment() {
     //  0- Setup (15mins)
     //  1- Create RecyclerView + Adapter + bindings (45 minutes +15mins)
     //  2- Design custom list item (20mins +15mins)
-    //  3- Add Databinding & Custom Adapter + HaversineDistance & DistanceColor Utils function (40mins +)
+    //  3- Add Databinding & Custom Adapter + HaversineDistance & DistanceColor Utils function (40mins +35mins)
     //  4- Customise item View
     //  5- Add Click item function - to maps intent
     //  6- Add Click item function - add/remove single item
