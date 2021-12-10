@@ -1,7 +1,6 @@
 package com.github.kovah101.chargemycar.savedChargePoints
 
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
+
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
@@ -20,7 +19,8 @@ import com.github.kovah101.chargemycar.R.*
 import com.github.kovah101.chargemycar.distanceColor
 import com.github.kovah101.chargemycar.haversineDistance
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
-import timber.log.Timber
+import com.github.kovah101.chargemycar.databinding.ChargePointListItemBinding
+
 
 class ChargePointAdapter :
     ListAdapter<ChargePoint, ChargePointAdapter.ViewHolder>(ChargePointDiffCallback()) {
@@ -29,15 +29,11 @@ class ChargePointAdapter :
     var dummyUserLong = -0.1206
 
 
-
-
     // Set all charge point data to specific views
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
 
         holder.bind(item, dummyUserLat, dummyUserLong)
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -47,50 +43,42 @@ class ChargePointAdapter :
     // find views and link them to item data
     // calculate distance from user and generate color
     // use companion object to hold the from function to create ViewHolder
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val postcode: TextView = itemView.findViewById(id.postcode)
-        val distance: TextView = itemView.findViewById(id.distance)
-        val connectorType: TextView = itemView.findViewById(id.connectorType)
-        val status: TextView = itemView.findViewById(id.status)
-        val favourite: CheckBox = itemView.findViewById(id.favourite)
-        val locationType: TextView = itemView.findViewById(id.locationType)
+    class ViewHolder private constructor(val binding: ChargePointListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ChargePoint, userLat: Double, userLong: Double) {
             val res = itemView.context.resources
-            postcode.text = item.postcode
+            binding.postcode.text = item.postcode
             // calculate actual distance from dummy user
             val trueDistance =
                 haversineDistance(userLat, userLong, item.latitude, item.longitude)
             // round true distance to 2dp
-            distance.text = String.format("%.2f", trueDistance)
+            binding.distance.text = String.format("%.2f", trueDistance)
             // adjust colour appropriately, test with ID
             val colour = distanceColor((item.locationType.toDouble() * 2.4))
-            distance.background.setColorFilter(res.getColor(colour), PorterDuff.Mode.SRC_ATOP)
-            connectorType.text = item.connectorType
-            locationType.text = item.locationType
+            binding.distance.background.setColorFilter(res.getColor(colour), PorterDuff.Mode.SRC_ATOP)
+            binding.connectorType.text = item.connectorType
+            binding.locationType.text = item.locationType
 
             // change status text color
             if (item.chargePointStatus) {
-                status.setTextColor(res.getColor(color.green_500))
-                status.text = res.getString(R.string.inService)
+                binding.status.setTextColor(res.getColor(color.green_500))
+                binding.status.text = res.getString(R.string.inService)
             } else {
-                status.setTextColor(res.getColor(color.red))
-                status.text = res.getString(R.string.outService)
+                binding.status.setTextColor(res.getColor(color.red))
+                binding.status.text = res.getString(R.string.outService)
             }
             // checkbox maybe put in ViewModel?
             if (item.locationType.toInt() % 2 == 0) {
-                favourite.isChecked = true
+                binding.favourite.isChecked = true
             }
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater
-                    .inflate(layout.charge_point_list_item, parent, false)
+                val binding = ChargePointListItemBinding.inflate(layoutInflater, parent, false)
 
-                return ViewHolder(view)
+                return ViewHolder(binding)
             }
         }
     }
