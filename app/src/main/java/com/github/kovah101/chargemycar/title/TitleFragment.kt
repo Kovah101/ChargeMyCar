@@ -34,13 +34,12 @@ class TitleFragment : Fragment() {
     //  6- Adding & removing dummy data (20mins)
 
     // TODO: Phase 3 - RecyclerView + single item add/remove
-    //  0- Setup (15mins)
-    //  1- Create RecyclerView + Adapter + bindings (45 minutes +15mins)
-    //  2- Design custom list item (20mins +15mins)
-    //  3- Add Databinding & Custom Adapter + HaversineDistance & DistanceColor Utils function (40mins +35mins+ 20mins +25mins+30mins)
-    //  4- Customise item View
-    //  5- Add Click item function - to maps intent
-    //  6- Add Click item function - add/remove single item
+    //  0- Setup (15m)
+    //  1- Create RecyclerView + Adapter + bindings (1hr)
+    //  2- Design custom list item (35m)
+    //  3- Add DataBinding & Custom Adapter + HaversineDistance & DistanceColor Utils function (2hr 45)
+    //  4- Add Click item function - to maps intent
+    //  5- Add Click item function - add/remove single item
 
     // TODO: Phase 4 - Permissions, Real data & map fragments (BIG!!)
     // TODO: Phase 5  - Polish & testing

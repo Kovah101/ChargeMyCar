@@ -1,5 +1,8 @@
 package com.github.kovah101.chargemycar.savedChargePoints
 
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
@@ -15,6 +18,7 @@ import com.github.kovah101.chargemycar.R.*
 import com.github.kovah101.chargemycar.distanceColor
 import com.github.kovah101.chargemycar.haversineDistance
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
+import timber.log.Timber
 
 class ChargePointAdapter: RecyclerView.Adapter<ChargePointAdapter.ViewHolder>() {
 
@@ -40,7 +44,8 @@ class ChargePointAdapter: RecyclerView.Adapter<ChargePointAdapter.ViewHolder>() 
         // round true distance to 2dp
         holder.distance.text = String.format("%.2f", trueDistance)
         // adjust colour appropriately, test with ID
-        //holder.distance.background.
+        val colour = distanceColor((item.locationType.toDouble() * 2.4))
+        holder.distance.background.setColorFilter(res.getColor(colour), PorterDuff.Mode.SRC_ATOP)
         holder.connectorType.text = item.connectorType
         holder.locationType.text = item.locationType
 
