@@ -44,10 +44,21 @@ fun formatChargePoints(chargePoints : List<ChargePoint>, resources : Resources):
     }
 }
 
-/**
- * ViewHolder that holds a single [TextView].
- *
- * A ViewHolder holds a view for the [RecyclerView] as well as providing additional information
- * to the RecyclerView such as where on the screen it was last drawn during scrolling.
- */
-class TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)
+fun haversineDistance(userLat: Double, userLong: Double, pointLat: Float, pointLong: Float): Double {
+    val earthRadius = 6371 // earth radius in km
+
+    val dLat = Math.toRadians((pointLat.toDouble()-userLat))
+    val dLong = Math.toRadians(pointLong.toDouble()-userLong)
+
+    val startLat = Math.toRadians(userLat)
+    val startLong = Math.toRadians(userLong)
+
+    val a = haversine(dLat) + Math.cos(startLat)*Math.cos(pointLat.toDouble())*haversine(dLong)
+    val c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+
+    return earthRadius * c
+}
+
+private fun haversine (angle : Double) : Double {
+    return Math.pow(Math.sin(angle/2), 2.0)
+}

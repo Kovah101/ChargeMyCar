@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.R.*
-import com.github.kovah101.chargemycar.TextItemViewHolder
+import com.github.kovah101.chargemycar.haversineDistance
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 
 class ChargePointAdapter: RecyclerView.Adapter<ChargePointAdapter.ViewHolder>() {
@@ -23,6 +23,9 @@ class ChargePointAdapter: RecyclerView.Adapter<ChargePointAdapter.ViewHolder>() 
             notifyDataSetChanged()
         }
 
+    var dummyUserLat = 51.4707
+    var dummyUserLong = -0.1206
+
     override fun getItemCount() = data.size
 
 
@@ -31,8 +34,8 @@ class ChargePointAdapter: RecyclerView.Adapter<ChargePointAdapter.ViewHolder>() 
         val item = data[position]
         val res = holder.itemView.context.resources
         holder.postcode.text = item.postcode
-        //val trueDistance = HaversineDistance(dummyUserLat, dummyUserLong, item.latitude, item.longitude)
-        holder.distance.text = item.locationType
+        val trueDistance = haversineDistance(dummyUserLat, dummyUserLong, item.latitude, item.longitude)
+        holder.distance.text = trueDistance.toString()
         //holder.distance.background.colorFilter = DistanceColor(trueDistance)
         holder.connectorType.text = item.connectorType
 
