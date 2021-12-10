@@ -38,8 +38,9 @@ class TitleFragment : Fragment() {
     //  1- Create RecyclerView + Adapter + bindings (1hr)
     //  2- Design custom list item (35m)
     //  3- Add DataBinding & Custom Adapter + HaversineDistance & DistanceColor Utils function (2hr 45)
-    //  4- Add Click item function - to maps intent
-    //  5- Add Click item function - add/remove single item
+    //  4- Refactor onBindViewHolder & onCreateViewHolder (15m+15m)
+    //  5- Add Click item function - to maps intent
+    //  6- Add Click item function - add/remove single item
 
     // TODO: Phase 4 - Permissions, Real data & map fragments (BIG!!)
     // TODO: Phase 5  - Polish & testing
