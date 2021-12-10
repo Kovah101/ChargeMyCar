@@ -100,10 +100,10 @@ class SavedPointsViewModel(
 
         dummyData.forEach {
 
-            it.latitude = 51.4532F
-            it.longitude = -0.568332F
+            it.latitude = 51.471114F
+            it.longitude = -0.1083977F
             it.chargePointStatus = true
-            it.postcode = "SW99QC"
+            it.postcode = "SW9 6SU"
             it.connectorType = "Type 2 Mennekes"
             it.locationType = "$i"
             i++

@@ -10,4 +10,11 @@
     <color name="red">#CC1100</color>
     <color name="yellow">#FFBF00</color>
     <color name="clear">#00FFFFFF</color>
+    <color name="distance0">#20D420</color>
+    <color name="distance1">#1BB21B</color>
+    <color name="distance2">#169016</color>
+    <color name="distance3">#137F13</color>
+    <color name="distance4">#116E11</color>
+    <color name="distance5">#0E5D0E</color>
+    <color name="distance6">#0C4C0C</color>
 </resources>
