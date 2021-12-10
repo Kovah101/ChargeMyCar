@@ -46,31 +46,39 @@ class ChargePointAdapter :
     class ViewHolder private constructor(val binding: ChargePointListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ChargePoint, userLat: Double, userLong: Double) {
-            val res = itemView.context.resources
-            binding.postcode.text = item.postcode
+//            val res = itemView.context.resources
+//            binding.postcode.text = item.postcode
+//
+//            // adjust colour appropriately, test with ID
+//            val colour = distanceColor((item.locationType.toDouble() * 2.4))
+//            binding.distance.background.setColorFilter(res.getColor(colour), PorterDuff.Mode.SRC_ATOP)
+//            binding.connectorType.text = item.connectorType
+//            binding.locationType.text = item.locationType
+//
+//            // change status text color
+//            if (item.chargePointStatus) {
+//                binding.status.setTextColor(res.getColor(color.green_500))
+//                binding.status.text = res.getString(R.string.inService)
+//            } else {
+//                binding.status.setTextColor(res.getColor(color.red))
+//                binding.status.text = res.getString(R.string.outService)
+//            }
+            binding.chargePoint = item
+            binding.executePendingBindings()
+            // checkbox maybe put in ViewModel? Maybe move to Binding Util? maybe not as it needs database checking
+            if (item.locationType.toInt() % 2 == 0) {
+                binding.favourite.isChecked = true
+            }
+            // TODO: put into BindingUtils when using live location - add distance field to ChargePoint and propagate change
+             //adjust colour appropriately, test with ID
+//            val res = itemView.context.resources
+//            val colour = distanceColor((item.locationType.toDouble() * 2.4))
+//            binding.distance.background.setColorFilter(res.getColor(colour), PorterDuff.Mode.SRC_ATOP)
             // calculate actual distance from dummy user
             val trueDistance =
                 haversineDistance(userLat, userLong, item.latitude, item.longitude)
             // round true distance to 2dp
             binding.distance.text = String.format("%.2f", trueDistance)
-            // adjust colour appropriately, test with ID
-            val colour = distanceColor((item.locationType.toDouble() * 2.4))
-            binding.distance.background.setColorFilter(res.getColor(colour), PorterDuff.Mode.SRC_ATOP)
-            binding.connectorType.text = item.connectorType
-            binding.locationType.text = item.locationType
-
-            // change status text color
-            if (item.chargePointStatus) {
-                binding.status.setTextColor(res.getColor(color.green_500))
-                binding.status.text = res.getString(R.string.inService)
-            } else {
-                binding.status.setTextColor(res.getColor(color.red))
-                binding.status.text = res.getString(R.string.outService)
-            }
-            // checkbox maybe put in ViewModel?
-            if (item.locationType.toInt() % 2 == 0) {
-                binding.favourite.isChecked = true
-            }
         }
 
         companion object {

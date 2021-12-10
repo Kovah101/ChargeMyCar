@@ -2,6 +2,7 @@
 <layout>
 
     <data>
+
         <variable
             name="chargePoint"
             type="com.github.kovah101.chargemycar.savedDatabase.ChargePoint" />
@@ -24,6 +25,7 @@
             android:includeFontPadding="true"
             android:text="Distance"
             android:textColor="@color/white"
+            app:distance="@{chargePoint}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -52,7 +54,8 @@
             android:includeFontPadding="true"
             android:text="Postcode"
             app:layout_constraintStart_toEndOf="@+id/distance"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:postcode="@{chargePoint}" />
 
         <TextView
             android:id="@+id/connectorType"
@@ -63,6 +66,7 @@
             android:fontFamily="@font/roboto"
             android:includeFontPadding="true"
             android:text="Connector Type"
+            app:connectorType="@{chargePoint}"
             app:layout_constraintStart_toEndOf="@+id/distance"
             app:layout_constraintTop_toBottomOf="@+id/postcode" />
 
@@ -75,7 +79,8 @@
             android:includeFontPadding="true"
             android:text="Status"
             app:layout_constraintStart_toEndOf="@+id/connectorType"
-            app:layout_constraintTop_toTopOf="@+id/connectorType" />
+            app:layout_constraintTop_toTopOf="@+id/connectorType"
+            app:status="@{chargePoint}" />
 
         <TextView
             android:id="@+id/locationType"
@@ -89,7 +94,8 @@
             android:text="Location Type"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/distance"
-            app:layout_constraintTop_toBottomOf="@+id/connectorType" />
+            app:layout_constraintTop_toBottomOf="@+id/connectorType"
+            app:locationType="@{chargePoint}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
