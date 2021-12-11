@@ -2,6 +2,7 @@ package com.github.kovah101.chargemycar.savedChargePoints
 
 import android.os.Bundle
 import android.view.*
+import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
@@ -13,6 +14,7 @@ import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentSavedListBinding
 import com.github.kovah101.chargemycar.savedDatabase.ChargeDatabase
 import com.google.android.material.snackbar.Snackbar
+import timber.log.Timber
 
 /**
  * Saved Charge points displayed in a list from database
@@ -59,7 +61,13 @@ class SavedListFragment : Fragment() {
         })
 
         // create adapter and bind the data to it
-        val adapter = ChargePointAdapter()
+        //
+        val adapter =
+            ChargePointAdapter(ChargePointAdapter.ChargePointListener { chargeLat, chargeLong ->
+                Timber.d("Clicked Charge Point -> Lat:$chargeLat, Long:$chargeLong")
+            }, ChargePointAdapter.FavouriteListener { ID ->
+                Timber.d("Item ID: $ID, $view")
+            })
         binding.chargeList.adapter = adapter
 
         savedPointsViewModel.chargePoints.observe(viewLifecycleOwner, Observer {

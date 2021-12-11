@@ -20,9 +20,10 @@ import com.github.kovah101.chargemycar.distanceColor
 import com.github.kovah101.chargemycar.haversineDistance
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import com.github.kovah101.chargemycar.databinding.ChargePointListItemBinding
+import com.github.kovah101.chargemycar.generated.callback.OnClickListener
 
 
-class ChargePointAdapter :
+class ChargePointAdapter (val clickListener : ChargePointListener, val favListener : FavouriteListener) :
     ListAdapter<ChargePoint, ChargePointAdapter.ViewHolder>(ChargePointDiffCallback()) {
 
     var dummyUserLat = 51.4707
@@ -33,7 +34,7 @@ class ChargePointAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
 
-        holder.bind(item, dummyUserLat, dummyUserLong)
+        holder.bind(item, dummyUserLat, dummyUserLong, clickListener, favListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -45,25 +46,11 @@ class ChargePointAdapter :
     // use companion object to hold the from function to create ViewHolder
     class ViewHolder private constructor(val binding: ChargePointListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ChargePoint, userLat: Double, userLong: Double) {
-//            val res = itemView.context.resources
-//            binding.postcode.text = item.postcode
-//
-//            // adjust colour appropriately, test with ID
-//            val colour = distanceColor((item.locationType.toDouble() * 2.4))
-//            binding.distance.background.setColorFilter(res.getColor(colour), PorterDuff.Mode.SRC_ATOP)
-//            binding.connectorType.text = item.connectorType
-//            binding.locationType.text = item.locationType
-//
-//            // change status text color
-//            if (item.chargePointStatus) {
-//                binding.status.setTextColor(res.getColor(color.green_500))
-//                binding.status.text = res.getString(R.string.inService)
-//            } else {
-//                binding.status.setTextColor(res.getColor(color.red))
-//                binding.status.text = res.getString(R.string.outService)
-//            }
+        fun bind(item: ChargePoint, userLat: Double, userLong: Double, clickListener: ChargePointListener, favListener: FavouriteListener) {
+
             binding.chargePoint = item
+            binding.clickListener = clickListener
+            binding.favListener = favListener
             binding.executePendingBindings()
             // checkbox maybe put in ViewModel? Maybe move to Binding Util? maybe not as it needs database checking
             if (item.locationType.toInt() % 2 == 0) {
@@ -95,7 +82,6 @@ class ChargePointAdapter :
     // Callback for calculating the diff between two non-null items in a list.
     // Used by ListAdapter to calculate the minimum number of changes between and old list and a new
     // list that's been passed to `submitList`.
-
     class ChargePointDiffCallback : DiffUtil.ItemCallback<ChargePoint>() {
         override fun areItemsTheSame(oldItem: ChargePoint, newItem: ChargePoint): Boolean {
             return oldItem.chargePointId == newItem.chargePointId
@@ -104,6 +90,16 @@ class ChargePointAdapter :
         override fun areContentsTheSame(oldItem: ChargePoint, newItem: ChargePoint): Boolean {
             return oldItem == newItem
         }
+    }
+
+    // Click listener for the map direction intent
+    class ChargePointListener(val clickListener: (chargeLat: Float, chargeLong: Float) -> Unit) {
+        fun onClick(chargePoint: ChargePoint) = clickListener(chargePoint.latitude, chargePoint.longitude)
+    }
+
+    // Click listener for add/remove from favourites
+    class FavouriteListener(val favListener:(chargePointID: Long) -> Unit) {
+        fun onClick(chargePoint: ChargePoint) = favListener(chargePoint.chargePointId)
     }
 
 }
