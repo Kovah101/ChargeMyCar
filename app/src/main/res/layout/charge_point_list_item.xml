@@ -50,7 +50,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{() -> favListener.onClick(chargePoint)}"/>
+            android:onCheckedChanged="@{(v,checked) -> favListener.onClick(chargePoint, checked)}"/>
 
         <TextView
             android:id="@+id/postcode"

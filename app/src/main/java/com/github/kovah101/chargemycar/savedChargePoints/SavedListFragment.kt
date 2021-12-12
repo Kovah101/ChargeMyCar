@@ -65,8 +65,8 @@ class SavedListFragment : Fragment() {
         val adapter =
             ChargePointAdapter(ChargePointAdapter.ChargePointListener { chargeLat, chargeLong ->
                 Timber.d("Clicked Charge Point -> Lat:$chargeLat, Long:$chargeLong")
-            }, ChargePointAdapter.FavouriteListener { ID ->
-                Timber.d("Item ID: $ID, $view")
+            }, ChargePointAdapter.FavouriteListener { ID, checked ->
+                Timber.d("Item ID: $ID, isChecked:$checked")
             })
         binding.chargeList.adapter = adapter
 

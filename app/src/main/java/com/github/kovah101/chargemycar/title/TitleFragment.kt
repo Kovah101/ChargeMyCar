@@ -40,7 +40,7 @@ class TitleFragment : Fragment() {
     //  3- Add DataBinding & Custom Adapter + HaversineDistance & DistanceColor Utils function (2hr 45)
     //  4- Refactor onBindViewHolder & onCreateViewHolder (15m+15m)
     //  5- Add Click item function - to maps intent (+45mins)
-    //  6- Add Click item function - add/remove single item
+    //  6- Add Click item function - add/remove single item(15mins)
 
     // TODO: Phase 4 - Permissions, Real data & map fragments (BIG!!)
     // TODO: Phase 5  - Polish & testing
