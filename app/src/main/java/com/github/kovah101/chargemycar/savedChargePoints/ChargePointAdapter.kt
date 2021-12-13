@@ -53,9 +53,9 @@ class ChargePointAdapter (val clickListener : ChargePointListener, val favListen
             binding.favListener = favListener
             binding.executePendingBindings()
             // checkbox maybe put in ViewModel? Maybe move to Binding Util? maybe not as it needs database checking
-            if (item.locationType.toInt() % 2 == 0) {
-                binding.favourite.isChecked = true
-            }
+            // in favourites so checkbox starts true
+            binding.favourite.isChecked = true
+
             // TODO: put into BindingUtils when using live location - add distance field to ChargePoint and propagate change
              //adjust colour appropriately, test with ID
 //            val res = itemView.context.resources

@@ -33,6 +33,11 @@ interface ChargeDatabaseDAO {
     @Query("SELECT * FROM saved_charge_points_table WHERE postcode = :postcode")
     suspend fun getPointByPostcode(postcode: String): ChargePoint?
 
+    // get a specific charge point
+    // using latitude and longitude
+    @Query("SELECT * FROM saved_charge_points_table WHERE latitude = :latitude AND longitude = :longitude")
+    suspend fun getPointByLatAndLong(latitude: Float, longitude: Float) : ChargePoint?
+
     // delete specific charge point
     @Query("DELETE FROM saved_charge_points_table WHERE chargePointId = :key")
     suspend fun removePoint(key: Long)

@@ -1,5 +1,7 @@
 package com.github.kovah101.chargemycar.savedChargePoints
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.CheckBox
@@ -64,9 +66,14 @@ class SavedListFragment : Fragment() {
         //
         val adapter =
             ChargePointAdapter(ChargePointAdapter.ChargePointListener { chargeLat, chargeLong ->
-                Timber.d("Clicked Charge Point -> Lat:$chargeLat, Long:$chargeLong")
+                Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
+                launchMapDirections(chargeLat, chargeLong)
             }, ChargePointAdapter.FavouriteListener { ID, checked ->
-                Timber.d("Item ID: $ID, isChecked:$checked")
+                if (!checked) {
+                    Timber.d("Remove Item ID: $ID from Database")
+                    savedPointsViewModel.findAndRemoveChargePoint(ID)
+                }
+
             })
         binding.chargeList.adapter = adapter
 
@@ -90,4 +97,15 @@ class SavedListFragment : Fragment() {
                 || super.onOptionsItemSelected(item)
     }
 
+    // function takes charge point location and launches driving directions in the maps app of your choice
+    private fun launchMapDirections(chargeLat : Float, chargeLong: Float){
+
+        val gmmIntentUri = Uri.parse("google.navigation:q=$chargeLat,$chargeLong&mode=d")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+        val packageManager = requireContext().packageManager
+        mapIntent.resolveActivity(packageManager)?.let {
+            startActivity(mapIntent)
+        }
+    }
 }
