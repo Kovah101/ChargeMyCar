@@ -42,7 +42,18 @@ class TitleFragment : Fragment() {
     //  5- Add Click item function - to maps intent (+45m + 25m)
     //  6- Add Click item function - remove single item from favourites(15m +30m)
 
-    // TODO: Phase 4 - Permissions, Real data & map fragments (BIG!!)
+    // TODO: Phase 4 - Internet Permissions & Real data (8 hour estimate)
+    //  0- Setup (30m)
+    //  1- Create LiveList layout & viewmodel + factory + convert ot shared viewmodel architecture - still need factory as viewmodel has arguments
+    //  2- Add retrofit API service + connect to the internet
+    //  3- Parse The JSON response & display the size/list of charge points
+    //  4- Coroutines to streamline retrofit API service
+    //  5- Display detailed list of live charge points
+    //  6- Create Options layout to adjust URI search parameters
+    //  7- Add Favourites button & database interactions
+
+
+    // TODO: Phase 5 - Geo Permissions & map fragments
     // TODO: Phase 5  - Polish & testing
 
 
