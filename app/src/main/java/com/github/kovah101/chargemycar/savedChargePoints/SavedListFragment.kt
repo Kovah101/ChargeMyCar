@@ -39,13 +39,16 @@ class SavedListFragment : Fragment() {
         // set action bar title
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.savedList)
 
+        // old separate viewmodel
         //application object for database
-        val application = requireNotNull(this.activity).application
-        // create view model & bind the UI to it
-        val dataSource = ChargeDatabase.getInstance(application).chargeDatabaseDAO
+//        val application = requireNotNull(this.activity).application
+//        // create view model & bind the UI to it
+//        val dataSource = ChargeDatabase.getInstance(application).chargeDatabaseDAO
 //        val viewModelFactory = SavedPointsViewModelFactory(dataSource, application)
 //        val savedPointsViewModel =
 //            ViewModelProvider(this, viewModelFactory)[SavedPointsViewModel::class.java]
+
+        // shared viewmodel
         val savedPointsViewModel: ChargePointViewModel by activityViewModels()
 
         binding.savedPointsViewModel = savedPointsViewModel

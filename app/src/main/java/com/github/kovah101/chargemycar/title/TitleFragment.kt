@@ -44,7 +44,7 @@ class TitleFragment : Fragment() {
 
     // TODO: Phase 4 - Internet Permissions & Real data (8 hour estimate)
     //  0- Setup (30m)
-    //  1- Create LiveList layout & viewmodel + factory + convert ot shared viewmodel architecture - still need factory as viewmodel has arguments? (46m)
+    //  1- Create LiveList layout & viewmodel + factory + convert ot shared viewmodel architecture - (1h 15m)
     //  2- Add retrofit API service + connect to the internet
     //  3- Parse The JSON response & display the size/list of charge points
     //  4- Coroutines to streamline retrofit API service

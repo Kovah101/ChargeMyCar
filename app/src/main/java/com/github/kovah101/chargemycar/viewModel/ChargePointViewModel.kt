@@ -9,10 +9,10 @@ import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class ChargePointViewModel() : ViewModel() {
+class ChargePointViewModel(application: Application) : AndroidViewModel(application) {
 
     //application object for database
-    private val application : Application = requireNotNull(this).application
+    //private val application : Application = requireNotNull(this.activity).application
     // create view model & bind the UI to it
     val database = ChargeDatabase.getInstance(application).chargeDatabaseDAO
     //val database = dataSource
