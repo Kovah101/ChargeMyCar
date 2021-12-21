@@ -8,6 +8,7 @@ import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -15,6 +16,7 @@ import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentSavedListBinding
 import com.github.kovah101.chargemycar.savedDatabase.ChargeDatabase
+import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 
@@ -41,9 +43,10 @@ class SavedListFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         // create view model & bind the UI to it
         val dataSource = ChargeDatabase.getInstance(application).chargeDatabaseDAO
-        val viewModelFactory = SavedPointsViewModelFactory(dataSource, application)
-        val savedPointsViewModel =
-            ViewModelProvider(this, viewModelFactory)[SavedPointsViewModel::class.java]
+//        val viewModelFactory = SavedPointsViewModelFactory(dataSource, application)
+//        val savedPointsViewModel =
+//            ViewModelProvider(this, viewModelFactory)[SavedPointsViewModel::class.java]
+        val savedPointsViewModel: ChargePointViewModel by activityViewModels()
 
         binding.savedPointsViewModel = savedPointsViewModel
 

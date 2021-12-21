@@ -7,7 +7,7 @@
     <data>
         <variable
             name="savedPointsViewModel"
-            type="com.github.kovah101.chargemycar.savedChargePoints.SavedPointsViewModel" />
+            type="com.github.kovah101.chargemycar.viewModel.ChargePointViewModel" />
     </data>
 
 
