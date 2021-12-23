@@ -83,4 +83,22 @@ dependencies {
     // Saved state module for ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.0")
 
+    // Moshi
+    implementation "com.squareup.moshi:moshi:1.9.3"
+    implementation "com.squareup.moshi:moshi-kotlin:1.9.3"
+
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-scalars:2.9.0"
+
+    // Retrofit with Moshi Converter
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:4.8.0"
+
+    // RecyclerView
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+
 }

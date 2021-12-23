@@ -38,21 +38,25 @@ class LiveListFragment : Fragment() {
 
         // shared viewmodel
         val livePointsViewModel: ChargePointViewModel by activityViewModels()
+        // query for Charge Points on creation
+        livePointsViewModel.getChargePointQuery()
+
+        binding.livePointsViewModel = livePointsViewModel
 
         binding.lifecycleOwner = this
 
-        // create adapter with maps intent and favourite handler
-        val adapter = ChargePointAdapter(ChargePointAdapter.ChargePointListener { chargeLat, chargeLong ->
-            Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
-            launchMapDirections(chargeLat, chargeLong)
-        },ChargePointAdapter.FavouriteListener { chargePoint, checked ->
-            if (!checked) {
-                Timber.d("Add Item ID: ${chargePoint.chargePointId} from Database")
-                livePointsViewModel.addIfNewChargePoint(chargePoint)
-            }
-        })
-        // bind it to the live list
-        binding.liveList.adapter = adapter
+//        // create adapter with maps intent and favourite handler
+//        val adapter = ChargePointAdapter(ChargePointAdapter.ChargePointListener { chargeLat, chargeLong ->
+//            Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
+//            launchMapDirections(chargeLat, chargeLong)
+//        },ChargePointAdapter.FavouriteListener { chargePoint, checked ->
+//            if (!checked) {
+//                Timber.d("Add Item ID: ${chargePoint.chargePointId} from Database")
+//                livePointsViewModel.addIfNewChargePoint(chargePoint)
+//            }
+//        })
+//        // bind it to the live list
+//        binding.liveList.adapter = adapter
 
         return binding.root
     }

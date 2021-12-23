@@ -3,11 +3,16 @@ package com.github.kovah101.chargemycar.viewModel
 import android.app.Application
 import androidx.lifecycle.*
 import com.github.kovah101.chargemycar.formatChargePoints
+import com.github.kovah101.chargemycar.network.ChargeApi
+import com.github.kovah101.chargemycar.network.ChargePointAPIService
 import com.github.kovah101.chargemycar.savedDatabase.ChargeDatabase
 import com.github.kovah101.chargemycar.savedDatabase.ChargeDatabaseDAO
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Response
 import timber.log.Timber
+import javax.security.auth.callback.Callback
 
 class ChargePointViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -60,7 +65,7 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     // find charge point by ID
-    private suspend fun findPoint(chargeID: Long): ChargePoint?{
+    private suspend fun findPoint(chargeID: Long): ChargePoint? {
         return database.getPoint(chargeID)
     }
 
@@ -70,11 +75,11 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     // Find charge point by latitude & longitude
-    private suspend fun  findPointByLatAndLong(lat : Float, long: Float): ChargePoint? {
+    private suspend fun findPointByLatAndLong(lat: Float, long: Float): ChargePoint? {
         return database.getPointByLatAndLong(lat, long)
     }
 
-    private suspend fun removeChargePoint(key : Long){
+    private suspend fun removeChargePoint(key: Long) {
         database.removePoint(key)
     }
 
@@ -142,10 +147,10 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     // Find charge point by latitude & longitude and delete it
-    fun findAndRemoveChargePoint(chargeID: Long){
+    fun findAndRemoveChargePoint(chargeID: Long) {
         viewModelScope.launch {
             val point = findPoint(chargeID)
-            if ( point != null){
+            if (point != null) {
                 Timber.d("Removing Charge Point :${point.chargePointId}")
                 removeChargePoint(point.chargePointId)
             }
@@ -153,14 +158,39 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     // Find charge point, if not there then adds new one
-    fun addIfNewChargePoint(point: ChargePoint){
+    fun addIfNewChargePoint(point: ChargePoint) {
         viewModelScope.launch {
             val chargePoint = findPointByLatAndLong(point.latitude, point.longitude)
             Timber.d("Charge Point = $chargePoint")
-            if (chargePoint == null){
+            if (chargePoint == null) {
                 Timber.d("Adding new Favourite")
                 addFavourite(point)
             }
         }
     }
+
+    // The internal MutableLiveData String that stores the most recent response
+    private val _response = MutableLiveData<String>()
+
+    // The external immutable LiveData for the response String
+    val response: LiveData<String>
+        get() = _response
+
+    fun getChargePointQuery() {
+        ChargeApi.retrofitService.getChargeQuery().enqueue(object : retrofit2.Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                _response.value = response.body()
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                _response.value = "Failure: " + t.message
+            }
+
+        })
+    }
+
+//    // gets charge query on start up
+//    init {
+//        getChargePointQuery()
+//    }
 }

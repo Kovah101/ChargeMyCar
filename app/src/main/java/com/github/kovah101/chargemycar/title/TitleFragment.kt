@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
+import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 
 
 /**
@@ -45,7 +47,7 @@ class TitleFragment : Fragment() {
     // TODO: Phase 4 - Internet Permissions & Real data (8 hour estimate)
     //  0- Setup (30m)
     //  1- Create LiveList layout & viewmodel + factory + convert ot shared viewmodel architecture - (1h 15m + 45m)
-    //  2- Add retrofit API service + connect to the internet (0m)
+    //  2- Add retrofit API service + connect to the internet + display JSON string (1h 10m)
     //  3- Parse The JSON response & display the size/list of charge points
     //  4- Coroutines to streamline retrofit API service
     //  5- Display detailed list of live charge points
@@ -69,6 +71,10 @@ class TitleFragment : Fragment() {
         // set action bar title
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.title)
 
+//        // shared viewmodel
+//        val viewModel : ChargePointViewModel by activityViewModels()
+//        viewModel.getChargePointQuery()
+
         // set button click listeners
         // Nearest live charge points
         binding.liveChargePoints.setOnClickListener(
@@ -80,6 +86,7 @@ class TitleFragment : Fragment() {
         )
         // Favourite charge points
         binding.favouriteChargePoints.setOnClickListener(
+
             Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_savedListFragment)
         )
 
