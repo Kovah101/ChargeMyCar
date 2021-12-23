@@ -46,7 +46,7 @@ fun TextView.setConnectorType(item: ChargePoint?){
 @BindingAdapter("status")
 fun TextView.setStatus(item: ChargePoint?){
     item?.let {
-        if (item.chargePointStatus){
+        if (item.chargePointStatus == "In service"){
             setTextColor(context.resources.getColor(R.color.green_500))
             text = context.resources.getString(R.string.inService)
         } else {

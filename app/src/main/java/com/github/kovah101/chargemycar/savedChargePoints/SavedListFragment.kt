@@ -73,7 +73,7 @@ class SavedListFragment : Fragment() {
         val adapter =
             ChargePointAdapter(ChargePointAdapter.ChargePointListener { chargeLat, chargeLong ->
                 Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
-                launchMapDirections(chargeLat, chargeLong)
+                launchMapDirections(chargeLat.toFloat(), chargeLong.toFloat())
             }, ChargePointAdapter.FavouriteListener { chargePoint, checked ->
                 if (!checked) {
                     Timber.d("Remove Item ID: ${chargePoint.chargePointId} from Database")

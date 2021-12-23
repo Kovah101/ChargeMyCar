@@ -68,7 +68,7 @@ class SavedPointsViewModel(
     }
 
     // Find charge point by latitude & longitude
-    private suspend fun  findPointByLatAndLong(lat : Float, long: Float): ChargePoint? {
+    private suspend fun  findPointByLatAndLong(lat : String, long: String): ChargePoint? {
         return database.getPointByLatAndLong(lat, long)
     }
 
@@ -118,9 +118,9 @@ class SavedPointsViewModel(
 
         dummyData.forEach {
 
-            it.latitude = 51.471114F
-            it.longitude = -0.1083977F
-            it.chargePointStatus = true
+            it.latitude = "51.471114"
+            it.longitude = "-0.1083977"
+            it.chargePointStatus = "In service"
             it.postcode = "SW9 6SU"
             it.connectorType = "Type 2 Mennekes"
             it.locationType = "$i"

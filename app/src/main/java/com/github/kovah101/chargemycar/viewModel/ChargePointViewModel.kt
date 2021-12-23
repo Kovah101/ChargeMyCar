@@ -75,7 +75,7 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     // Find charge point by latitude & longitude
-    private suspend fun findPointByLatAndLong(lat: Float, long: Float): ChargePoint? {
+    private suspend fun findPointByLatAndLong(lat: String, long: String): ChargePoint? {
         return database.getPointByLatAndLong(lat, long)
     }
 
@@ -125,9 +125,9 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
 
         dummyData.forEach {
 
-            it.latitude = 51.471114F
-            it.longitude = -0.1083977F
-            it.chargePointStatus = true
+            it.latitude = "51.471114"
+            it.longitude = "-0.1083977"
+            it.chargePointStatus = "In service"
             it.postcode = "SW9 6SU"
             it.connectorType = "Type 2 Mennekes"
             it.locationType = "$i"
@@ -177,20 +177,16 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
         get() = _response
 
     fun getChargePointQuery() {
-        ChargeApi.retrofitService.getChargeQuery().enqueue(object : retrofit2.Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                _response.value = response.body()
+        ChargeApi.retrofitService.getChargeQuery().enqueue(object : retrofit2.Callback<List<ChargePoint>> {
+            override fun onResponse(call: Call<List<ChargePoint>>, response: Response<List<ChargePoint>>) {
+                _response.value = "Success: ${response.body()?.size} Charge Points retrieved"
             }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
+            override fun onFailure(call: Call<List<ChargePoint>>, t: Throwable) {
                 _response.value = "Failure: " + t.message
             }
 
         })
     }
 
-//    // gets charge query on start up
-//    init {
-//        getChargePointQuery()
-//    }
 }

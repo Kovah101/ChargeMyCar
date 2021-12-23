@@ -26,6 +26,7 @@ import com.github.kovah101.chargemycar.generated.callback.OnClickListener
 class ChargePointAdapter (val clickListener : ChargePointListener, val favListener : FavouriteListener) :
     ListAdapter<ChargePoint, ChargePointAdapter.ViewHolder>(ChargePointDiffCallback()) {
 
+    // TODO: dummy user location - need to change in geo phase
     var dummyUserLat = 51.4707
     var dummyUserLong = -0.1206
 
@@ -63,7 +64,7 @@ class ChargePointAdapter (val clickListener : ChargePointListener, val favListen
 //            binding.distance.background.setColorFilter(res.getColor(colour), PorterDuff.Mode.SRC_ATOP)
             // calculate actual distance from dummy user
             val trueDistance =
-                haversineDistance(userLat, userLong, item.latitude, item.longitude)
+                haversineDistance(userLat, userLong, item.latitude.toFloat(), item.longitude.toFloat())
             // round true distance to 2dp
             binding.distance.text = String.format("%.2f", trueDistance)
         }
@@ -93,7 +94,7 @@ class ChargePointAdapter (val clickListener : ChargePointListener, val favListen
     }
 
     // Click listener for the map direction intent
-    class ChargePointListener(val clickListener: (chargeLat: Float, chargeLong: Float) -> Unit) {
+    class ChargePointListener(val clickListener: (chargeLat: String, chargeLong: String) -> Unit) {
         fun onClick(chargePoint: ChargePoint) = clickListener(chargePoint.latitude, chargePoint.longitude)
     }
 

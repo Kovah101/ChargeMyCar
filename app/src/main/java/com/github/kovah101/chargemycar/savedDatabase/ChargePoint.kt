@@ -3,6 +3,7 @@ package com.github.kovah101.chargemycar.savedDatabase
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.squareup.moshi.Json
 
 
 @Entity(tableName = "saved_charge_points_table")
@@ -11,20 +12,20 @@ data class ChargePoint(
     var chargePointId: Long = 0L,
 
     @ColumnInfo(name = "latitude")
-    var latitude: Float = 0F,
+    @Json(name = "Latitude") var latitude: String = "",
 
     @ColumnInfo(name = "longitude")
-    var longitude: Float = 0F,
+    @Json(name = "Longitude") var longitude: String = "",
 
     @ColumnInfo(name = "postcode")
-    var postcode: String = "",
+    @Json(name = "Postcode") var postcode: String = "",
 
     @ColumnInfo(name = "connector_type")
-    var connectorType: String = "",
+    @Json(name = "ConnectorType") var connectorType: String = "",
 
     @ColumnInfo(name = "charge_point_status")
-    var chargePointStatus: Boolean = false,
+    @Json(name = "ChargePointStatus") var chargePointStatus: String = "",
 
     @ColumnInfo(name = "location_type")
-    var locationType: String = ""
+    @Json(name = "LocationType") var locationType: String = ""
 )
