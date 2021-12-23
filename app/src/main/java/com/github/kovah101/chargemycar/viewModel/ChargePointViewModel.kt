@@ -151,4 +151,16 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
             }
         }
     }
+
+    // Find charge point, if not there then adds new one
+    fun addIfNewChargePoint(point: ChargePoint){
+        viewModelScope.launch {
+            val chargePoint = findPointByLatAndLong(point.latitude, point.longitude)
+            Timber.d("Charge Point = $chargePoint")
+            if (chargePoint == null){
+                Timber.d("Adding new Favourite")
+                addFavourite(point)
+            }
+        }
+    }
 }

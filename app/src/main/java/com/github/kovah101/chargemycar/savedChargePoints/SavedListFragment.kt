@@ -74,15 +74,16 @@ class SavedListFragment : Fragment() {
             ChargePointAdapter(ChargePointAdapter.ChargePointListener { chargeLat, chargeLong ->
                 Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
                 launchMapDirections(chargeLat, chargeLong)
-            }, ChargePointAdapter.FavouriteListener { ID, checked ->
+            }, ChargePointAdapter.FavouriteListener { chargePoint, checked ->
                 if (!checked) {
-                    Timber.d("Remove Item ID: $ID from Database")
-                    savedPointsViewModel.findAndRemoveChargePoint(ID)
+                    Timber.d("Remove Item ID: ${chargePoint.chargePointId} from Database")
+                    savedPointsViewModel.findAndRemoveChargePoint(chargePoint.chargePointId)
                 }
 
             })
         binding.chargeList.adapter = adapter
 
+        // apply database as source for the adapter
         savedPointsViewModel.chargePoints.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)

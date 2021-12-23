@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".liveChargePoints.LiveListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -9,11 +10,13 @@
         android:layout_height="match_parent">
 
         <!-- TODO: Place Holder -->
-        <TextView
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/liveList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/list_fragment" />
-
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

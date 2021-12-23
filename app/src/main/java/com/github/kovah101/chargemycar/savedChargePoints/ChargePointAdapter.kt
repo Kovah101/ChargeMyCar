@@ -98,8 +98,8 @@ class ChargePointAdapter (val clickListener : ChargePointListener, val favListen
     }
 
     // Click listener for add/remove from favourites
-    class FavouriteListener(val favListener:(chargePointID: Long, checked : Boolean) -> Unit) {
-        fun onClick(chargePoint: ChargePoint, checked: Boolean) = favListener(chargePoint.chargePointId, checked)
+    class FavouriteListener(val favListener:(chargePoint: ChargePoint, checked : Boolean) -> Unit) {
+        fun onClick(chargePoint: ChargePoint, checked: Boolean) = favListener(chargePoint, checked)
     }
 
 }
