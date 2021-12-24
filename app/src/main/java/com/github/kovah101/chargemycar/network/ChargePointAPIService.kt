@@ -33,6 +33,11 @@ private val retrofit = Retrofit.Builder()
 // TODO: Need to manipulate URL here!
 interface ChargePointAPIService {
     @GET("postcode/SW9/dist/10/limit/10/format/json")
+    fun getChargeQueryObject():
+            Call<ChargeQuery>
+
+
+    @GET("postcode/SW9/dist/10/limit/10/format/json")
     fun getChargeQuery():
             Call<List<ChargePoint>>
 }

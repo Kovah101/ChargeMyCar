@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.github.kovah101.chargemycar.formatChargePoints
 import com.github.kovah101.chargemycar.network.ChargeApi
 import com.github.kovah101.chargemycar.network.ChargePointAPIService
+import com.github.kovah101.chargemycar.network.ChargeQuery
 import com.github.kovah101.chargemycar.savedDatabase.ChargeDatabase
 import com.github.kovah101.chargemycar.savedDatabase.ChargeDatabaseDAO
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
@@ -177,12 +178,12 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
         get() = _response
 
     fun getChargePointQuery() {
-        ChargeApi.retrofitService.getChargeQuery().enqueue(object : retrofit2.Callback<List<ChargePoint>> {
-            override fun onResponse(call: Call<List<ChargePoint>>, response: Response<List<ChargePoint>>) {
-                _response.value = "Success: ${response.body()?.size} Charge Points retrieved"
+        ChargeApi.retrofitService.getChargeQueryObject().enqueue(object : retrofit2.Callback<ChargeQuery> {
+            override fun onResponse(call: Call<ChargeQuery>, response: Response<ChargeQuery>) {
+                _response.value = "Success: ${response.body()?.chargeDevices?.size} Charge Points retrieved"
             }
 
-            override fun onFailure(call: Call<List<ChargePoint>>, t: Throwable) {
+            override fun onFailure(call: Call<ChargeQuery>, t: Throwable) {
                 _response.value = "Failure: " + t.message
             }
 
