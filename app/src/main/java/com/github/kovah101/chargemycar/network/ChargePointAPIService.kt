@@ -1,6 +1,7 @@
 package com.github.kovah101.chargemycar.network
 
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
+import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Call
@@ -13,10 +14,14 @@ import retrofit2.http.GET
 private const val BASE_URL =
     "https://chargepoints.dft.gov.uk/api/retrieve/registry/"
 
+
+
 // Build moshi object for retrofit to convert json to kotlin objects
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
+
+//private val jsonAdapter : JsonAdapter<List<ChargePoint>> = moshi.adapter<List<ChargePoint>>()
 
 // create Retrofit object
 private val retrofit = Retrofit.Builder()
