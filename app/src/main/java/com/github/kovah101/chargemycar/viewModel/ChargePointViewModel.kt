@@ -178,16 +178,15 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
         get() = _response
 
     fun getChargePointQuery() {
-        ChargeApi.retrofitService.getChargeQueryObject().enqueue(object : retrofit2.Callback<ChargeQuery> {
-            override fun onResponse(call: Call<ChargeQuery>, response: Response<ChargeQuery>) {
-                _response.value = "Success: ${response.body()?.chargeDevices?.size} Charge Points retrieved"
+        viewModelScope.launch {
+            try {
+                var chargeQuery = ChargeApi.retrofitService.getChargeQueryObject()
+                _response.value =
+                    "Success: ${chargeQuery.chargeDevices.size} Charge points retrieved"
+            } catch (e: Exception) {
+                _response.value = "Failure: ${e.message}"
             }
-
-            override fun onFailure(call: Call<ChargeQuery>, t: Throwable) {
-                _response.value = "Failure: " + t.message
-            }
-
-        })
+        }
     }
 
 }

@@ -9,6 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
+import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 // Base URL for search query
 private const val BASE_URL =
@@ -30,11 +31,11 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 // create API service to request JSON response
+// returns a Coroutine [Object] of ChargeQuery that contains the list of Charge points which can be fetched with await() if in a Coroutine scope.
 // TODO: Need to manipulate URL here!
 interface ChargePointAPIService {
     @GET("postcode/SW9/dist/10/limit/10/format/json")
-    fun getChargeQueryObject():
-            Call<ChargeQuery>
+    suspend fun getChargeQueryObject(): ChargeQuery
 
 
     @GET("postcode/SW9/dist/10/limit/10/format/json")
