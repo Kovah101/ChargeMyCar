@@ -17,8 +17,8 @@ fun TextView.setDistance(item: ChargePoint?){
 //            haversineDistance(userLat, userLong, item.latitude, item.longitude)
 //        text = String.format("%.2f", trueDistance)
         // adjust colour appropriately, test with ID
-        val colour = distanceColor((item.locationType.toDouble() * 2.4))
-        background.setColorFilter (context.resources.getColor(colour), PorterDuff.Mode.SRC_ATOP)
+//        val colour = distanceColor((item.locationType.toDouble() * 2.4))
+//        background.setColorFilter (context.resources.getColor(colour), PorterDuff.Mode.SRC_ATOP)
     }
 }
 

@@ -1,6 +1,7 @@
 package com.github.kovah101.chargemycar.viewModel
 
 import android.app.Application
+import android.content.res.Resources
 import androidx.lifecycle.*
 import com.github.kovah101.chargemycar.formatChargePoints
 import com.github.kovah101.chargemycar.network.ChargeApi
@@ -177,14 +178,36 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
     val response: LiveData<String>
         get() = _response
 
+    // internal live data that stores the list of charge points from the internet
+    private val _listOfChargePoints = MutableLiveData<List<ChargePoint>>()
+
+    // external immutable live data of charge points from the internet
+    val listOfChargePoints: LiveData<List<ChargePoint>>
+        get() = _listOfChargePoints
+
+    // internal MutableLiveData Boolean that flags a successful response
+    private val _success = MutableLiveData<Boolean>()
+
+    // external immutable LiveData for success boolean
+    val success: LiveData<Boolean>
+        get() = _success
+
     fun getChargePointQuery() {
         viewModelScope.launch {
             try {
+                _success.value = false
                 var chargeQuery = ChargeApi.retrofitService.getChargeQueryObject()
+                _listOfChargePoints.value = chargeQuery.chargeDevices
+                var responseString = Transformations.map(listOfChargePoints) { chargePoints ->
+                    formatChargePoints(chargePoints, application.resources)
+                }
                 _response.value =
-                    "Success: ${chargeQuery.chargeDevices.size} Charge points retrieved"
+                    "Success! There are ${chargeQuery.chargeDevices.size}"
+
             } catch (e: Exception) {
+                _success.value = false
                 _response.value = "Failure: ${e.message}"
+
             }
         }
     }

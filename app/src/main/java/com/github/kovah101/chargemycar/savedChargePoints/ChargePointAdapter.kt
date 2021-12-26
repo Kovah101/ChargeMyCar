@@ -57,16 +57,17 @@ class ChargePointAdapter (val clickListener : ChargePointListener, val favListen
             // in favourites so checkbox starts true
             binding.favourite.isChecked = true
 
-            // TODO: put into BindingUtils when using live location - add distance field to ChargePoint and propagate change
-             //adjust colour appropriately, test with ID
-//            val res = itemView.context.resources
-//            val colour = distanceColor((item.locationType.toDouble() * 2.4))
-//            binding.distance.background.setColorFilter(res.getColor(colour), PorterDuff.Mode.SRC_ATOP)
+            // TODO: put into BindingUtils when using live location
             // calculate actual distance from dummy user
             val trueDistance =
                 haversineDistance(userLat, userLong, item.latitude.toFloat(), item.longitude.toFloat())
             // round true distance to 2dp
             binding.distance.text = String.format("%.2f", trueDistance)
+            //adjust colour appropriately, test with ID
+            val res = itemView.context.resources
+            val colour = distanceColor((trueDistance))
+            binding.distance.background.setColorFilter(res.getColor(colour), PorterDuff.Mode.SRC_ATOP)
+
         }
 
         companion object {

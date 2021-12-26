@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
@@ -41,22 +42,39 @@ class LiveListFragment : Fragment() {
         // query for Charge Points on creation
         livePointsViewModel.getChargePointQuery()
 
+        // observe the success of the Charge Point Query
+        // display recyclerView & charge points if successful
+        // display textView with error message
+        livePointsViewModel.success.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
+                binding.chargeString.visibility = View.GONE
+                binding.liveList.visibility = View.VISIBLE
+            }
+        })
+
         binding.livePointsViewModel = livePointsViewModel
 
         binding.lifecycleOwner = this
 
-//        // create adapter with maps intent and favourite handler
-//        val adapter = ChargePointAdapter(ChargePointAdapter.ChargePointListener { chargeLat, chargeLong ->
-//            Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
-//            launchMapDirections(chargeLat, chargeLong)
-//        },ChargePointAdapter.FavouriteListener { chargePoint, checked ->
-//            if (!checked) {
-//                Timber.d("Add Item ID: ${chargePoint.chargePointId} from Database")
-//                livePointsViewModel.addIfNewChargePoint(chargePoint)
-//            }
-//        })
-//        // bind it to the live list
-//        binding.liveList.adapter = adapter
+        // create adapter with maps intent and favourite handler
+        val adapter = ChargePointAdapter(ChargePointAdapter.ChargePointListener { chargeLat, chargeLong ->
+            Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
+            launchMapDirections(chargeLat.toFloat(), chargeLong.toFloat())
+        },ChargePointAdapter.FavouriteListener { chargePoint, checked ->
+            if (!checked) {
+                Timber.d("Add Item ID: ${chargePoint.chargePointId} from Database")
+                livePointsViewModel.addIfNewChargePoint(chargePoint)
+            }
+        })
+        // bind it to the live list
+        binding.liveList.adapter = adapter
+
+        // apply liveChargeList as source for the adapter
+        livePointsViewModel.listOfChargePoints.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
 
         return binding.root
     }
