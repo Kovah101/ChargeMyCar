@@ -39,8 +39,9 @@ class LiveListFragment : Fragment() {
 
         // shared viewmodel
         val livePointsViewModel: ChargePointViewModel by activityViewModels()
+        val application = requireNotNull(this.activity).application
         // query for Charge Points on creation
-        livePointsViewModel.getChargePointQuery()
+        livePointsViewModel.getChargePointQuery(application)
 
         // observe the success of the Charge Point Query
         // display recyclerView & charge points if successful
@@ -49,6 +50,9 @@ class LiveListFragment : Fragment() {
             if (it == true) {
                 binding.chargeString.visibility = View.GONE
                 binding.liveList.visibility = View.VISIBLE
+            } else {
+                binding.chargeString.visibility = View.VISIBLE
+                binding.liveList.visibility = View.GONE
             }
         })
 

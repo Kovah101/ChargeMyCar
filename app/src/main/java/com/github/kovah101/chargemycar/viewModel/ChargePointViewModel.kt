@@ -2,6 +2,8 @@ package com.github.kovah101.chargemycar.viewModel
 
 import android.app.Application
 import android.content.res.Resources
+import android.text.Spanned
+import android.text.TextUtils
 import androidx.lifecycle.*
 import com.github.kovah101.chargemycar.formatChargePoints
 import com.github.kovah101.chargemycar.network.ChargeApi
@@ -192,7 +194,7 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
     val success: LiveData<Boolean>
         get() = _success
 
-    fun getChargePointQuery() {
+    fun getChargePointQuery(application: Application) {
         viewModelScope.launch {
             try {
                 _success.value = false
@@ -201,12 +203,13 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
                 var responseString = Transformations.map(listOfChargePoints) { chargePoints ->
                     formatChargePoints(chargePoints, application.resources)
                 }
-                _response.value =
-                    "Success! There are ${chargeQuery.chargeDevices.size}"
+                val responseStringList = TextUtils.join(",",chargeQuery.chargeDevices)
+                _response.value = responseStringList
+                   // "Success! There are ${chargeQuery.chargeDevices.size}"
 
             } catch (e: Exception) {
                 _success.value = false
-                _response.value = "Failure: ${e.message}"
+               // _response.value = "Failure: ${e.message}"
 
             }
         }
