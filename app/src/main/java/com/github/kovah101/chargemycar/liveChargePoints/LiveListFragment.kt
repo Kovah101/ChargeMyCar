@@ -65,7 +65,7 @@ class LiveListFragment : Fragment() {
             Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
             launchMapDirections(chargeLat.toFloat(), chargeLong.toFloat())
         },ChargePointAdapter.FavouriteListener { chargePoint, checked ->
-            if (!checked) {
+            if (checked) {
                 Timber.d("Add Item ID: ${chargePoint.chargePointId} from Database")
                 livePointsViewModel.addIfNewChargePoint(chargePoint)
             }

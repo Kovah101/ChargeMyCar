@@ -59,8 +59,8 @@ class ChargePointAdapter (val clickListener : ChargePointListener, val favListen
 
             // TODO: put into BindingUtils when using live location
             // calculate actual distance from dummy user
-            val trueDistance =
-                haversineDistance(userLat, userLong, item.latitude.toFloat(), item.longitude.toFloat())
+            val trueDistance = 12.4
+              //  haversineDistance(userLat, userLong, item.latitude.toFloat(), item.longitude.toFloat())
             // round true distance to 2dp
             binding.distance.text = String.format("%.2f", trueDistance)
             //adjust colour appropriately, test with ID

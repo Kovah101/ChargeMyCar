@@ -200,9 +200,7 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
                 _success.value = false
                 var chargeQuery = ChargeApi.retrofitService.getChargeQueryObject()
                 _listOfChargePoints.value = chargeQuery.chargeDevices
-                var responseString = Transformations.map(listOfChargePoints) { chargePoints ->
-                    formatChargePoints(chargePoints, application.resources)
-                }
+                var responseString = chargeQuery.scheme.SchemeCode
                 val responseStringList = TextUtils.join(",",chargeQuery.chargeDevices)
                 _response.value = responseStringList
                    // "Success! There are ${chargeQuery.chargeDevices.size}"
