@@ -8,6 +8,7 @@ import android.text.Spanned
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.github.kovah101.chargemycar.network.ChargeQueryPoint
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -91,4 +92,12 @@ fun distanceColor(distance: Double): Int {
     }
 
     return distColor
+}
+
+fun convertChargePoints(chargeQueryPoints : List<ChargeQueryPoint>) : List<ChargePoint> {
+    var chargepoints = List<ChargePoint>()
+    chargeQueryPoints.forEach { cp ->
+
+    }
+    return chargepoints
 }
