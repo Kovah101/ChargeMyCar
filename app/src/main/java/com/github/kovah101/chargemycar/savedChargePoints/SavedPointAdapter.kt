@@ -2,29 +2,20 @@ package com.github.kovah101.chargemycar.savedChargePoints
 
 
 import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.compose.ui.graphics.Color
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.R.*
 import com.github.kovah101.chargemycar.distanceColor
 import com.github.kovah101.chargemycar.haversineDistance
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import com.github.kovah101.chargemycar.databinding.ChargePointListItemBinding
-import com.github.kovah101.chargemycar.generated.callback.OnClickListener
 
 
-class ChargePointAdapter (val clickListener : ChargePointListener, val favListener : FavouriteListener) :
-    ListAdapter<ChargePoint, ChargePointAdapter.ViewHolder>(ChargePointDiffCallback()) {
+class SavedPointAdapter (val clickListener : ChargePointListener, val favListener : FavouriteListener) :
+    ListAdapter<ChargePoint, SavedPointAdapter.ViewHolder>(ChargePointDiffCallback()) {
 
     // TODO: dummy user location - need to change in geo phase
     var dummyUserLat = 51.4707
@@ -53,8 +44,7 @@ class ChargePointAdapter (val clickListener : ChargePointListener, val favListen
             binding.clickListener = clickListener
             binding.favListener = favListener
             binding.executePendingBindings()
-            // checkbox maybe put in ViewModel? Maybe move to Binding Util? maybe not as it needs database checking
-            // in favourites so checkbox starts true
+            // checkbox defaults to on in saved list
             binding.favourite.isChecked = true
 
             // TODO: put into BindingUtils when using live location

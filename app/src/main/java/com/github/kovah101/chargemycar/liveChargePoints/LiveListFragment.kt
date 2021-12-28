@@ -13,7 +13,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentLiveListBinding
-import com.github.kovah101.chargemycar.savedChargePoints.ChargePointAdapter
+import com.github.kovah101.chargemycar.savedChargePoints.SavedPointAdapter
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import timber.log.Timber
 
@@ -61,17 +61,18 @@ class LiveListFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // create adapter with maps intent and favourite handler
-        val adapter = ChargePointAdapter(ChargePointAdapter.ChargePointListener { chargeLat, chargeLong ->
+        val adapter = LivePointAdapter(LivePointAdapter.ChargePointListener { chargeLat, chargeLong ->
             Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
             launchMapDirections(chargeLat.toFloat(), chargeLong.toFloat())
-        },ChargePointAdapter.FavouriteListener { chargePoint, checked ->
+        },LivePointAdapter.FavouriteListener { chargePoint, checked ->
             if (checked) {
                 Timber.d("Add Item ID: ${chargePoint.chargePointId} from Database")
-                //livePointsViewModel.addIfNewChargePoint(chargePoint)
+                livePointsViewModel.addIfNewChargePoint(chargePoint)
             }
         })
         // bind it to the live list
         binding.liveList.adapter = adapter
+
 
         // apply liveChargeList as source for the adapter
         livePointsViewModel.listOfChargePoints.observe(viewLifecycleOwner, Observer {

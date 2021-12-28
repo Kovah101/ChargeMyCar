@@ -4,18 +4,15 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentSavedListBinding
-import com.github.kovah101.chargemycar.savedDatabase.ChargeDatabase
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
@@ -71,10 +68,10 @@ class SavedListFragment : Fragment() {
         // create adapter and bind the data to it
         //
         val adapter =
-            ChargePointAdapter(ChargePointAdapter.ChargePointListener { chargeLat, chargeLong ->
+            SavedPointAdapter(SavedPointAdapter.ChargePointListener { chargeLat, chargeLong ->
                 Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
                 launchMapDirections(chargeLat.toFloat(), chargeLong.toFloat())
-            }, ChargePointAdapter.FavouriteListener { chargePoint, checked ->
+            }, SavedPointAdapter.FavouriteListener { chargePoint, checked ->
                 if (!checked) {
                     Timber.d("Remove Item ID: ${chargePoint.chargePointId} from Database")
                     savedPointsViewModel.findAndRemoveChargePoint(chargePoint.chargePointId)

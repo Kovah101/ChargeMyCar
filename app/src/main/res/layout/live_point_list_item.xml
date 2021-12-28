@@ -10,10 +10,10 @@
             type="com.github.kovah101.chargemycar.savedDatabase.ChargePoint" />
         <variable
             name="clickListener"
-            type="com.github.kovah101.chargemycar.savedChargePoints.SavedPointAdapter.ChargePointListener" />
+            type="com.github.kovah101.chargemycar.liveChargePoints.LivePointAdapter.ChargePointListener" />
         <variable
             name="favListener"
-            type="com.github.kovah101.chargemycar.savedChargePoints.SavedPointAdapter.FavouriteListener" />
+            type="com.github.kovah101.chargemycar.liveChargePoints.LivePointAdapter.FavouriteListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

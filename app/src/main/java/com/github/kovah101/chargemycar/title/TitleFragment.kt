@@ -50,7 +50,7 @@ class TitleFragment : Fragment() {
     //  2- Add retrofit API service + connect to the internet + display JSON string (1h 10m)
     //  3- Convert Data class to take in JSON too,Parse The JSON response & display the size/list of charge points (1h)
     //  4- Coroutines to streamline retrofit API service (45m)
-    //  5- Display detailed list of live charge points (30m) + Favourite star sort
+    //  5- Display detailed list of live charge points (30m) + Favourite star sort (15m)
     //  6- Create Options layout to adjust URI search parameters
     //  7- Add Favourites button & database interactions
 
@@ -70,10 +70,6 @@ class TitleFragment : Fragment() {
 
         // set action bar title
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.title)
-
-//        // shared viewmodel
-//        val viewModel : ChargePointViewModel by activityViewModels()
-//        viewModel.getChargePointQuery()
 
         // set button click listeners
         // Nearest live charge points
