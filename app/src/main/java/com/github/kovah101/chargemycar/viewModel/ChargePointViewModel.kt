@@ -204,8 +204,6 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
                 var responseString = chargeQuery.scheme.SchemeCode
                 val responseStringList = listOfChargePoints.value?.let { TextUtils.join(",", it) }
                 _response.value = responseStringList!!
-                Timber.d("There are ${chargeQuery.chargeDevices.size} devices, Scheme:${chargeQuery.scheme.SchemeCode}")
-                   // "Success! There are ${chargeQuery.chargeDevices.size}"
 
             } catch (e: Exception) {
                 _success.value = false

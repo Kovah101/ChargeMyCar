@@ -67,7 +67,7 @@ class LiveListFragment : Fragment() {
         },ChargePointAdapter.FavouriteListener { chargePoint, checked ->
             if (checked) {
                 Timber.d("Add Item ID: ${chargePoint.chargePointId} from Database")
-                livePointsViewModel.addIfNewChargePoint(chargePoint)
+                //livePointsViewModel.addIfNewChargePoint(chargePoint)
             }
         })
         // bind it to the live list
