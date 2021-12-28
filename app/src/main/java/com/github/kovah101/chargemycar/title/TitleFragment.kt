@@ -48,7 +48,7 @@ class TitleFragment : Fragment() {
     //  0- Setup (30m)
     //  1- Create LiveList layout & viewmodel + factory + convert ot shared viewmodel architecture - (1h 15m + 45m)
     //  2- Add retrofit API service + connect to the internet + display JSON string (1h 10m)
-    //  3- Convert Data class to take in JSON too,Parse The JSON response & display the size/list of charge points (1h + 45m+ 15m) NEED TO PARSE RESPONSE BETTER
+    //  3- Convert Data class to take in JSON too,Parse The JSON response & display the size/list of charge points (1h + 45m+ 15m+15m) NEED TO PARSE RESPONSE BETTER
     //  4- Coroutines to streamline retrofit API service
     //  5- Display detailed list of live charge points
     //  6- Create Options layout to adjust URI search parameters

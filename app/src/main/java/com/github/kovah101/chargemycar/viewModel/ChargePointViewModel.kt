@@ -198,12 +198,12 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
     fun getChargePointQuery(application: Application) {
         viewModelScope.launch {
             try {
-                _success.value = false
+                _success.value = true
                 var chargeQuery = ChargeApi.retrofitService.getChargeQueryObject()
                 _listOfChargePoints.value = convertChargePoints(chargeQuery.chargeDevices)
                 var responseString = chargeQuery.scheme.SchemeCode
-                val responseStringList = TextUtils.join(",",chargeQuery.chargeDevices)
-                _response.value = responseString
+                val responseStringList = listOfChargePoints.value?.let { TextUtils.join(",", it) }
+                _response.value = responseStringList!!
                 Timber.d("There are ${chargeQuery.chargeDevices.size} devices, Scheme:${chargeQuery.scheme.SchemeCode}")
                    // "Success! There are ${chargeQuery.chargeDevices.size}"
 

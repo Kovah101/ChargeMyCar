@@ -102,8 +102,8 @@ fun convertChargePoints(chargeQueryPoints : List<ChargeQueryPoint>) : List<Charg
         chargePoint.latitude = cp.location.latitude
         chargePoint.longitude = cp.location.longitude
         chargePoint.postcode = cp.location.address.postcode
-        chargePoint.connectorType = cp.connector.connectorType
-        chargePoint.chargePointStatus = cp.connector.status
+        chargePoint.connectorType = cp.connector[0].connectorType
+        chargePoint.chargePointStatus = cp.connector[0].status
         chargePoint.locationType = cp.locationType
 
         chargepoints.add(chargePoint)

@@ -14,21 +14,21 @@ data class Scheme (
 
 data class ChargeQueryPoint (
     @Json(name = "ChargeDeviceLocation") val location : CPLocation,
-    @Json(name = "Connector") val connector : CPConnector,
-    @Json(name = "LocationType") val locationType : String
+    @Json(name = "Connector") val connector : List<CPConnector>,
+    @Json(name = "LocationType") var locationType : String = ""
         )
 
 data class CPLocation (
-    @Json(name = "Latitude") val latitude : String,
-    @Json(name = "Longitude") val longitude : String,
+    @Json(name = "Latitude") var latitude : String = "",
+    @Json(name = "Longitude") var longitude : String = "",
     @Json(name = "Address") val address : CPAddress
         )
 
 data class CPAddress (
-    @Json(name = "Postcode") val postcode : String
+    @Json(name = "Postcode") var postcode : String = ""
         )
 
 data class CPConnector (
-    @Json(name = "ConnectorType") val connectorType : String,
-    @Json(name = "ChargePointStatus") val status : String
+    @Json(name = "ConnectorType") var connectorType : String = "",
+    @Json(name = "ChargePointStatus") var status : String = ""
         )
