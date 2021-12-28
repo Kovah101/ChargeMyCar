@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.text.Spanned
 import android.text.TextUtils
 import androidx.lifecycle.*
+import com.github.kovah101.chargemycar.convertChargePoints
 import com.github.kovah101.chargemycar.formatChargePoints
 import com.github.kovah101.chargemycar.network.ChargeApi
 import com.github.kovah101.chargemycar.network.ChargePointAPIService
@@ -199,15 +200,16 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
             try {
                 _success.value = false
                 var chargeQuery = ChargeApi.retrofitService.getChargeQueryObject()
-                _listOfChargePoints.value = chargeQuery.chargeDevices
+                _listOfChargePoints.value = convertChargePoints(chargeQuery.chargeDevices)
                 var responseString = chargeQuery.scheme.SchemeCode
                 val responseStringList = TextUtils.join(",",chargeQuery.chargeDevices)
-                _response.value = responseStringList
+                _response.value = responseString
+                Timber.d("There are ${chargeQuery.chargeDevices.size} devices, Scheme:${chargeQuery.scheme.SchemeCode}")
                    // "Success! There are ${chargeQuery.chargeDevices.size}"
 
             } catch (e: Exception) {
                 _success.value = false
-               // _response.value = "Failure: ${e.message}"
+                _response.value = "Failure: ${e.message}"
 
             }
         }

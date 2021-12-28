@@ -93,11 +93,20 @@ fun distanceColor(distance: Double): Int {
 
     return distColor
 }
-
+// takes list of charge query points and returns a list of charge points
 fun convertChargePoints(chargeQueryPoints : List<ChargeQueryPoint>) : List<ChargePoint> {
-    var chargepoints = List<ChargePoint>()
+    var chargepoints = mutableListOf<ChargePoint>()
+    // transfer the details to charge point object then add to the list
     chargeQueryPoints.forEach { cp ->
+     val chargePoint = ChargePoint()
+        chargePoint.latitude = cp.location.latitude
+        chargePoint.longitude = cp.location.longitude
+        chargePoint.postcode = cp.location.address.postcode
+        chargePoint.connectorType = cp.connector.connectorType
+        chargePoint.chargePointStatus = cp.connector.status
+        chargePoint.locationType = cp.locationType
 
+        chargepoints.add(chargePoint)
     }
     return chargepoints
 }
