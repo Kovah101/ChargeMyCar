@@ -39,9 +39,9 @@ class LiveListFragment : Fragment() {
 
         // shared viewmodel
         val livePointsViewModel: ChargePointViewModel by activityViewModels()
-        val application = requireNotNull(this.activity).application
+        //val application = requireNotNull(this.activity).application
         // query for Charge Points on creation
-        livePointsViewModel.getChargePointQuery(application)
+        livePointsViewModel.getChargePointQuery()
 
         // observe the success of the Charge Point Query
         // display recyclerView & charge points if successful
@@ -79,6 +79,12 @@ class LiveListFragment : Fragment() {
             it?.let {
                 adapter.submitList(it)
             }
+        })
+
+        // look for changes to Query from options menu
+        livePointsViewModel.limit.observe(viewLifecycleOwner, Observer {
+            Timber.d("Limit has changed to: $it")
+            livePointsViewModel.getChargePointQuery()
         })
 
         return binding.root

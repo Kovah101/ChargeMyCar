@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentOptionsBinding
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
+import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 
 /**
  * Options for Charge Point Query, saved to preferences
@@ -27,6 +29,13 @@ class OptionsFragment : Fragment() {
 
         // set action bar title
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.options)
+
+        // shared viewmodel
+        val livePointsViewModel: ChargePointViewModel by activityViewModels()
+
+        binding.livePointsViewModel = livePointsViewModel
+
+        binding.lifecycleOwner = this
 
         return binding.root
     }

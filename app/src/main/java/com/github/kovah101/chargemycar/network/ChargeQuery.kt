@@ -25,7 +25,7 @@ data class CPLocation (
         )
 
 data class CPAddress (
-    @Json(name = "PostCode") var postcode : String = ""
+    @Json(name = "PostCode") var postcode : String?
         )
 
 data class CPConnector (

@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".options.OptionsFragment">
 
+    <data>
+        <variable
+            name="livePointsViewModel"
+            type="com.github.kovah101.chargemycar.viewModel.ChargePointViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/titleConstraint"
         android:layout_width="match_parent"
@@ -90,6 +96,7 @@
                 android:inputType="number"
                 android:textColorHint="@color/green_500"
                 android:textSize="24sp"
+                android:text="@={livePointsViewModel.distance}"
                 app:layout_constraintEnd_toStartOf="@+id/maxDistanceLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -128,6 +135,7 @@
                 android:inputType="number"
                 android:textColorHint="@color/green_500"
                 android:textSize="24sp"
+                android:text="@={livePointsViewModel.limit}"
                 app:layout_constraintEnd_toStartOf="@+id/maxResultLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

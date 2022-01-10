@@ -101,7 +101,7 @@ fun convertChargePoints(chargeQueryPoints : List<ChargeQueryPoint>) : List<Charg
      val chargePoint = ChargePoint()
         chargePoint.latitude = cp.location.latitude
         chargePoint.longitude = cp.location.longitude
-        chargePoint.postcode = cp.location.address.postcode
+        chargePoint.postcode = cp.location.address.postcode.toString()
         chargePoint.connectorType = cp.connector[0].connectorType
         chargePoint.chargePointStatus = cp.connector[0].status
         chargePoint.locationType = cp.locationType

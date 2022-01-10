@@ -196,18 +196,18 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
         get() = _success
 
     // internal live data that stores the distance parameter for query search
-    private val _distance = MutableLiveData<Int>()
-    private val distance = "10"
+    val distance = MutableLiveData<String>("10")
+    //private val distance = "10"
 
     // internal live data that stores the limit parameter for query search
-    private val _limit = MutableLiveData<Int>()
-    private val limit = "4"
+    val limit = MutableLiveData<String>("10")
 
-    fun getChargePointQuery(application: Application) {
+
+    fun getChargePointQuery() {
         viewModelScope.launch {
             try {
                 _success.value = true
-                var chargeQuery = ChargeApi.retrofitService.getChargeQueryObject(distance, limit)
+                var chargeQuery = ChargeApi.retrofitService.getChargeQueryObject(distance.value.toString(),limit.value.toString())
                 _listOfChargePoints.value = convertChargePoints(chargeQuery.chargeDevices)
                 var responseString = chargeQuery.scheme.SchemeCode
                 val responseStringList = listOfChargePoints.value?.let { TextUtils.join(",", it) }
