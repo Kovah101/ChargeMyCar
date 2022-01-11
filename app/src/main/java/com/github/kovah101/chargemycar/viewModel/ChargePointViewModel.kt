@@ -1,23 +1,17 @@
 package com.github.kovah101.chargemycar.viewModel
 
 import android.app.Application
-import android.content.res.Resources
-import android.text.Spanned
 import android.text.TextUtils
 import androidx.lifecycle.*
 import com.github.kovah101.chargemycar.convertChargePoints
 import com.github.kovah101.chargemycar.formatChargePoints
 import com.github.kovah101.chargemycar.network.ChargeApi
-import com.github.kovah101.chargemycar.network.ChargePointAPIService
-import com.github.kovah101.chargemycar.network.ChargeQuery
 import com.github.kovah101.chargemycar.savedDatabase.ChargeDatabase
-import com.github.kovah101.chargemycar.savedDatabase.ChargeDatabaseDAO
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Response
 import timber.log.Timber
-import javax.security.auth.callback.Callback
+
+enum class ChargeQueryAPIStatus {LOADING, DONE, ERROR}
 
 class ChargePointViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -189,11 +183,11 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
         get() = _listOfChargePoints
 
     // internal MutableLiveData Boolean that flags a successful response
-    private val _success = MutableLiveData<Boolean>()
+    private val _status = MutableLiveData<ChargeQueryAPIStatus>()
 
     // external immutable LiveData for success boolean
-    val success: LiveData<Boolean>
-        get() = _success
+    val status: LiveData<ChargeQueryAPIStatus>
+        get() = _status
 
     // internal live data that stores the distance parameter for query search
     val distance = MutableLiveData<String>("10")
@@ -205,16 +199,17 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
 
     fun getChargePointQuery() {
         viewModelScope.launch {
+            _status.value = ChargeQueryAPIStatus.LOADING
             try {
-                _success.value = true
                 var chargeQuery = ChargeApi.retrofitService.getChargeQueryObject(distance.value.toString(),limit.value.toString())
                 _listOfChargePoints.value = convertChargePoints(chargeQuery.chargeDevices)
-                var responseString = chargeQuery.scheme.SchemeCode
+                _status.value = ChargeQueryAPIStatus.DONE
+               // var responseString = chargeQuery.scheme.SchemeCode
                 val responseStringList = listOfChargePoints.value?.let { TextUtils.join(",", it) }
                 _response.value = responseStringList!!
 
             } catch (e: Exception) {
-                _success.value = false
+                _status.value = ChargeQueryAPIStatus.ERROR
                 _response.value = "Failure: ${e.message}"
 
             }

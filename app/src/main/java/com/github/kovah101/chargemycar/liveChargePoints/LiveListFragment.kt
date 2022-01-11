@@ -13,7 +13,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentLiveListBinding
-import com.github.kovah101.chargemycar.savedChargePoints.SavedPointAdapter
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import timber.log.Timber
 
@@ -42,19 +41,6 @@ class LiveListFragment : Fragment() {
         //val application = requireNotNull(this.activity).application
         // query for Charge Points on creation
         livePointsViewModel.getChargePointQuery()
-
-        // observe the success of the Charge Point Query
-        // display recyclerView & charge points if successful
-        // display textView with error message
-        livePointsViewModel.success.observe(viewLifecycleOwner, Observer {
-            if (it == true) {
-                binding.chargeString.visibility = View.GONE
-                binding.liveList.visibility = View.VISIBLE
-            } else {
-                binding.chargeString.visibility = View.VISIBLE
-                binding.liveList.visibility = View.GONE
-            }
-        })
 
         binding.livePointsViewModel = livePointsViewModel
 

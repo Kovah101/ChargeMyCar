@@ -1,13 +1,16 @@
 package com.github.kovah101.chargemycar.savedChargePoints
 
 import android.graphics.PorterDuff
+import android.view.View
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.distanceColor
 import com.github.kovah101.chargemycar.haversineDistance
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
+import com.github.kovah101.chargemycar.viewModel.ChargeQueryAPIStatus
 
 
 @BindingAdapter("distance")
@@ -53,5 +56,44 @@ fun TextView.setStatus(item: ChargePoint?){
             setTextColor(context.resources.getColor(R.color.red))
             text = context.resources.getString(R.string.outService)
         }
+    }
+}
+
+@BindingAdapter("chargeQueryApiStatus")
+fun bindStatus(view: View, status: ChargeQueryAPIStatus?){
+    when(status){
+        ChargeQueryAPIStatus.DONE -> {
+            when(view.id){
+                R.id.liveList -> view.visibility = View.VISIBLE
+                R.id.chargeString -> view.visibility = View.GONE
+                R.id.statusImage -> view.visibility = View.GONE
+            }
+        }
+        ChargeQueryAPIStatus.ERROR -> {
+            when(view.id){
+                R.id.liveList -> view.visibility = View.GONE
+                R.id.chargeString -> view.visibility = View.VISIBLE
+                R.id.statusImage -> view.visibility = View.VISIBLE
+            }
+        }
+        ChargeQueryAPIStatus.LOADING -> {
+            when(view.id){
+                R.id.liveList -> view.visibility = View.GONE
+                R.id.chargeString -> view.visibility = View.VISIBLE
+                R.id.statusImage -> view.visibility = View.VISIBLE
+
+            }
+        }
+    }
+}
+
+@BindingAdapter("queryApiStatusImage")
+fun bindImage(view: ImageView, status: ChargeQueryAPIStatus?){
+    when(status){
+        ChargeQueryAPIStatus.LOADING ->
+            view.setImageResource(R.drawable.loading_animation)
+        ChargeQueryAPIStatus.ERROR ->
+            view.setImageResource(R.drawable.connection_error)
+        ChargeQueryAPIStatus.DONE -> Unit
     }
 }

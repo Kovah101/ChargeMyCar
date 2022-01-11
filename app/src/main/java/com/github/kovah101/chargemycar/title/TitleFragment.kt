@@ -52,11 +52,11 @@ class TitleFragment : Fragment() {
     //  4- Coroutines to streamline retrofit API service (45m)
     //  5- Display detailed list of live charge points (30m) + Favourite star sort (15m) + Added Android 11+ Permissions (20m)
     //  6- Create Options layout to adjust URI search parameters - Distance & Limit DONE (30m+ 60m+)
-    //  7- Add Favourites button & database interactions
+    //  7- Add Error handling on QueryAPI (45m+25m)
 
 
     // TODO: Phase 5 - Geo Permissions & map fragments
-    // TODO: Phase 5  - Polish & testing , refactor liveViewModel success observer, test large lists for null point errors in query result
+    // TODO: Phase 5  - Polish & testing, test large lists for null point errors in query result
 
 
 
@@ -82,7 +82,6 @@ class TitleFragment : Fragment() {
         )
         // Favourite charge points
         binding.favouriteChargePoints.setOnClickListener(
-
             Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_savedListFragment)
         )
 
