@@ -3,6 +3,7 @@ package com.github.kovah101.chargemycar.liveChargePoints
 
 
 import android.graphics.PorterDuff
+import android.location.Location
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -51,8 +52,14 @@ class LivePointAdapter (val clickListener : ChargePointListener, val favListener
 
             // TODO: put into BindingUtils when using live location
             // calculate actual distance from dummy user
-            val trueDistance =
-                haversineDistance(userLat, userLong, item.latitude.toFloat(), item.longitude.toFloat())
+            val myLocation = Location("myLocation")
+            myLocation.latitude = userLat
+            myLocation.longitude = userLong
+            val cpLocation = Location("cpLocation")
+            cpLocation.latitude = item.latitude.toDouble()
+            cpLocation.longitude = item.longitude.toDouble()
+            val trueDistance = myLocation.distanceTo(cpLocation) / 1000 // in km
+                //haversineDistance(userLat, userLong, item.latitude.toFloat(), item.longitude.toFloat())
             // round true distance to 2dp
             binding.distance.text = String.format("%.2f", trueDistance)
             //adjust colour appropriately, test with ID

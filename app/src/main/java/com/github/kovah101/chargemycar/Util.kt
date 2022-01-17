@@ -74,7 +74,7 @@ private fun haversine(angle: Double): Double {
     return Math.pow(Math.sin(angle / 2), 2.0)
 }
 
-fun distanceColor(distance: Double): Int {
+fun distanceColor(distance: Float): Int {
     var distColor = when (distance.roundToInt()) {
         in 0..2 -> R.color.distance0
         in 3..5 -> R.color.distance1

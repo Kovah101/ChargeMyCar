@@ -51,7 +51,7 @@ class TitleFragment : Fragment() {
     //  3- Convert Data class to take in JSON too,Parse The JSON response & display the size/list of charge points (1h)
     //  4- Coroutines to streamline retrofit API service (45m)
     //  5- Display detailed list of live charge points (30m) + Favourite star sort (15m) + Added Android 11+ Permissions (20m)
-    //  6- Create Options layout to adjust URI search parameters - Distance & Limit DONE (30m+ 60m+)
+    //  6- Create Options layout to adjust URI search parameters - Distance & Limit DONE, change to unit miles/km?? (30m+ 60m+ 15m)
     //  7- Add Error handling on QueryAPI (45m+25m)
 
 

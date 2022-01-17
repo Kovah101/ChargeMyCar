@@ -2,6 +2,7 @@ package com.github.kovah101.chargemycar.viewModel
 
 import android.app.Application
 import android.text.TextUtils
+import android.widget.RadioGroup
 import androidx.lifecycle.*
 import com.github.kovah101.chargemycar.convertChargePoints
 import com.github.kovah101.chargemycar.formatChargePoints
@@ -189,12 +190,16 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
     val status: LiveData<ChargeQueryAPIStatus>
         get() = _status
 
-    // internal live data that stores the distance parameter for query search
+    // internal live data that stores the distance parameter for query search, default to 10
     val distance = MutableLiveData<String>("10")
     //private val distance = "10"
 
-    // internal live data that stores the limit parameter for query search
+    // internal live data that stores the limit parameter for query search, default to 10
     val limit = MutableLiveData<String>("10")
+
+    fun radioGroupTest(radioGroup: RadioGroup, id: Int){
+        Timber.d("Radiobutton: $id has been clicked")
+    }
 
 
     fun getChargePointQuery() {

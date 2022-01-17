@@ -55,7 +55,7 @@ class SavedPointAdapter (val clickListener : ChargePointListener, val favListene
             binding.distance.text = String.format("%.2f", trueDistance)
             //adjust colour appropriately, test with ID
             val res = itemView.context.resources
-            val colour = distanceColor((trueDistance))
+            val colour = distanceColor((trueDistance.toFloat()))
             binding.distance.background.setColorFilter(res.getColor(colour), PorterDuff.Mode.SRC_ATOP)
 
         }
