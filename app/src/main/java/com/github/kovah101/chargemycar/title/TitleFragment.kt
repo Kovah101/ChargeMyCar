@@ -9,9 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
+import com.github.kovah101.chargemycar.nearestQueryString
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
+import timber.log.Timber
 
 
 /**
@@ -44,26 +47,36 @@ class TitleFragment : Fragment() {
     //  5- Add Click item function - to maps intent (+45m + 25m)
     //  6- Add Click item function - remove single item from favourites(15m +30m)
 
-    // TODO: Phase 4 - Internet Permissions & Real data (8 hour estimate)
+    // TODO: Phase 4 - Internet Permissions & Real data (Total 8 hours 55m)
     //  0- Setup (30m)
     //  1- Create LiveList layout & viewmodel + factory + convert ot shared viewmodel architecture - (1h 15m + 45m)
     //  2- Add retrofit API service + connect to the internet + display JSON string (1h 10m)
     //  3- Convert Data class to take in JSON too,Parse The JSON response & display the size/list of charge points (1h)
     //  4- Coroutines to streamline retrofit API service (45m)
     //  5- Display detailed list of live charge points (30m) + Favourite star sort (15m) + Added Android 11+ Permissions (20m)
-    //  6- Create Options layout to adjust URI search parameters - Distance & Limit DONE, change to unit miles/km?? (30m+ 60m+ 15m)
-    //  7- Add Error handling on QueryAPI (45m+25m)
+    //  6- Create Options layout to adjust URI search parameters - Distance & Limit DONE (30m+ 60m+ 15m)
+    //  7- Add Error handling on QueryAPI through livedata enum that controls view visibility (45m+25m)
 
+    // TODO: Phase 5 - Geo Permissions & map fragments (estimate 8 hours)
+    //  0- Setup (20m)
+    //  1- Edit Title fragment to enable postcode or fake live location query (40m+) TEST + implement onClick
+    //  2- Add Geo-permissions and use true location
+    //  3- Create SavedMap Layout
+    //  4- Add Saved Points to SavedMap, define zoom, icon and onClick method
+    //  5- Create LiveMap Layout
+    //  6- Add Live Points to LiveMap, define zoom, icon and onClick method
+    //  7-
+    //  8-
 
-    // TODO: Phase 5 - Geo Permissions & map fragments
-    // TODO: Phase 5  - Polish & testing, test large lists for null point errors in query result
+    // TODO: Phase 5  - Polish & testing, test large lists for null point errors in query result, change charge point lat & long to doubles
 
-
+    val dummyUserLat = 51.4707
+    val dummyUserLong = -0.1206
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val binding: FragmentTitleBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_title, container, false)
@@ -73,9 +86,9 @@ class TitleFragment : Fragment() {
 
         // set button click listeners
         // Nearest live charge points
-        binding.liveChargePoints.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_liveListFragment)
-        )
+//        binding.liveChargePoints.setOnClickListener(
+//            Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_liveListFragment),
+//        )
         // Local live charge points
         binding.postcodeChargePoints.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_liveListFragment)
@@ -88,5 +101,29 @@ class TitleFragment : Fragment() {
         return binding.root
     }
 
+    override fun onClick(v: View){
+        when(v.id){
+            R.id.liveChargePoints -> {
+                val nearestString = nearestQueryString(dummyUserLat,dummyUserLong)
+                Timber.d(nearestString)
+                v.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
+            }}
+    }
+
+    override fun OnClick(v:View){
+        when(v.id){
+            R.id.liveChargePoints -> {
+                val nearestString = nearestQueryString(dummyUserLat,dummyUserLong)
+                Timber.d(nearestString)
+                v.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
+            }
+//            R.id.postcodeChargePoints -> {
+//
+//            }
+//            R.id.favouriteChargePoints -> {
+//
+//            }
+        }
+    }
 
 }

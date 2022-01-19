@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.github.kovah101.chargemycar.R.*
 import com.github.kovah101.chargemycar.distanceColor
-import com.github.kovah101.chargemycar.haversineDistance
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import com.github.kovah101.chargemycar.databinding.ChargePointListItemBinding
+import com.github.kovah101.chargemycar.distanceToChargePoint
 
 
-class SavedPointAdapter (val clickListener : ChargePointListener, val favListener : FavouriteListener) :
+class SavedPointAdapter(
+    val clickListener: ChargePointListener,
+    val favListener: FavouriteListener
+) :
     ListAdapter<ChargePoint, SavedPointAdapter.ViewHolder>(ChargePointDiffCallback()) {
 
     // TODO: dummy user location - need to change in geo phase
@@ -36,9 +39,16 @@ class SavedPointAdapter (val clickListener : ChargePointListener, val favListene
     // find views and link them to item data
     // calculate distance from user and generate color
     // use companion object to hold the from function to create ViewHolder
-    class ViewHolder private constructor(val binding: ChargePointListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: ChargePointListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ChargePoint, userLat: Double, userLong: Double, clickListener: ChargePointListener, favListener: FavouriteListener) {
+        fun bind(
+            item: ChargePoint,
+            userLat: Double,
+            userLong: Double,
+            clickListener: ChargePointListener,
+            favListener: FavouriteListener
+        ) {
 
             binding.chargePoint = item
             binding.clickListener = clickListener
@@ -49,14 +59,21 @@ class SavedPointAdapter (val clickListener : ChargePointListener, val favListene
 
             // TODO: put into BindingUtils when using live location
             // calculate actual distance from dummy user
-            val trueDistance =
-                haversineDistance(userLat, userLong, item.latitude.toFloat(), item.longitude.toFloat())
+            val trueDistance = distanceToChargePoint(
+                userLat,
+                userLong,
+                item.latitude.toDouble(),
+                item.longitude.toDouble()
+            )
             // round true distance to 2dp
             binding.distance.text = String.format("%.2f", trueDistance)
             //adjust colour appropriately, test with ID
             val res = itemView.context.resources
             val colour = distanceColor((trueDistance.toFloat()))
-            binding.distance.background.setColorFilter(res.getColor(colour), PorterDuff.Mode.SRC_ATOP)
+            binding.distance.background.setColorFilter(
+                res.getColor(colour),
+                PorterDuff.Mode.SRC_ATOP
+            )
 
         }
 
@@ -86,11 +103,12 @@ class SavedPointAdapter (val clickListener : ChargePointListener, val favListene
 
     // Click listener for the map direction intent
     class ChargePointListener(val clickListener: (chargeLat: String, chargeLong: String) -> Unit) {
-        fun onClick(chargePoint: ChargePoint) = clickListener(chargePoint.latitude, chargePoint.longitude)
+        fun onClick(chargePoint: ChargePoint) =
+            clickListener(chargePoint.latitude, chargePoint.longitude)
     }
 
     // Click listener for add/remove from favourites
-    class FavouriteListener(val favListener:(chargePoint: ChargePoint, checked : Boolean) -> Unit) {
+    class FavouriteListener(val favListener: (chargePoint: ChargePoint, checked: Boolean) -> Unit) {
         fun onClick(chargePoint: ChargePoint, checked: Boolean) = favListener(chargePoint, checked)
     }
 

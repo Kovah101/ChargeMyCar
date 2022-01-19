@@ -2,6 +2,7 @@ package com.github.kovah101.chargemycar
 
 import android.content.res.Resources
 import android.graphics.Color
+import android.location.Location
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
@@ -50,28 +51,26 @@ fun formatChargePoints(chargePoints: List<ChargePoint>, resources: Resources): S
     }
 }
 
-fun haversineDistance(
-    userLat: Double,
-    userLong: Double,
-    pointLat: Float,
-    pointLong: Float
-): Double {
-    val earthRadius = 6371 // earth radius in km
-
-    val dLat = Math.toRadians((pointLat.toDouble() - userLat))
-    val dLong = Math.toRadians(pointLong.toDouble() - userLong)
-
-    val startLat = Math.toRadians(userLat)
-    val endLat = Math.toRadians(pointLat.toDouble())
-
-    val a = haversine(dLat) + cos(startLat) * cos(endLat) * haversine(dLong)
-    val c = 2 * atan2(sqrt(a), sqrt(1 - a))
-
-    return earthRadius * c
+fun nearestQueryString(userLat: Double, userLong: Double): String{
+    val latString = userLat.toString()
+    val longString = userLong.toString()
+    return "lat/$latString/long/$longString"
 }
 
-private fun haversine(angle: Double): Double {
-    return Math.pow(Math.sin(angle / 2), 2.0)
+fun distanceToChargePoint(
+    userLat: Double,
+    userLong: Double,
+    pointLat: Double,
+    pointLong: Double
+): Float {
+    val myLocation = Location ("myLocation")
+    myLocation.latitude = userLat
+    myLocation.longitude = userLong
+    val cpLocation = Location("cpLocation")
+    cpLocation.latitude = pointLat
+    cpLocation.longitude = pointLong
+
+    return myLocation.distanceTo(cpLocation) / 1000 // in km
 }
 
 fun distanceColor(distance: Float): Int {
@@ -83,7 +82,7 @@ fun distanceColor(distance: Float): Int {
         in 16..22 -> R.color.distance4
         in 23..30 -> R.color.distance5
         else -> {
-            if (distance.roundToInt() > 30){
+            if (distance.roundToInt() > 30) {
                 R.color.distance6
             } else {
                 R.color.red
@@ -93,12 +92,13 @@ fun distanceColor(distance: Float): Int {
 
     return distColor
 }
+
 // takes list of charge query points and returns a list of charge points
-fun convertChargePoints(chargeQueryPoints : List<ChargeQueryPoint>) : List<ChargePoint> {
+fun convertChargePoints(chargeQueryPoints: List<ChargeQueryPoint>): List<ChargePoint> {
     var chargepoints = mutableListOf<ChargePoint>()
     // transfer the details to charge point object then add to the list
     chargeQueryPoints.forEach { cp ->
-     val chargePoint = ChargePoint()
+        val chargePoint = ChargePoint()
         chargePoint.latitude = cp.location.latitude
         chargePoint.longitude = cp.location.longitude
         chargePoint.postcode = cp.location.address.postcode.toString()
