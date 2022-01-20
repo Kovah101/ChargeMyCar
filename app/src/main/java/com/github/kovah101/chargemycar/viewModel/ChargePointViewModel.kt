@@ -210,8 +210,8 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
                 _listOfChargePoints.value = convertChargePoints(chargeQuery.chargeDevices)
                 _status.value = ChargeQueryAPIStatus.DONE
                // var responseString = chargeQuery.scheme.SchemeCode
-                val responseStringList = listOfChargePoints.value?.let { TextUtils.join(",", it) }
-                _response.value = responseStringList!!
+                //val responseStringList = listOfChargePoints.value?.let { TextUtils.join(",", it) }
+                _response.value = "Loading"
 
             } catch (e: Exception) {
                 _status.value = ChargeQueryAPIStatus.ERROR

@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.distanceColor
-import com.github.kovah101.chargemycar.haversineDistance
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import com.github.kovah101.chargemycar.viewModel.ChargeQueryAPIStatus
 

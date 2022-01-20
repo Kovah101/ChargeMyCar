@@ -86,9 +86,14 @@ class TitleFragment : Fragment() {
 
         // set button click listeners
         // Nearest live charge points
-//        binding.liveChargePoints.setOnClickListener(
-//            Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_liveListFragment),
-//        )
+        binding.liveChargePoints.setOnClickListener{ view ->
+            //Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_liveListFragment)
+            val nearestString = nearestQueryString(dummyUserLat,dummyUserLong)
+            Timber.d(nearestString)
+            view.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
+        }
+
+
         // Local live charge points
         binding.postcodeChargePoints.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_liveListFragment)
@@ -101,29 +106,29 @@ class TitleFragment : Fragment() {
         return binding.root
     }
 
-    override fun onClick(v: View){
-        when(v.id){
-            R.id.liveChargePoints -> {
-                val nearestString = nearestQueryString(dummyUserLat,dummyUserLong)
-                Timber.d(nearestString)
-                v.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
-            }}
-    }
-
-    override fun OnClick(v:View){
-        when(v.id){
-            R.id.liveChargePoints -> {
-                val nearestString = nearestQueryString(dummyUserLat,dummyUserLong)
-                Timber.d(nearestString)
-                v.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
-            }
+//    override fun onClick(v: View){
+//        when(v.id){
+//            R.id.liveChargePoints -> {
+//                val nearestString = nearestQueryString(dummyUserLat,dummyUserLong)
+//                Timber.d(nearestString)
+//                v.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
+//            }}
+//    }
+//
+//    override fun OnClick(v:View){
+//        when(v.id){
+//            R.id.liveChargePoints -> {
+//                val nearestString = nearestQueryString(dummyUserLat,dummyUserLong)
+//                Timber.d(nearestString)
+//                v.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
+//            }
 //            R.id.postcodeChargePoints -> {
 //
 //            }
 //            R.id.favouriteChargePoints -> {
 //
 //            }
-        }
-    }
+//        }
+//    }
 
 }
