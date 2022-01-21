@@ -73,6 +73,18 @@ class LiveListFragment : Fragment() {
             livePointsViewModel.getChargePointQuery()
         })
 
+        // look for changes to Query from options menu
+        livePointsViewModel.distance.observe(viewLifecycleOwner, Observer {
+            Timber.d("Distance has changed to: $it")
+        })
+
+        // look for changes to Query from title fragment
+        // reload query if changed
+        livePointsViewModel.location.observe(viewLifecycleOwner, Observer {
+            Timber.d("Location string is: $it")
+           // livePointsViewModel.getChargePointQuery()
+        })
+
         return binding.root
     }
 

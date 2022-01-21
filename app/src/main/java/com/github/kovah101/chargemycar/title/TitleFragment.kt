@@ -86,27 +86,35 @@ class TitleFragment : Fragment() {
         // set action bar title
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.title)
 
+        // shared viewmodel
+        val livePointsViewModel: ChargePointViewModel by activityViewModels()
+
+        binding.livePointsViewModel = livePointsViewModel
+
+        binding.lifecycleOwner = this
+
+
         // set button click listeners
         // Nearest live charge points
         binding.liveChargePoints.setOnClickListener { view ->
             val nearestString = nearestQueryString(dummyUserLat, dummyUserLong)
-            Timber.d(nearestString)
+            livePointsViewModel.location.value = nearestString
             view.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
         }
-
 
         // Local live charge points
         binding.postcodeChargePoints.setOnClickListener { view ->
             val postcodeString = postcodeQueryString(binding.Postcode.text)
             //TODO Add postcode checker/ formatter
-            Timber.d(postcodeString)
+            livePointsViewModel.location.value = postcodeString
             view.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
-
         }
+
         // Favourite charge points
         binding.favouriteChargePoints.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_savedListFragment)
         )
+
 
         return binding.root
     }

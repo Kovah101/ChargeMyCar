@@ -190,16 +190,19 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
     val status: LiveData<ChargeQueryAPIStatus>
         get() = _status
 
-    // internal live data that stores the distance parameter for query search, default to 10
+    // mutable live data that stores the distance parameter for query search, default to 10
     val distance = MutableLiveData<String>("10")
-    //private val distance = "10"
 
-    // internal live data that stores the limit parameter for query search, default to 10
+
+    // mutable live data that stores the limit parameter for query search, default to 10
     val limit = MutableLiveData<String>("10")
 
     fun radioGroupTest(radioGroup: RadioGroup, id: Int){
         Timber.d("Radiobutton: $id has been clicked")
     }
+
+    // mutable live data that stores the location or postcode parameter, no default
+    val location = MutableLiveData<String>()
 
 
     fun getChargePointQuery() {

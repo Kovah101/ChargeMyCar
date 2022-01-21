@@ -4,12 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".title.TitleFragment">
 
+    <data>
+        <variable
+            name="livePointsViewModel"
+            type="com.github.kovah101.chargemycar.viewModel.ChargePointViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/titleConstraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- TODO: Place Holder -->
 
         <ImageView
             android:id="@+id/icon"
