@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.location.Location
 import android.os.Build
+import android.text.Editable
 import android.text.Html
 import android.text.Spanned
 import android.widget.TextView
@@ -55,6 +56,14 @@ fun nearestQueryString(userLat: Double, userLong: Double): String{
     val latString = userLat.toString()
     val longString = userLong.toString()
     return "lat/$latString/long/$longString"
+}
+
+fun postcodeQueryString(postcode: Editable) : String{
+    // convert to string, trim and remove spaces
+    var postcodeQuery = postcode.toString().trim()
+    postcodeQuery = postcodeQuery.replace(" ", "")
+    // check if correct format else return error
+    return "postcode/$postcodeQuery"
 }
 
 fun distanceToChargePoint(
