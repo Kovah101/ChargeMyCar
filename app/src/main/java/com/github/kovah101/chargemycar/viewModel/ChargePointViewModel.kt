@@ -12,7 +12,7 @@ import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-enum class ChargeQueryAPIStatus {LOADING, DONE, ERROR}
+enum class ChargeQueryAPIStatus { LOADING, DONE, ERROR }
 
 class ChargePointViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -197,7 +197,7 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
     // mutable live data that stores the limit parameter for query search, default to 10
     val limit = MutableLiveData<String>("10")
 
-    fun radioGroupTest(radioGroup: RadioGroup, id: Int){
+    fun radioGroupTest(radioGroup: RadioGroup, id: Int) {
         Timber.d("Radiobutton: $id has been clicked")
     }
 
@@ -209,10 +209,14 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
         viewModelScope.launch {
             _status.value = ChargeQueryAPIStatus.LOADING
             try {
-                var chargeQuery = ChargeApi.retrofitService.getChargeQueryObject(distance.value.toString(),limit.value.toString())
+                var chargeQuery = ChargeApi.retrofitService.getChargeQueryObject(
+                    location.value.toString(),
+                    distance.value.toString(),
+                    limit.value.toString()
+                )
                 _listOfChargePoints.value = convertChargePoints(chargeQuery.chargeDevices)
                 _status.value = ChargeQueryAPIStatus.DONE
-               // var responseString = chargeQuery.scheme.SchemeCode
+                // var responseString = chargeQuery.scheme.SchemeCode
                 //val responseStringList = listOfChargePoints.value?.let { TextUtils.join(",", it) }
                 _response.value = "Loading"
 

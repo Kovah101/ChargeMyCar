@@ -60,7 +60,7 @@ class TitleFragment : Fragment() {
 
     // TODO: Phase 5 - Geo Permissions & map fragments (estimate 8 hours)
     //  0- Setup (20m)
-    //  1- Edit Title fragment to enable postcode or fake live location query (40m+30m) - no rigorous postcode test yet! although may come up as error in livelist?
+    //  1- Edit Title fragment to enable postcode or fake live location query (40m+30m+15m) - no rigorous postcode test yet! although may come up as error in livelist?
     //  2- Add Geo-permissions and use true location
     //  3- Create SavedMap Layout
     //  4- Add Saved Points to SavedMap, define zoom, icon and onClick method

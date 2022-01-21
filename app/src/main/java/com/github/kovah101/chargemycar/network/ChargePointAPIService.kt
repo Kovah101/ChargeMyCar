@@ -17,7 +17,6 @@ private const val BASE_URL =
     "https://chargepoints.dft.gov.uk/api/retrieve/registry/"
 
 
-
 // Build moshi object for retrofit to convert json to kotlin objects
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -36,8 +35,12 @@ private val retrofit = Retrofit.Builder()
 // TODO: Need to manipulate URL here!
 interface ChargePointAPIService {
 
-    @GET("postcode/SW9/dist/{distance}/limit/{limit}/format/json")
-    suspend fun getChargeQueryObject(@Path("distance") distance: String, @Path("limit") limit: String): ChargeQuery
+    @GET("{location}/dist/{distance}/limit/{limit}/format/json")
+    suspend fun getChargeQueryObject(
+        @Path("location") location: String,
+        @Path("distance") distance: String,
+        @Path("limit") limit: String
+    ): ChargeQuery
 
 
     @GET("postcode/SW9/dist/10/limit/10/format/json")
@@ -47,7 +50,7 @@ interface ChargePointAPIService {
 
 // public object to expose Retrofit service to the rest of the app
 object ChargeApi {
-    val retrofitService : ChargePointAPIService by lazy {
+    val retrofitService: ChargePointAPIService by lazy {
         retrofit.create(ChargePointAPIService::class.java)
     }
 }
