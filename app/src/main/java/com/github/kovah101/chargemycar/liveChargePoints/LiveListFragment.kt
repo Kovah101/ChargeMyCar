@@ -80,7 +80,7 @@ class LiveListFragment : Fragment() {
 
         // look for changes to Query from title fragment
         // reload query if changed
-        livePointsViewModel.location.observe(viewLifecycleOwner, Observer {
+        livePointsViewModel.postcode.observe(viewLifecycleOwner, Observer {
             Timber.d("Location string is: $it")
            // livePointsViewModel.getChargePointQuery()
         })

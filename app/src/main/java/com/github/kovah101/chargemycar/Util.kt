@@ -63,7 +63,7 @@ fun postcodeQueryString(postcode: Editable) : String{
     var postcodeQuery = postcode.toString().trim()
     postcodeQuery = postcodeQuery.replace(" ", "")
     // check if correct format else return error
-    return "postcode/$postcodeQuery"
+    return postcodeQuery
 }
 
 fun distanceToChargePoint(

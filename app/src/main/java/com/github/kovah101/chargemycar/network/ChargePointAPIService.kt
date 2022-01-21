@@ -35,17 +35,21 @@ private val retrofit = Retrofit.Builder()
 // TODO: Need to manipulate URL here!
 interface ChargePointAPIService {
 
-    @GET("{location}/dist/{distance}/limit/{limit}/format/json")
-    suspend fun getChargeQueryObject(
+    @GET("postcode/{location}/dist/{distance}/limit/{limit}/format/json")
+    suspend fun getChargeQueryObjectPostcode(
         @Path("location") location: String,
         @Path("distance") distance: String,
         @Path("limit") limit: String
     ): ChargeQuery
 
 
-    @GET("postcode/SW9/dist/10/limit/10/format/json")
-    fun getChargeQuery():
-            Call<List<ChargePoint>>
+    @GET("lat/{lat}/long/{long}/dist/{distance}/limit/{limit}/format/json")
+    suspend fun getChargeQueryObjectLocation(
+       @Path("lat") latitude: String,
+       @Path("long") longitude: String,
+        @Path("distance") distance: String,
+        @Path("limit") limit: String
+    ): ChargeQuery
 }
 
 // public object to expose Retrofit service to the rest of the app

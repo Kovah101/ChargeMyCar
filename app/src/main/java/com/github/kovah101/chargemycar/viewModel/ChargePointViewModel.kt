@@ -1,12 +1,12 @@
 package com.github.kovah101.chargemycar.viewModel
 
 import android.app.Application
-import android.text.TextUtils
 import android.widget.RadioGroup
 import androidx.lifecycle.*
 import com.github.kovah101.chargemycar.convertChargePoints
 import com.github.kovah101.chargemycar.formatChargePoints
 import com.github.kovah101.chargemycar.network.ChargeApi
+import com.github.kovah101.chargemycar.network.ChargeQuery
 import com.github.kovah101.chargemycar.savedDatabase.ChargeDatabase
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import kotlinx.coroutines.launch
@@ -197,28 +197,48 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
     // mutable live data that stores the limit parameter for query search, default to 10
     val limit = MutableLiveData<String>("10")
 
+    // TODO Remove radiogroup
     fun radioGroupTest(radioGroup: RadioGroup, id: Int) {
         Timber.d("Radiobutton: $id has been clicked")
     }
 
+    // mutables to contain users location
+    val myLatitude = MutableLiveData<Double>()
+    val myLongitude = MutableLiveData<Double>()
+
     // mutable live data that stores the location or postcode parameter, no default
-    val location = MutableLiveData<String>()
+    val postcode = MutableLiveData<String>()
+
+    // mutable live data stores boolean for location (true) or postcode (false), default true
+    val useLocation = MutableLiveData<Boolean>(false)
 
 
     fun getChargePointQuery() {
         viewModelScope.launch {
             _status.value = ChargeQueryAPIStatus.LOADING
             try {
-                var chargeQuery = ChargeApi.retrofitService.getChargeQueryObject(
-                    location.value.toString(),
-                    distance.value.toString(),
-                    limit.value.toString()
-                )
+                _response.value = "Loading"
+                val chargeQuery: ChargeQuery?
+                if (useLocation.value == true) {
+                        chargeQuery = ChargeApi.retrofitService.getChargeQueryObjectLocation(
+                            myLatitude.value.toString(),
+                            myLongitude.value.toString(),
+                            distance.value.toString(),
+                            limit.value.toString()
+                        )
+                } else {
+                     chargeQuery = ChargeApi.retrofitService.getChargeQueryObjectPostcode(
+                        postcode.value.toString(),
+                        distance.value.toString(),
+                        limit.value.toString()
+                    )
+                }
+
                 _listOfChargePoints.value = convertChargePoints(chargeQuery.chargeDevices)
                 _status.value = ChargeQueryAPIStatus.DONE
                 // var responseString = chargeQuery.scheme.SchemeCode
                 //val responseStringList = listOfChargePoints.value?.let { TextUtils.join(",", it) }
-                _response.value = "Loading"
+
 
             } catch (e: Exception) {
                 _status.value = ChargeQueryAPIStatus.ERROR
