@@ -1,11 +1,14 @@
 package com.github.kovah101.chargemycar.title
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
@@ -15,6 +18,8 @@ import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
 import com.github.kovah101.chargemycar.nearestQueryString
 import com.github.kovah101.chargemycar.postcodeQueryString
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
+import timber.log.Timber
+import java.util.jar.Manifest
 
 
 /**
@@ -60,7 +65,7 @@ class TitleFragment : Fragment() {
     // TODO: Phase 5 - Geo Permissions & map fragments (estimate 8 hours)
     //  0- Setup (20m)
     //  1- Edit Title fragment to enable postcode or fake live location query (40m+30m+15m+35m) - no rigorous postcode test yet! although may come up as error in livelist?
-    //  2- Add Geo-permissions and use true location
+    //  2- Add Geo-permissions and use true location (40m+)
     //  3- Create SavedMap Layout
     //  4- Add Saved Points to SavedMap, define zoom, icon and onClick method
     //  5- Create LiveMap Layout
@@ -92,15 +97,44 @@ class TitleFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
+        // register the permissions callback and handle the users response
+        val requestPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+                if (granted) {
+                    Timber.d("Fine Location Permission has been granted")
+                } else {
+                    binding.permissionsRequest.visibility = View.VISIBLE
+                }
+            }
 
         // set button click listeners
         // Nearest live charge points
         binding.liveChargePoints.setOnClickListener { view ->
-            livePointsViewModel.useLocation.value = true
-            val nearestString = nearestQueryString(dummyUserLat, dummyUserLong)
-            livePointsViewModel.myLatitude.value = dummyUserLat
-            livePointsViewModel.myLongitude.value = dummyUserLong
-            view.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
+            // check if location permission has been granted, if not ask for it, if no display message
+            when {
+                ContextCompat.checkSelfPermission(
+                    activity as AppCompatActivity,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    // App has permission
+                    livePointsViewModel.useLocation.value = true
+                    livePointsViewModel.myLatitude.value = dummyUserLat
+                    livePointsViewModel.myLongitude.value = dummyUserLong
+                    view.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
+                }
+                shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                    // explain to the user why app needs fine location to find nearest charge points
+                    binding.permissionsRequest.visibility = View.VISIBLE
+                }
+                else -> { // directly ask for the permission
+                    requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                }
+            }
+//            livePointsViewModel.useLocation.value = true
+//            val nearestString = nearestQueryString(dummyUserLat, dummyUserLong)
+//            livePointsViewModel.myLatitude.value = dummyUserLat
+//            livePointsViewModel.myLongitude.value = dummyUserLong
+//            view.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
         }
 
         // Local live charge points
@@ -117,6 +151,16 @@ class TitleFragment : Fragment() {
             Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_savedListFragment)
         )
 
+        // Allow permissions button
+        binding.allowPermission.setOnClickListener {
+            requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
+            binding.permissionsRequest.visibility = View.GONE
+        }
+
+        // Deny permissions button
+        binding.denyPermission.setOnClickListener{
+            binding.permissionsRequest.visibility = View.GONE
+        }
 
         return binding.root
     }

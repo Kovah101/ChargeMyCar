@@ -5,6 +5,10 @@
     <!-- In order for our app to access the Internet, we need to define this permission. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- In order for our app to access the users Location, we need to define these permissions. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
     <!-- In order for our app to see other geo apps in Android 11+, could also try scheme="navigation" -->
     <queries>
         <intent>
@@ -33,6 +37,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+<!--        <service android:name="MyNavService"-->
+<!--            android:foregroundServiceType="location"-->
+<!--            />-->
     </application>
 
 </manifest>

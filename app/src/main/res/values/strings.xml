@@ -33,4 +33,7 @@
     <string name="cleared">The Database has been cleared</string>
     <string name="inService">In Service</string>
     <string name="outService">Out of Service</string>
+    <string name="permissionBoxText">This app needs your location data \n to locate your nearest charge points</string>
+    <string name="grantPermission">Allow</string>
+    <string name="denyPermission">No Thanks</string>
 </resources>
