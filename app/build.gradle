@@ -101,4 +101,8 @@ dependencies {
     // RecyclerView
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 
+    // Google Play Service - for live location
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
+
+
 }

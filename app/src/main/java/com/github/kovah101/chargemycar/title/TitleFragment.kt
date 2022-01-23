@@ -1,6 +1,7 @@
 package com.github.kovah101.chargemycar.title
 
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,11 +16,13 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
-import com.github.kovah101.chargemycar.nearestQueryString
 import com.github.kovah101.chargemycar.postcodeQueryString
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.CancellationTokenSource
 import timber.log.Timber
-import java.util.jar.Manifest
 
 
 /**
@@ -65,7 +68,7 @@ class TitleFragment : Fragment() {
     // TODO: Phase 5 - Geo Permissions & map fragments (estimate 8 hours)
     //  0- Setup (20m)
     //  1- Edit Title fragment to enable postcode or fake live location query (40m+30m+15m+35m) - no rigorous postcode test yet! although may come up as error in livelist?
-    //  2- Add Geo-permissions and use true location (40m+)
+    //  2- Add Geo-permissions and use true location (40m+50m)
     //  3- Create SavedMap Layout
     //  4- Add Saved Points to SavedMap, define zoom, icon and onClick method
     //  5- Create LiveMap Layout
@@ -75,8 +78,10 @@ class TitleFragment : Fragment() {
 
     // TODO: Phase 5  - Polish & testing, test large lists for null point errors in query result, change charge point lat & long to doubles
 
-    val dummyUserLat = 51.4707
-    val dummyUserLong = -0.1206
+    private var userLat = 0.0
+    private var userLong = -0.0
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,6 +94,10 @@ class TitleFragment : Fragment() {
 
         // set action bar title
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.title)
+
+        // instance of the location provider client
+        fusedLocationClient =
+            LocationServices.getFusedLocationProviderClient(activity as AppCompatActivity)
 
         // shared viewmodel
         val livePointsViewModel: ChargePointViewModel by activityViewModels()
@@ -118,9 +127,25 @@ class TitleFragment : Fragment() {
                 ) == PackageManager.PERMISSION_GRANTED -> {
                     // App has permission
                     livePointsViewModel.useLocation.value = true
-                    livePointsViewModel.myLatitude.value = dummyUserLat
-                    livePointsViewModel.myLongitude.value = dummyUserLong
-                    view.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
+                    // find current location and display it in log
+                    // different priority types for different power + accuracy demands
+                    val cancelTokenSource = CancellationTokenSource()
+                    fusedLocationClient.getCurrentLocation(
+                        PRIORITY_HIGH_ACCURACY,
+                        cancelTokenSource.token
+                    ).addOnSuccessListener { location: Location? ->
+                        if (location != null) {
+                            userLat = location.latitude
+                            userLong = location.longitude
+                            Timber.d("Users location is: $userLat,$userLong")
+                            livePointsViewModel.myLatitude.value = userLat
+                            livePointsViewModel.myLongitude.value = userLong
+                            view.findNavController()
+                                .navigate(R.id.action_titleFragment_to_liveListFragment)
+                        } else { // TODO deal with null - sandwich bar pop up
+                            Timber.d("location is null, may be turned off in settings")
+                        }
+                    }
                 }
                 shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION) -> {
                     // explain to the user why app needs fine location to find nearest charge points
@@ -158,7 +183,7 @@ class TitleFragment : Fragment() {
         }
 
         // Deny permissions button
-        binding.denyPermission.setOnClickListener{
+        binding.denyPermission.setOnClickListener {
             binding.permissionsRequest.visibility = View.GONE
         }
 
