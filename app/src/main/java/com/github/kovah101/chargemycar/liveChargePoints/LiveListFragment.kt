@@ -47,7 +47,7 @@ class LiveListFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // create adapter with maps intent and favourite handler
-        val adapter = LivePointAdapter(LivePointAdapter.ChargePointListener { chargeLat, chargeLong ->
+        val adapter = LivePointAdapter(livePointsViewModel.myLatitude.value,livePointsViewModel.myLongitude.value,LivePointAdapter.ChargePointListener { chargeLat, chargeLong ->
             Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
             launchMapDirections(chargeLat.toFloat(), chargeLong.toFloat())
         },LivePointAdapter.FavouriteListener { chargePoint, checked ->

@@ -16,19 +16,19 @@ import com.github.kovah101.chargemycar.databinding.LivePointListItemBinding
 import com.github.kovah101.chargemycar.distanceToChargePoint
 
 
-class LivePointAdapter(val clickListener: ChargePointListener, val favListener: FavouriteListener) :
+class LivePointAdapter(
+    val userLat: Double?,
+    val userLong: Double?,
+    val clickListener: ChargePointListener,
+    val favListener: FavouriteListener
+) :
     ListAdapter<ChargePoint, LivePointAdapter.ViewHolder>(ChargePointDiffCallback()) {
-
-    // TODO: dummy user location - need to change in geo phase
-    var dummyUserLat = 51.4707
-    var dummyUserLong = -0.1206
-
 
     // Set all charge point data to specific views
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
 
-        holder.bind(item, dummyUserLat, dummyUserLong, clickListener, favListener)
+        holder.bind(item, userLat, userLong, clickListener, favListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,8 +43,8 @@ class LivePointAdapter(val clickListener: ChargePointListener, val favListener: 
 
         fun bind(
             item: ChargePoint,
-            userLat: Double,
-            userLong: Double,
+            userLat: Double?,
+            userLong: Double?,
             clickListener: ChargePointListener,
             favListener: FavouriteListener
         ) {

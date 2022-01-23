@@ -68,7 +68,7 @@ class TitleFragment : Fragment() {
     // TODO: Phase 5 - Geo Permissions & map fragments (estimate 8 hours)
     //  0- Setup (20m)
     //  1- Edit Title fragment to enable postcode or fake live location query (40m+30m+15m+35m) - no rigorous postcode test yet! although may come up as error in livelist?
-    //  2- Add Geo-permissions and use true location (40m+50m)
+    //  2- Add Geo-permissions and use true location (40m+50m+15m)
     //  3- Create SavedMap Layout
     //  4- Add Saved Points to SavedMap, define zoom, icon and onClick method
     //  5- Create LiveMap Layout
@@ -76,7 +76,7 @@ class TitleFragment : Fragment() {
     //  7- create postcode checker and formatter
     //  8-
 
-    // TODO: Phase 5  - Polish & testing, test large lists for null point errors in query result, change charge point lat & long to doubles
+    // TODO: Phase 5  - Polish & testing, test large lists for null point errors in query result, change charge point lat & long to doubles, refactor title buttons as lots of duplicate code
 
     private var userLat = 0.0
     private var userLong = -0.0
@@ -155,11 +155,6 @@ class TitleFragment : Fragment() {
                     requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
                 }
             }
-//            livePointsViewModel.useLocation.value = true
-//            val nearestString = nearestQueryString(dummyUserLat, dummyUserLong)
-//            livePointsViewModel.myLatitude.value = dummyUserLat
-//            livePointsViewModel.myLongitude.value = dummyUserLong
-//            view.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
         }
 
         // Local live charge points
@@ -172,9 +167,45 @@ class TitleFragment : Fragment() {
         }
 
         // Favourite charge points
-        binding.favouriteChargePoints.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_savedListFragment)
-        )
+        binding.favouriteChargePoints.setOnClickListener { view ->
+            // check if location permission has been granted, if not ask for it, if no display message
+            when {
+                ContextCompat.checkSelfPermission(
+                    activity as AppCompatActivity,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    // App has permission
+                    livePointsViewModel.useLocation.value = true
+                    // find current location and display it in log
+                    // different priority types for different power + accuracy demands
+                    val cancelTokenSource = CancellationTokenSource()
+                    fusedLocationClient.getCurrentLocation(
+                        PRIORITY_HIGH_ACCURACY,
+                        cancelTokenSource.token
+                    ).addOnSuccessListener { location: Location? ->
+                        if (location != null) {
+                            userLat = location.latitude
+                            userLong = location.longitude
+                            Timber.d("Users location is: $userLat,$userLong")
+                            livePointsViewModel.myLatitude.value = userLat
+                            livePointsViewModel.myLongitude.value = userLong
+                            view.findNavController()
+                                .navigate(R.id.action_titleFragment_to_savedListFragment)
+                        } else { // TODO deal with null - sandwich bar pop up & refactor duplicate code in buttons
+                            Timber.d("location is null, may be turned off in settings")
+                        }
+                    }
+                }
+                shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                    // explain to the user why app needs fine location to find nearest charge points
+                    binding.permissionsRequest.visibility = View.VISIBLE
+                }
+                else -> { // directly ask for the permission
+                    requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                }
+            }
+
+        }
 
         // Allow permissions button
         binding.allowPermission.setOnClickListener {

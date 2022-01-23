@@ -52,13 +52,13 @@ fun formatChargePoints(chargePoints: List<ChargePoint>, resources: Resources): S
     }
 }
 
-fun nearestQueryString(userLat: Double, userLong: Double): String{
+fun nearestQueryString(userLat: Double, userLong: Double): String {
     val latString = userLat.toString()
     val longString = userLong.toString()
     return "lat/$latString/long/$longString"
 }
 
-fun postcodeQueryString(postcode: Editable) : String{
+fun postcodeQueryString(postcode: Editable): String {
     // convert to string, trim and remove spaces
     var postcodeQuery = postcode.toString().trim()
     postcodeQuery = postcodeQuery.replace(" ", "")
@@ -67,14 +67,14 @@ fun postcodeQueryString(postcode: Editable) : String{
 }
 
 fun distanceToChargePoint(
-    userLat: Double,
-    userLong: Double,
+    userLat: Double?,
+    userLong: Double?,
     pointLat: Double,
     pointLong: Double
 ): Float {
-    val myLocation = Location ("myLocation")
-    myLocation.latitude = userLat
-    myLocation.longitude = userLong
+    val myLocation = Location("myLocation")
+    myLocation.latitude = userLat!!
+    myLocation.longitude = userLong!!
     val cpLocation = Location("cpLocation")
     cpLocation.latitude = pointLat
     cpLocation.longitude = pointLong

@@ -60,16 +60,20 @@ class SavedListFragment : Fragment() {
         // create adapter and bind the data to it
         //
         val adapter =
-            SavedPointAdapter(SavedPointAdapter.ChargePointListener { chargeLat, chargeLong ->
-                Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
-                launchMapDirections(chargeLat.toFloat(), chargeLong.toFloat())
-            }, SavedPointAdapter.FavouriteListener { chargePoint, checked ->
-                if (!checked) {
-                    Timber.d("Remove Item ID: ${chargePoint.chargePointId} from Database")
-                    savedPointsViewModel.findAndRemoveChargePoint(chargePoint.chargePointId)
-                }
+            SavedPointAdapter(
+                savedPointsViewModel.myLatitude.value,
+                savedPointsViewModel.myLongitude.value,
+                SavedPointAdapter.ChargePointListener { chargeLat, chargeLong ->
+                    Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
+                    launchMapDirections(chargeLat.toFloat(), chargeLong.toFloat())
+                },
+                SavedPointAdapter.FavouriteListener { chargePoint, checked ->
+                    if (!checked) {
+                        Timber.d("Remove Item ID: ${chargePoint.chargePointId} from Database")
+                        savedPointsViewModel.findAndRemoveChargePoint(chargePoint.chargePointId)
+                    }
 
-            })
+                })
         binding.chargeList.adapter = adapter
 
         // apply database as source for the adapter
@@ -94,7 +98,7 @@ class SavedListFragment : Fragment() {
     }
 
     // function takes charge point location and launches driving directions in the maps app of your choice
-    private fun launchMapDirections(chargeLat : Float, chargeLong: Float){
+    private fun launchMapDirections(chargeLat: Float, chargeLong: Float) {
 
         val gmmIntentUri = Uri.parse("google.navigation:q=$chargeLat,$chargeLong&mode=d")
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
