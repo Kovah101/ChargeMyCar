@@ -74,9 +74,9 @@ class TitleFragment : Fragment() {
     //  5- Create LiveMap Layout
     //  6- Add Live Points to LiveMap, define zoom, icon and onClick method
     //  7- create postcode checker and formatter
-    //  8-
+    //  8- Options menu accuracy/power option (20m)
 
-    // TODO: Phase 5  - Polish & testing, test large lists for null point errors in query result, change charge point lat & long to doubles, refactor title buttons as lots of duplicate code
+    // TODO: Phase 5  - Polish & testing, test large lists for null point errors in query result, change charge point lat & long to doubles, refactor title buttons as lots of duplicate code, options for location priority
 
     private var userLat = 0.0
     private var userLong = -0.0
@@ -131,7 +131,7 @@ class TitleFragment : Fragment() {
                     // different priority types for different power + accuracy demands
                     val cancelTokenSource = CancellationTokenSource()
                     fusedLocationClient.getCurrentLocation(
-                        PRIORITY_HIGH_ACCURACY,
+                        livePointsViewModel.locationPriority,
                         cancelTokenSource.token
                     ).addOnSuccessListener { location: Location? ->
                         if (location != null) {
@@ -180,7 +180,7 @@ class TitleFragment : Fragment() {
                     // different priority types for different power + accuracy demands
                     val cancelTokenSource = CancellationTokenSource()
                     fusedLocationClient.getCurrentLocation(
-                        PRIORITY_HIGH_ACCURACY,
+                        livePointsViewModel.locationPriority,
                         cancelTokenSource.token
                     ).addOnSuccessListener { location: Location? ->
                         if (location != null) {

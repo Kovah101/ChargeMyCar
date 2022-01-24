@@ -3,12 +3,14 @@ package com.github.kovah101.chargemycar.viewModel
 import android.app.Application
 import android.widget.RadioGroup
 import androidx.lifecycle.*
+import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.convertChargePoints
 import com.github.kovah101.chargemycar.formatChargePoints
 import com.github.kovah101.chargemycar.network.ChargeApi
 import com.github.kovah101.chargemycar.network.ChargeQuery
 import com.github.kovah101.chargemycar.savedDatabase.ChargeDatabase
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
+import com.google.android.gms.location.LocationRequest.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -197,9 +199,26 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
     // mutable live data that stores the limit parameter for query search, default to 10
     val limit = MutableLiveData<String>("10")
 
-    // TODO Remove radiogroup
+    // variables to two way set location priority from options menu
+    var locationPriority = PRIORITY_HIGH_ACCURACY
+    val priorityButton = MutableLiveData<Int>(R.id.highAccuracy)
+
     fun radioGroupTest(radioGroup: RadioGroup, id: Int) {
-        Timber.d("Radiobutton: $id has been clicked")
+        when(id){
+            R.id.highAccuracy -> {
+                //priorityButton.value = R.id.highAccuracy
+                locationPriority = PRIORITY_HIGH_ACCURACY
+            }
+            R.id.balanced -> {
+                //priorityButton.value = R.id.balanced
+                locationPriority = PRIORITY_BALANCED_POWER_ACCURACY
+            }
+            R.id.lowPower -> {
+               // priorityButton.value = R.id.lowPower
+                locationPriority = PRIORITY_LOW_POWER
+            }
+        }
+        Timber.d("location priority = $locationPriority")
     }
 
     // mutables to contain users location
