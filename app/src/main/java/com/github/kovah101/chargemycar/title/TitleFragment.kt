@@ -69,10 +69,10 @@ class TitleFragment : Fragment() {
     //  0- Setup (20m)
     //  1- Edit Title fragment to enable postcode or fake live location query (40m+30m+15m+35m) - no rigorous postcode test yet! although may come up as error in livelist?
     //  2- Add Geo-permissions and use true location (40m+50m+15m)
-    //  3- Create SavedMap Layout
-    //  4- Add Saved Points to SavedMap, define zoom, icon and onClick method
-    //  5- Create LiveMap Layout
-    //  6- Add Live Points to LiveMap, define zoom, icon and onClick method
+    //  3 - Maps Setup - add sdk, set up cloud console, add API key (10m+)
+    //  4- Create SavedMap Layout
+    //  5- Add Saved Points to SavedMap, define zoom, icon and onClick method
+    //  6- Create LiveMap Layout & add Live Points to LiveMap, define zoom, icon and onClick method
     //  7- create postcode checker and formatter
     //  8- Options menu accuracy/power option (20m)
 
