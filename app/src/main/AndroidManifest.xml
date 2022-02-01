@@ -37,7 +37,12 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-<!--        <service android:name="MyNavService"-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
+
+        <!--        <service android:name="MyNavService"-->
 <!--            android:foregroundServiceType="location"-->
 <!--            />-->
     </application>
