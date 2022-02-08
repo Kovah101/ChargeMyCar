@@ -70,10 +70,10 @@ class TitleFragment : Fragment() {
     //  1- Edit Title fragment to enable postcode or fake live location query (40m+30m+15m+35m) - no rigorous postcode test yet! although may come up as error in livelist?
     //  2- Add Geo-permissions and use true location (40m+50m+15m)
     //  3 - Maps Setup - add sdk, set up cloud console, add API key (10m+40m)
-    //  4- Create SavedMap Layout
-    //  5- Add Saved Points to SavedMap, define zoom, icon and onClick method
-    //  6- Create LiveMap Layout & add Live Points to LiveMap, define zoom, icon and onClick method
-    //  7- create postcode checker and formatter
+    //  4- Create SavedMap Layout (25m)
+    //  5- Add Saved Points to SavedMap, define zoom & center, icon and onClick method (35m+30m)
+    //  6- Create LiveMap Layout & add Live Points to LiveMap, define zoom, icon and onClick method, center on user
+    //  7- create postcode checker and formatter, savedMap center on average of saved points
     //  8- Options menu accuracy/power option (20m)
 
     // TODO: Phase 5  - Polish & testing, test large lists for null point errors in query result, change charge point lat & long to doubles, refactor title buttons as lots of duplicate code, options for location priority

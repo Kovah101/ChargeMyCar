@@ -3,17 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".savedChargePoints.SavedMapFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/titleConstraint"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <!-- TODO: Place Holder -->
-    <TextView
+    <androidx.fragment.app.FragmentContainerView xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/savedMap"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/saved_map_fragment" />
+        />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    TODO: Test different map settings & bind to options menu, try lite mode?-->
+
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:id="@+id/titleConstraint"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
+
+    <!--    &lt;!&ndash; TODO: Place Holder &ndash;&gt;-->
+    <!--    <TextView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:text="@string/saved_map_fragment" />-->
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 </layout>
