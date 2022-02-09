@@ -39,12 +39,17 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
         // set action bar title
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.savedMap)
 
+        // shared viewmodel
+        val savedPointsViewModel: ChargePointViewModel by activityViewModels()
+
+        val savedChargePoints = savedPointsViewModel.chargePoints
+
         // use childFragmentManager instead of supportFragmentManager due to being in child fragment
         val mapFragment = childFragmentManager.findFragmentById(R.id.savedMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        // shared viewmodel
-        val savedPointsViewModel: ChargePointViewModel by activityViewModels()
+
+
 
         binding.lifecycleOwner = this
 
@@ -63,15 +68,21 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-//        val centerLondon = LatLng(51.509865, -0.118092)
-//        val towerLondon = LatLng(51.508530, -0.076132)
-//        googleMap.isMyLocationEnabled = true
-//        val myLat = googleMap.myLocation.latitude
-//        val myLong = googleMap.myLocation.longitude
-//        val myLocation = LatLng(myLat,myLong)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(48.8,2.35)))
-        googleMap.moveCamera(CameraUpdateFactory.zoomTo(8f))
-//        googleMap.addMarker(MarkerOptions().position(towerLondon).title("Tower of London"))
-
+        // center map on London TODO:  center on average location add more options and animations
+        val centerLondon = LatLng(51.509865, -0.118092)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerLondon, 13f))
+        // add markers for each saved charge point
+        // TODO customise icon + add onClick behaviour
+        val savedPointsViewModel: ChargePointViewModel by activityViewModels()
+        val savedChargePoints = savedPointsViewModel.chargePoints.value
+        savedChargePoints?.forEach { chargePoint ->
+            val cpLocation =
+                LatLng(chargePoint.latitude.toDouble(), chargePoint.longitude.toDouble())
+            val cpName = chargePoint.postcode
+            googleMap.addMarker(
+                MarkerOptions().position(cpLocation)
+                    .title(cpName)
+            )
+        }
     }
 }
