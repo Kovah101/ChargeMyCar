@@ -69,13 +69,15 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         // center map on London TODO:  center on average location add more options and animations
-        val centerLondon = LatLng(51.509865, -0.118092)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerLondon, 13f))
+        var centerLat = 0.0
+        var centerLong = 0.0
         // add markers for each saved charge point
         // TODO customise icon + add onClick behaviour
         val savedPointsViewModel: ChargePointViewModel by activityViewModels()
         val savedChargePoints = savedPointsViewModel.chargePoints.value
         savedChargePoints?.forEach { chargePoint ->
+            centerLat += chargePoint.latitude.toDouble()
+            centerLong += chargePoint.longitude.toDouble()
             val cpLocation =
                 LatLng(chargePoint.latitude.toDouble(), chargePoint.longitude.toDouble())
             val cpName = chargePoint.postcode
@@ -84,5 +86,14 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
                     .title(cpName)
             )
         }
+        if (savedChargePoints != null) {
+            centerLat /= savedChargePoints.size
+            centerLong /= savedChargePoints.size
+        } else {
+            centerLat = 51.509865
+            centerLong = -0.118092
+        }
+        val centerLondon = LatLng(centerLat, centerLong)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerLondon, 14f))
     }
 }

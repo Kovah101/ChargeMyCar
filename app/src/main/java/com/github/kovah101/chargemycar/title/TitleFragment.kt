@@ -116,45 +116,45 @@ class TitleFragment : Fragment() {
                 }
             }
 
+        when {
+            ContextCompat.checkSelfPermission(
+                activity as AppCompatActivity,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                // App has permission
+                // find current location and display it in log
+                // different priority types for different power + accuracy demands
+                val cancelTokenSource = CancellationTokenSource()
+                fusedLocationClient.getCurrentLocation(
+                    livePointsViewModel.locationPriority,
+                    cancelTokenSource.token
+                ).addOnSuccessListener { location: Location? ->
+                    if (location != null) {
+                        userLat = location.latitude
+                        userLong = location.longitude
+                        Timber.d("Users location is: $userLat,$userLong")
+                        livePointsViewModel.myLatitude.value = userLat
+                        livePointsViewModel.myLongitude.value = userLong
+                    } else { // TODO deal with null - sandwich bar pop up & refactor duplicate code in buttons
+                        Timber.d("location is null, may be turned off in settings")
+                    }
+                }
+            }
+            shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                // explain to the user why app needs fine location to find nearest charge points
+                binding.permissionsRequest.visibility = View.VISIBLE
+            }
+            else -> { // directly ask for the permission
+                requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+        }
+
         // set button click listeners
         // Nearest live charge points
         binding.liveChargePoints.setOnClickListener { view ->
-            // check if location permission has been granted, if not ask for it, if no display message
-            when {
-                ContextCompat.checkSelfPermission(
-                    activity as AppCompatActivity,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED -> {
-                    // App has permission
-                    livePointsViewModel.useLocation.value = true
-                    // find current location and display it in log
-                    // different priority types for different power + accuracy demands
-                    val cancelTokenSource = CancellationTokenSource()
-                    fusedLocationClient.getCurrentLocation(
-                        livePointsViewModel.locationPriority,
-                        cancelTokenSource.token
-                    ).addOnSuccessListener { location: Location? ->
-                        if (location != null) {
-                            userLat = location.latitude
-                            userLong = location.longitude
-                            Timber.d("Users location is: $userLat,$userLong")
-                            livePointsViewModel.myLatitude.value = userLat
-                            livePointsViewModel.myLongitude.value = userLong
-                            view.findNavController()
-                                .navigate(R.id.action_titleFragment_to_liveListFragment)
-                        } else { // TODO deal with null - sandwich bar pop up
-                            Timber.d("location is null, may be turned off in settings")
-                        }
-                    }
-                }
-                shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION) -> {
-                    // explain to the user why app needs fine location to find nearest charge points
-                    binding.permissionsRequest.visibility = View.VISIBLE
-                }
-                else -> { // directly ask for the permission
-                    requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                }
-            }
+            // confirm to viewmodel we are using live location
+            livePointsViewModel.useLocation.value = true
+            view.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
         }
 
         // Local live charge points
@@ -168,43 +168,9 @@ class TitleFragment : Fragment() {
 
         // Favourite charge points
         binding.favouriteChargePoints.setOnClickListener { view ->
-            // check if location permission has been granted, if not ask for it, if no display message
-            when {
-                ContextCompat.checkSelfPermission(
-                    activity as AppCompatActivity,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED -> {
-                    // App has permission
-                    livePointsViewModel.useLocation.value = true
-                    // find current location and display it in log
-                    // different priority types for different power + accuracy demands
-                    val cancelTokenSource = CancellationTokenSource()
-                    fusedLocationClient.getCurrentLocation(
-                        livePointsViewModel.locationPriority,
-                        cancelTokenSource.token
-                    ).addOnSuccessListener { location: Location? ->
-                        if (location != null) {
-                            userLat = location.latitude
-                            userLong = location.longitude
-                            Timber.d("Users location is: $userLat,$userLong")
-                            livePointsViewModel.myLatitude.value = userLat
-                            livePointsViewModel.myLongitude.value = userLong
-                            view.findNavController()
-                                .navigate(R.id.action_titleFragment_to_savedListFragment)
-                        } else { // TODO deal with null - sandwich bar pop up & refactor duplicate code in buttons
-                            Timber.d("location is null, may be turned off in settings")
-                        }
-                    }
-                }
-                shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION) -> {
-                    // explain to the user why app needs fine location to find nearest charge points
-                    binding.permissionsRequest.visibility = View.VISIBLE
-                }
-                else -> { // directly ask for the permission
-                    requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                }
-            }
-
+            // confirm to viewmodel we are using live location
+            livePointsViewModel.useLocation.value = true
+            view.findNavController().navigate(R.id.action_titleFragment_to_savedListFragment)
         }
 
         // Allow permissions button

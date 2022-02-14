@@ -238,6 +238,7 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
             try {
                 _response.value = "Loading"
                 val chargeQuery: ChargeQuery?
+                // check if using live location or using static postcode
                 if (useLocation.value == true) {
                         chargeQuery = ChargeApi.retrofitService.getChargeQueryObjectLocation(
                             myLatitude.value.toString(),
@@ -245,7 +246,7 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
                             distance.value.toString(),
                             limit.value.toString()
                         )
-                } else {
+                } else { // using postcode
                      chargeQuery = ChargeApi.retrofitService.getChargeQueryObjectPostcode(
                         postcode.value.toString(),
                         distance.value.toString(),
