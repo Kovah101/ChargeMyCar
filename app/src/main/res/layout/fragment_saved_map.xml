@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".savedChargePoints.SavedMapFragment">
 
+    <data>
+        <variable
+            name="savedPointsViewModel"
+            type="com.github.kovah101.chargemycar.viewModel.ChargePointViewModel" />
+    </data>
+
     <androidx.fragment.app.FragmentContainerView xmlns:map="http://schemas.android.com/apk/res-auto"
         android:id="@+id/savedMap"
         android:name="com.google.android.gms.maps.SupportMapFragment"

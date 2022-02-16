@@ -41,19 +41,17 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
         // set action bar title
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.savedMap)
 
-        // shared viewmodel
+        // shared viewModel
         val savedPointsViewModel: ChargePointViewModel by activityViewModels()
-
-        val savedChargePoints = savedPointsViewModel.chargePoints
-
-        // use childFragmentManager instead of supportFragmentManager due to being in child fragment
-        val mapFragment = childFragmentManager.findFragmentById(R.id.savedMap) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-
+        binding.savedPointsViewModel = savedPointsViewModel
         binding.lifecycleOwner = this
 
+        // map fragment initialised after charge points have been observed
         savedPointsViewModel.chargePoints.observe(viewLifecycleOwner, Observer {
             Timber.d(" 1 - map points observed")
+            // use childFragmentManager instead of supportFragmentManager due to being in child fragment
+            val mapFragment = childFragmentManager.findFragmentById(R.id.savedMap) as SupportMapFragment
+            mapFragment.getMapAsync(this)
         })
 
         return binding.root
@@ -77,51 +75,49 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
         // add markers for each saved charge point
         // TODO customise icon + add onClick behaviour
         val savedPointsViewModel: ChargePointViewModel by activityViewModels()
-        savedPointsViewModel.chargePoints.observe(viewLifecycleOwner, Observer {
-            it.forEach { chargePoint ->
-                centerLat += chargePoint.latitude.toDouble()
-                centerLong += chargePoint.longitude.toDouble()
-                val cpLocation =
-                    LatLng(chargePoint.latitude.toDouble(), chargePoint.longitude.toDouble())
-                val cpName = chargePoint.postcode
-                googleMap.addMarker(
-                    MarkerOptions().position(cpLocation)
-                        .title(cpName)
-                )
-            }
-            centerLat /= it.size
-            centerLong /= it.size
-            Timber.d("2A - map points - center on: $centerLat, $centerLong")
-//            val centerLondon = LatLng(centerLat, centerLong)
-//            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerLondon, 14f))
-        })
-        if (centerLat == 0.0){
-            Timber.d("2B - map points - charge points == null, $centerLat + $centerLong")
-            centerLat = 51.509865
-            centerLong = -0.118092
-
-        }
-//        val savedChargePoints = savedPointsViewModel.chargePoints.value
-//        savedChargePoints?.forEach { chargePoint ->
-//            centerLat += chargePoint.latitude.toDouble()
-//            centerLong += chargePoint.longitude.toDouble()
-//            val cpLocation =
-//                LatLng(chargePoint.latitude.toDouble(), chargePoint.longitude.toDouble())
-//            val cpName = chargePoint.postcode
-//            googleMap.addMarker(
-//                MarkerOptions().position(cpLocation)
-//                    .title(cpName)
-//            )
-//        }
-//        if (savedChargePoints != null) {
-//            centerLat /= savedChargePoints.size
-//            centerLong /= savedChargePoints.size
-//            Timber.d("Will center map on: $centerLat, $centerLong")
-//        } else {
+//        savedPointsViewModel.chargePoints.observe(viewLifecycleOwner, Observer {
+//            it.forEach { chargePoint ->
+//                centerLat += chargePoint.latitude.toDouble()
+//                centerLong += chargePoint.longitude.toDouble()
+//                val cpLocation =
+//                    LatLng(chargePoint.latitude.toDouble(), chargePoint.longitude.toDouble())
+//                val cpName = chargePoint.postcode
+//                googleMap.addMarker(
+//                    MarkerOptions().position(cpLocation)
+//                        .title(cpName)
+//                )
+//            }
+//            centerLat /= it.size
+//            centerLong /= it.size
+//            Timber.d("2A - map points - center on: $centerLat, $centerLong")
+//        })
+//        if (centerLat == 0.0){
+//            Timber.d("2B - map points - charge points == null, $centerLat + $centerLong")
 //            centerLat = 51.509865
 //            centerLong = -0.118092
-//            Timber.d("Will center map on: $centerLat, $centerLong")
+//
 //        }
+        val savedChargePoints = savedPointsViewModel.chargePoints.value
+        savedChargePoints?.forEach { chargePoint ->
+            centerLat += chargePoint.latitude.toDouble()
+            centerLong += chargePoint.longitude.toDouble()
+            val cpLocation =
+                LatLng(chargePoint.latitude.toDouble(), chargePoint.longitude.toDouble())
+            val cpName = chargePoint.postcode
+            googleMap.addMarker(
+                MarkerOptions().position(cpLocation)
+                    .title(cpName)
+            )
+        }
+        if (savedChargePoints != null) {
+            centerLat /= savedChargePoints.size
+            centerLong /= savedChargePoints.size
+            Timber.d("map points - center on: $centerLat, $centerLong")
+        } else {
+            centerLat = 51.509865
+            centerLong = -0.118092
+            Timber.d("chargePoints == null map points on: $centerLat, $centerLong")
+        }
         val centerLondon = LatLng(centerLat, centerLong)
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerLondon, 14f))
     }
