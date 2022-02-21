@@ -71,7 +71,7 @@ class TitleFragment : Fragment() {
     //  2- Add Geo-permissions and use true location (40m+50m+15m)
     //  3 - Maps Setup - add sdk, set up cloud console, add API key (10m+40m)
     //  4- Create SavedMap Layout (25m)
-    //  5- Add Saved Points to SavedMap, define zoom & center on average, icon and onClick method + add user location to title fragment (35m+30m+20+30m+20m)
+    //  5- Add Saved Points to SavedMap, define zoom & center on average, icon and onClick method + add user location to title fragment (35m+30m+20+30m+20m+20m)
     //  6- Create LiveMap Layout & add Live Points to LiveMap, define zoom, icon and onClick method, center on user
     //  7- create postcode checker and formatter,
     //  8- Options menu accuracy/power option (20m)

@@ -1,5 +1,8 @@
 package com.github.kovah101.chargemycar.savedChargePoints
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +17,8 @@ import com.github.kovah101.chargemycar.databinding.FragmentSavedMapBinding
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import timber.log.Timber
@@ -73,7 +78,7 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
         var centerLat = 0.0
         var centerLong = 0.0
         // add markers for each saved charge point
-        // TODO customise icon + add onClick behaviour
+        // TODO customise marker, info window + add onClick event
         val savedPointsViewModel: ChargePointViewModel by activityViewModels()
 //        savedPointsViewModel.chargePoints.observe(viewLifecycleOwner, Observer {
 //            it.forEach { chargePoint ->
@@ -101,12 +106,14 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
         savedChargePoints?.forEach { chargePoint ->
             centerLat += chargePoint.latitude.toDouble()
             centerLong += chargePoint.longitude.toDouble()
+            val smallMarker = makeSmallMarker()
             val cpLocation =
                 LatLng(chargePoint.latitude.toDouble(), chargePoint.longitude.toDouble())
             val cpName = chargePoint.postcode
             googleMap.addMarker(
                 MarkerOptions().position(cpLocation)
                     .title(cpName)
+                    .icon(smallMarker)
             )
         }
         if (savedChargePoints != null) {
@@ -120,5 +127,13 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
         }
         val centerLondon = LatLng(centerLat, centerLong)
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerLondon, 14f))
+    }
+
+    private fun makeSmallMarker(): BitmapDescriptor {
+        val height = 100
+        val width = 100
+        val icon = BitmapFactory.decodeResource(resources,R.drawable.cp_map_icon)
+        val smallIcon = Bitmap.createScaledBitmap(icon,width,height, false)
+        return BitmapDescriptorFactory.fromBitmap(smallIcon)
     }
 }
