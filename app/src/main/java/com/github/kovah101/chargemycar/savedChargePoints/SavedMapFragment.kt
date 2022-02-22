@@ -17,10 +17,7 @@ import com.github.kovah101.chargemycar.databinding.FragmentSavedMapBinding
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import timber.log.Timber
 
 /**
@@ -74,38 +71,24 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        // center map on London TODO:  fix first load bug & add animations, try with database??
+       // setup map fragment controls
+        googleMap.uiSettings.isZoomControlsEnabled = true
+        googleMap.uiSettings.isZoomGesturesEnabled = true
+        googleMap.uiSettings.isMapToolbarEnabled = true
+        googleMap.uiSettings.isScrollGesturesEnabled = true
+        googleMap.isMyLocationEnabled = true
+        // center map on London TODO:  clean up average position
         var centerLat = 0.0
         var centerLong = 0.0
+        val builder = LatLngBounds.builder()
         // add markers for each saved charge point
-        // TODO customise marker, info window + add onClick event
+        // TODO info window + onClick??
         val savedPointsViewModel: ChargePointViewModel by activityViewModels()
-//        savedPointsViewModel.chargePoints.observe(viewLifecycleOwner, Observer {
-//            it.forEach { chargePoint ->
-//                centerLat += chargePoint.latitude.toDouble()
-//                centerLong += chargePoint.longitude.toDouble()
-//                val cpLocation =
-//                    LatLng(chargePoint.latitude.toDouble(), chargePoint.longitude.toDouble())
-//                val cpName = chargePoint.postcode
-//                googleMap.addMarker(
-//                    MarkerOptions().position(cpLocation)
-//                        .title(cpName)
-//                )
-//            }
-//            centerLat /= it.size
-//            centerLong /= it.size
-//            Timber.d("2A - map points - center on: $centerLat, $centerLong")
-//        })
-//        if (centerLat == 0.0){
-//            Timber.d("2B - map points - charge points == null, $centerLat + $centerLong")
-//            centerLat = 51.509865
-//            centerLong = -0.118092
-//
-//        }
+
         val savedChargePoints = savedPointsViewModel.chargePoints.value
         savedChargePoints?.forEach { chargePoint ->
-            centerLat += chargePoint.latitude.toDouble()
-            centerLong += chargePoint.longitude.toDouble()
+//            centerLat += chargePoint.latitude.toDouble()
+//            centerLong += chargePoint.longitude.toDouble()
             val smallMarker = makeSmallMarker()
             val cpLocation =
                 LatLng(chargePoint.latitude.toDouble(), chargePoint.longitude.toDouble())
@@ -113,25 +96,31 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
             googleMap.addMarker(
                 MarkerOptions().position(cpLocation)
                     .title(cpName)
+                    .snippet(chargePoint.chargePointStatus)
                     .icon(smallMarker)
             )
+            builder.include(cpLocation)
         }
         if (savedChargePoints != null) {
-            centerLat /= savedChargePoints.size
-            centerLong /= savedChargePoints.size
+//            centerLat /= savedChargePoints.size
+//            centerLong /= savedChargePoints.size
             Timber.d("map points - center on: $centerLat, $centerLong")
         } else {
-            centerLat = 51.509865
-            centerLong = -0.118092
+//            centerLat = 51.509865
+//            centerLong = -0.118092
             Timber.d("chargePoints == null map points on: $centerLat, $centerLong")
         }
-        val centerLondon = LatLng(centerLat, centerLong)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerLondon, 14f))
+//        val centerMap = LatLng(centerLat, centerLong)
+        //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(centerMap, 14f))
+        val bounds = builder.build()
+        val padding = 264
+        val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
+        googleMap.animateCamera(cameraUpdate)
     }
 
     private fun makeSmallMarker(): BitmapDescriptor {
-        val height = 100
-        val width = 100
+        val height = 198
+        val width = 144
         val icon = BitmapFactory.decodeResource(resources,R.drawable.cp_map_icon)
         val smallIcon = Bitmap.createScaledBitmap(icon,width,height, false)
         return BitmapDescriptorFactory.fromBitmap(smallIcon)
