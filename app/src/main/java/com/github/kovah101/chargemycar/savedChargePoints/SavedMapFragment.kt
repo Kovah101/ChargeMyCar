@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentSavedMapBinding
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
+import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
@@ -82,21 +83,21 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
         var centerLong = 0.0
         val builder = LatLngBounds.builder()
         // add markers for each saved charge point
-        // TODO info window + onClick??
+        // TODO custom info window for colourblind + onClick??
         val savedPointsViewModel: ChargePointViewModel by activityViewModels()
 
         val savedChargePoints = savedPointsViewModel.chargePoints.value
         savedChargePoints?.forEach { chargePoint ->
 //            centerLat += chargePoint.latitude.toDouble()
 //            centerLong += chargePoint.longitude.toDouble()
-            val smallMarker = makeSmallMarker()
+            val smallMarker = makeSmallMarker(chargePoint)
             val cpLocation =
                 LatLng(chargePoint.latitude.toDouble(), chargePoint.longitude.toDouble())
             val cpName = chargePoint.postcode
             googleMap.addMarker(
                 MarkerOptions().position(cpLocation)
                     .title(cpName)
-                    .snippet(chargePoint.chargePointStatus)
+                    .snippet(chargePoint.connectorType)
                     .icon(smallMarker)
             )
             builder.include(cpLocation)
@@ -118,10 +119,16 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
         googleMap.animateCamera(cameraUpdate)
     }
 
-    private fun makeSmallMarker(): BitmapDescriptor {
+    private fun makeSmallMarker(chargePoint: ChargePoint): BitmapDescriptor {
         val height = 198
         val width = 144
-        val icon = BitmapFactory.decodeResource(resources,R.drawable.cp_map_icon)
+        var icon = BitmapFactory.decodeResource(resources,R.drawable.cp_map_icon)
+        if(chargePoint.chargePointStatus == "In service") {
+             icon = BitmapFactory.decodeResource(resources,R.drawable.cp_map_icon)
+            Timber.d("Out of Service!")
+        } else {
+            icon = BitmapFactory.decodeResource(resources,R.drawable.cp_map_icon_false)
+        }
         val smallIcon = Bitmap.createScaledBitmap(icon,width,height, false)
         return BitmapDescriptorFactory.fromBitmap(smallIcon)
     }
