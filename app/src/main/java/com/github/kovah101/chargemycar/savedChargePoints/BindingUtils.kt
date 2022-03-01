@@ -66,6 +66,9 @@ fun bindStatus(view: View, status: ChargeQueryAPIStatus?){
                 R.id.liveList -> view.visibility = View.VISIBLE
                 R.id.chargeString -> view.visibility = View.GONE
                 R.id.statusImage -> view.visibility = View.GONE
+                R.id.liveMap -> view.visibility = View.VISIBLE
+                R.id.chargeStringMap -> view.visibility = View.GONE
+                R.id.statusImageMap -> view.visibility = View.GONE
             }
         }
         ChargeQueryAPIStatus.ERROR -> {
@@ -73,6 +76,9 @@ fun bindStatus(view: View, status: ChargeQueryAPIStatus?){
                 R.id.liveList -> view.visibility = View.GONE
                 R.id.chargeString -> view.visibility = View.VISIBLE
                 R.id.statusImage -> view.visibility = View.VISIBLE
+                R.id.liveMap -> view.visibility = View.GONE
+                R.id.chargeStringMap -> view.visibility = View.VISIBLE
+                R.id.statusImageMap -> view.visibility = View.VISIBLE
             }
         }
         ChargeQueryAPIStatus.LOADING -> {
@@ -80,6 +86,9 @@ fun bindStatus(view: View, status: ChargeQueryAPIStatus?){
                 R.id.liveList -> view.visibility = View.GONE
                 R.id.chargeString -> view.visibility = View.VISIBLE
                 R.id.statusImage -> view.visibility = View.VISIBLE
+                R.id.liveMap -> view.visibility = View.GONE
+                R.id.chargeStringMap -> view.visibility = View.VISIBLE
+                R.id.statusImageMap -> view.visibility = View.VISIBLE
 
             }
         }
