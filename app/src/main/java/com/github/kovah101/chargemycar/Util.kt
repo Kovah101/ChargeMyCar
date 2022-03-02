@@ -12,6 +12,7 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.github.kovah101.chargemycar.network.ChargeQueryPoint
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
+import java.util.regex.Pattern
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.roundToInt
@@ -64,6 +65,12 @@ fun postcodeQueryString(postcode: Editable): String {
     postcodeQuery = postcodeQuery.replace(" ", "")
     // check if correct format else return error
     return postcodeQuery
+}
+// TODO add regex pattern check for short postcodes
+fun postcodeChecker(postcode: String) : Boolean {
+    val pattern = Pattern.compile("^[A-Z]{1,2}[0-9][A-Z0-9]? ?([0-9][A-Z]{2})?$", Pattern.CASE_INSENSITIVE)
+
+    return pattern.matcher(postcode).matches()
 }
 
 fun distanceToChargePoint(

@@ -16,12 +16,14 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
+import com.github.kovah101.chargemycar.postcodeChecker
 import com.github.kovah101.chargemycar.postcodeQueryString
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 
 
@@ -65,18 +67,20 @@ class TitleFragment : Fragment() {
     //  6- Create Options layout to adjust URI search parameters - Distance & Limit DONE (30m+ 60m+ 15m)
     //  7- Add Error handling on QueryAPI through livedata enum that controls view visibility (45m+25m)
 
-    // TODO: Phase 5 - Geo Permissions & map fragments (estimate 8 hours)
+    // TODO: Phase 5 - Geo Permissions & map fragments (Total 10 hours 10m)
     //  0- Setup (20m)
-    //  1- Edit Title fragment to enable postcode or fake live location query (40m+30m+15m+35m) - no rigorous postcode test yet! although may come up as error in livelist?
-    //  2- Add Geo-permissions and use true location (40m+50m+15m)
-    //  3 - Maps Setup - add sdk, set up cloud console, add API key (10m+40m)
+    //  1- Edit Title fragment to enable postcode or fake live location query (2hr)
+    //  2- Add Geo-permissions and use true location (1hr 45m)
+    //  3 - Maps Setup - add sdk, set up cloud console, add API key (50m)
     //  4- Create SavedMap Layout (25m)
-    //  5- Add Saved Points to SavedMap, define zoom & center on average, icon and onClick method + add user location to title fragment (35m+30m+20+30m+20m+20m+30m+25m)
-    //  6- Create LiveMap Layout & add Live Points to LiveMap, define zoom, icon and onClick method, center on user, fixed straight to map bug with default useLocation in title (25m+25m)
-    //  7- create postcode checker and formatter
+    //  5- Add Saved Points to SavedMap, define zoom & center on average, icon and onClick method + add user location to title fragment (3hr 30m)
+    //  6- Create LiveMap Layout & add Live Points to LiveMap, define zoom, icon and onClick method, center on user, fixed straight to map bug with default useLocation in title (50m)
+    //  7- create postcode checker and formatter (15m)
     //  8- Options menu accuracy/power option (20m)
 
-    // TODO: Phase 5  - Polish & testing, test large lists for null point errors in query result, change charge point lat & long to doubles, custom map info windows?
+    // TOTAL TIME: 36 hours 15m
+
+    // TODO: Phase 5  - Polish & testing, remove add data from saved list, test large lists for null point errors in query result, change charge point lat & long to doubles, custom map info windows?
 
     private var userLat = 0.0
     private var userLong = -0.0
@@ -162,10 +166,19 @@ class TitleFragment : Fragment() {
         binding.postcodeChargePoints.setOnClickListener { view ->
             // change to using postcode mode
             livePointsViewModel.useLocation.value = false
+            // remove spaces from input string
             val postcodeString = postcodeQueryString(binding.Postcode.text)
-            //TODO Add postcode checker/ formatter
-            livePointsViewModel.postcode.value = postcodeString
-            view.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
+            val correctPostcode = postcodeChecker(postcodeString)
+            if (correctPostcode){
+                livePointsViewModel.postcode.value = postcodeString
+                view.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
+            } else {
+                Snackbar.make(
+                    requireActivity().findViewById(android.R.id.content),
+                    getString(R.string.postcodeWrong),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
         }
 
         // Favourite charge points
