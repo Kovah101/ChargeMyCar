@@ -253,7 +253,6 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
                         limit.value.toString()
                     )
                 }
-
                 _listOfChargePoints.value = convertChargePoints(chargeQuery.chargeDevices)
                 _status.value = ChargeQueryAPIStatus.DONE
                 // var responseString = chargeQuery.scheme.SchemeCode

@@ -22,6 +22,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import kotlinx.coroutines.delay
 import timber.log.Timber
 
 
@@ -53,30 +54,18 @@ class LiveMapFragment : Fragment(), OnMapReadyCallback {
         binding.livePointsViewModel = livePointViewModel
         binding.lifecycleOwner = this
 
-        livePointViewModel.status.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                ChargeQueryAPIStatus.LOADING -> Timber.d("0 - map points query loading")
-                ChargeQueryAPIStatus.DONE -> {
-                    Timber.d("0 - map points query complete")
-                    livePointViewModel.listOfChargePoints.observe(viewLifecycleOwner, Observer {
-                       it?.let {
-                           Timber.d("1 - map points observed")
-                           when{
-                               it.isEmpty() -> Timber.d("2.1- map points live charge point size:${it.size}")
-                               it.isNotEmpty() -> generateMap()
-                           }
-                       }
-                       // Timber.d("2- map points live charge point size:${it.size}")
-
-                        // use childFragmentManager instead of supportFragmentManager due to being in child fragment
-//            val mapFragment = childFragmentManager.findFragmentById(R.id.liveMap) as SupportMapFragment
-//            mapFragment.getMapAsync(this)
-                    })
-
+        // observe live list of charge points and generate map when it is
+        livePointViewModel.listOfChargePoints.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when {
+                    it.isNotEmpty() -> {
+                        val mapFragment =
+                            childFragmentManager.findFragmentById(R.id.liveMap) as SupportMapFragment
+                        mapFragment.getMapAsync(this)
+                    }
                 }
             }
         })
-
 
         return binding.root
     }
@@ -105,12 +94,12 @@ class LiveMapFragment : Fragment(), OnMapReadyCallback {
         val builder = LatLngBounds.builder()
         val myLocation =
             LatLng(livePointsViewModel.myLatitude.value!!, livePointsViewModel.myLongitude.value!!)
-        builder.include(myLocation)
-        Timber.d("2.2- map points live charge point size:${livePointsViewModel.listOfChargePoints.value?.size}")
+        if (livePointsViewModel.useLocation.value == true) {
+            builder.include(myLocation)
+        }
         // observe live charge points and create markers + add to builder
         livePointsViewModel.listOfChargePoints.observe(viewLifecycleOwner, Observer { list ->
             list?.forEach { chargePoint ->
-                Timber.d("3- map points live charge points real!")
                 val smallMarker = makeSmallMarker(chargePoint)
                 val cpLocation =
                     LatLng(chargePoint.latitude.toDouble(), chargePoint.longitude.toDouble())
@@ -124,27 +113,6 @@ class LiveMapFragment : Fragment(), OnMapReadyCallback {
                 builder.include(cpLocation)
             }
         })
-//        val liveChargePoints = livePointsViewModel.listOfChargePoints.value
-//        Timber.d("live charge points size: ${liveChargePoints?.size}")
-//        liveChargePoints?.forEach{ chargePoint ->
-//            Timber.d(" 2- map points live charge points real!")
-//            val smallMarker = makeSmallMarker(chargePoint)
-//            val cpLocation =
-//                LatLng(chargePoint.latitude.toDouble(), chargePoint.longitude.toDouble())
-//            val cpName = chargePoint.postcode
-//            googleMap.addMarker(
-//                MarkerOptions().position(cpLocation)
-//                    .title(cpName)
-//                    .snippet(chargePoint.connectorType)
-//                    .icon(smallMarker)
-//            )
-//            builder.include(cpLocation)
-//        }
-//        if (liveChargePoints != null){
-//            Timber.d("map points live charge points real!")
-//        } else {
-//            Timber.d("map points live charge points null!")
-//        }
         // create camera animation for all markers
         val bounds = builder.build()
         val padding = 264
@@ -155,7 +123,7 @@ class LiveMapFragment : Fragment(), OnMapReadyCallback {
     private fun makeSmallMarker(chargePoint: ChargePoint): BitmapDescriptor {
         val height = 198
         val width = 144
-        var icon = BitmapFactory.decodeResource(resources, R.drawable.cp_map_icon)
+        val icon: Bitmap
         if (chargePoint.chargePointStatus == "In service") {
             icon = BitmapFactory.decodeResource(resources, R.drawable.cp_map_icon)
             Timber.d("Out of Service!")
@@ -166,8 +134,4 @@ class LiveMapFragment : Fragment(), OnMapReadyCallback {
         return BitmapDescriptorFactory.fromBitmap(smallIcon)
     }
 
-    private fun generateMap() {
-        val mapFragment = childFragmentManager.findFragmentById(R.id.liveMap) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-    }
 }

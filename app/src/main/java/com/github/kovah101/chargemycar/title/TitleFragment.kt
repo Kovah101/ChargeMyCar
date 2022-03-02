@@ -72,7 +72,7 @@ class TitleFragment : Fragment() {
     //  3 - Maps Setup - add sdk, set up cloud console, add API key (10m+40m)
     //  4- Create SavedMap Layout (25m)
     //  5- Add Saved Points to SavedMap, define zoom & center on average, icon and onClick method + add user location to title fragment (35m+30m+20+30m+20m+20m+30m+25m)
-    //  6- Create LiveMap Layout & add Live Points to LiveMap, define zoom, icon and onClick method, center on user (25m+)
+    //  6- Create LiveMap Layout & add Live Points to LiveMap, define zoom, icon and onClick method, center on user, fixed straight to map bug with default useLocation in title (25m+25m)
     //  7- create postcode checker and formatter
     //  8- Options menu accuracy/power option (20m)
 
@@ -149,16 +149,18 @@ class TitleFragment : Fragment() {
             }
         }
 
+        // default to using live location
+        livePointsViewModel.useLocation.value = true
+
         // set button click listeners
         // Nearest live charge points
         binding.liveChargePoints.setOnClickListener { view ->
-            // confirm to viewmodel we are using live location
-            livePointsViewModel.useLocation.value = true
             view.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
         }
 
         // Local live charge points
         binding.postcodeChargePoints.setOnClickListener { view ->
+            // change to using postcode mode
             livePointsViewModel.useLocation.value = false
             val postcodeString = postcodeQueryString(binding.Postcode.text)
             //TODO Add postcode checker/ formatter
