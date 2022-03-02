@@ -3,10 +3,12 @@ package com.github.kovah101.chargemycar.title
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -75,10 +77,10 @@ class TitleFragment : Fragment() {
     //  4- Create SavedMap Layout (25m)
     //  5- Add Saved Points to SavedMap, define zoom & center on average, icon and onClick method + add user location to title fragment (3hr 30m)
     //  6- Create LiveMap Layout & add Live Points to LiveMap, define zoom, icon and onClick method, center on user, fixed straight to map bug with default useLocation in title (50m)
-    //  7- create postcode checker and formatter (15m)
+    //  7- create postcode checker and formatter (30m)
     //  8- Options menu accuracy/power option (20m)
 
-    // TOTAL TIME: 36 hours 15m
+    // TOTAL TIME: 36 hours 30m
 
     // TODO: Phase 5  - Polish & testing, remove add data from saved list, test large lists for null point errors in query result, change charge point lat & long to doubles, custom map info windows?
 
@@ -169,15 +171,22 @@ class TitleFragment : Fragment() {
             // remove spaces from input string
             val postcodeString = postcodeQueryString(binding.Postcode.text)
             val correctPostcode = postcodeChecker(postcodeString)
-            if (correctPostcode){
+            if (correctPostcode) {
                 livePointsViewModel.postcode.value = postcodeString
                 view.findNavController().navigate(R.id.action_titleFragment_to_liveListFragment)
             } else {
-                Snackbar.make(
+                // centralised snackbar message
+                val snackMessage = Snackbar.make(
                     requireActivity().findViewById(android.R.id.content),
                     getString(R.string.postcodeWrong),
                     Snackbar.LENGTH_SHORT
-                ).show()
+                )
+                val snackView = snackMessage.view
+                val snackText =
+                    snackView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+                snackText.gravity = Gravity.CENTER_HORIZONTAL
+                snackText.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                snackMessage.show()
             }
         }
 
