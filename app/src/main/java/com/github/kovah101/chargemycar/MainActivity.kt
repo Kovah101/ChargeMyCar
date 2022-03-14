@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.databinding.ActivityMainBinding
+import com.google.android.gms.ads.MobileAds
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
+
+        // set up mobile ads
+        MobileAds.initialize(this) {}
 
         // set action bar title
         this.supportActionBar?.setTitle(R.string.title)

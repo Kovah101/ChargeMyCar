@@ -107,4 +107,7 @@ dependencies {
 
     // Google Play Service - for maps SDK
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
+
+    // Google Ad Service
+    implementation 'com.google.android.gms:play-services-ads:20.6.0'
 }

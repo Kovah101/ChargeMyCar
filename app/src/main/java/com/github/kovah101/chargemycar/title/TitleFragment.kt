@@ -69,6 +69,8 @@ class TitleFragment : Fragment() {
     //  6- Create Options layout to adjust URI search parameters - Distance & Limit DONE (30m+ 60m+ 15m)
     //  7- Add Error handling on QueryAPI through livedata enum that controls view visibility (45m+25m)
 
+    // MVP in 26 hours 20m
+
     // TODO: Phase 5 - Geo Permissions & map fragments (Total 10 hours 10m)
     //  0- Setup (20m)
     //  1- Edit Title fragment to enable postcode or fake live location query (2hr)
