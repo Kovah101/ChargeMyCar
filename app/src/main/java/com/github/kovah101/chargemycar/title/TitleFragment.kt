@@ -21,6 +21,7 @@ import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
 import com.github.kovah101.chargemycar.postcodeChecker
 import com.github.kovah101.chargemycar.postcodeQueryString
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
+import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
 import com.google.android.gms.location.LocationServices
@@ -84,7 +85,9 @@ class TitleFragment : Fragment() {
 
     // TOTAL TIME: 36 hours 30m
 
-    // TODO: Phase 5  - Polish & testing, remove add data from saved list, test large lists for null point errors in query result, change charge point lat & long to doubles, custom map info windows?
+    // TODO: Phase 5  - Polish & testing, remove add data from saved list, test large lists for null point errors in query result, custom map info windows?
+    //  Add Google Adverts : Setup + test basic banner in title (20m), reproduce test ads in all fragments, turn basic banners to adaptive banners
+    //
 
     private var userLat = 0.0
     private var userLong = -0.0
@@ -113,6 +116,10 @@ class TitleFragment : Fragment() {
         binding.livePointsViewModel = livePointsViewModel
 
         binding.lifecycleOwner = this
+
+        // load advert banner
+        val adRequest = AdRequest.Builder().build()
+        binding.titleAd.loadAd(adRequest)
 
         // register the permissions callback and handle the users response
         val requestPermissionLauncher =

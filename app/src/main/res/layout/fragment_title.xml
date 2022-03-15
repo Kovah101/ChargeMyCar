@@ -20,16 +20,17 @@
             android:id="@+id/icon"
             android:layout_width="159dp"
             android:layout_height="146dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="48dp"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/Title" />
 
         <TextView
             android:id="@+id/Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
             android:text="@string/title_fragment"
             android:textColor="@color/green_500"
             android:textSize="34sp"
@@ -42,7 +43,7 @@
             android:id="@+id/liveChargePoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="40dp"
             android:text="Find Nearest Charge Points"
             app:layout_constraintBottom_toTopOf="@+id/Postcode"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,11 +79,24 @@
             android:id="@+id/favouriteChargePoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="48dp"
             android:text="Find Favourite Charge Points"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/postcodeChargePoints" />
+
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/titleAd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/permissionsRequest"
