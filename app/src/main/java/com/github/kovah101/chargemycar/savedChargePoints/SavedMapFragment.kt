@@ -17,6 +17,7 @@ import com.github.kovah101.chargemycar.databinding.FragmentSavedMapBinding
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
+import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import timber.log.Timber
@@ -48,6 +49,10 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
         val savedPointsViewModel: ChargePointViewModel by activityViewModels()
         binding.savedPointsViewModel = savedPointsViewModel
         binding.lifecycleOwner = this
+
+        // load advert banner
+        val adRequest = AdRequest.Builder().build()
+        binding.savedMapAd.loadAd(adRequest)
 
         // map fragment initialised after charge points have been observed
         savedPointsViewModel.chargePoints.observe(viewLifecycleOwner, Observer {

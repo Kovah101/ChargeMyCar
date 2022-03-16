@@ -17,6 +17,7 @@ import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import com.github.kovah101.chargemycar.viewModel.ChargeQueryAPIStatus
+import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -53,6 +54,10 @@ class LiveMapFragment : Fragment(), OnMapReadyCallback {
         // bind viewmodel to view
         binding.livePointsViewModel = livePointViewModel
         binding.lifecycleOwner = this
+
+        // load advert banner
+        val adRequest = AdRequest.Builder().build()
+        binding.liveMapAd.loadAd(adRequest)
 
         // observe live list of charge points and generate map when it is
         livePointViewModel.listOfChargePoints.observe(viewLifecycleOwner, Observer {

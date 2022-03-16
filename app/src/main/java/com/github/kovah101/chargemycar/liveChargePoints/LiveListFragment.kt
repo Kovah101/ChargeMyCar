@@ -39,12 +39,10 @@ class LiveListFragment : Fragment() {
 
         // shared viewmodel
         val livePointsViewModel: ChargePointViewModel by activityViewModels()
-        //val application = requireNotNull(this.activity).application
         // query for Charge Points on creation
         livePointsViewModel.getChargePointQuery()
 
         binding.livePointsViewModel = livePointsViewModel
-
         binding.lifecycleOwner = this
 
         // load advert banner

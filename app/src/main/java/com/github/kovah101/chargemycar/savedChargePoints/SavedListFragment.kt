@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentSavedListBinding
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
+import com.google.android.gms.ads.AdRequest
 import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 
@@ -36,13 +37,14 @@ class SavedListFragment : Fragment() {
         // set action bar title
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.savedList)
 
-
         // shared viewmodel
         val savedPointsViewModel: ChargePointViewModel by activityViewModels()
-
         binding.savedPointsViewModel = savedPointsViewModel
-
         binding.lifecycleOwner = this
+
+        // load advert banner
+        val adRequest = AdRequest.Builder().build()
+        binding.savedListAd.loadAd(adRequest)
 
         // Add an Observer for the SnackBar variable to initiate message
         savedPointsViewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {

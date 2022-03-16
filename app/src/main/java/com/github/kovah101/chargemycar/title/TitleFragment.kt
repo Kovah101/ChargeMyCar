@@ -85,8 +85,8 @@ class TitleFragment : Fragment() {
 
     // TOTAL TIME: 36 hours 30m
 
-    // TODO: Phase 5  - Polish & testing, remove add data from saved list, test large lists for null point errors in query result, custom map info windows?
-    //  Add Google Adverts : Setup + test basic banner in title (20m), reproduce test ads in all fragments (15m+), turn basic banners to adaptive banners
+    // TODO: Phase 5  - Polish & testing, remove add data from saved list, test large lists for null point errors in query result, custom map info windows, Refresh live list on pull down?
+    //  Add Google Adverts : Setup + test basic banner in title (20m), reproduce test ads in all fragments (15m+15m), turn basic banners to adaptive banners
     //
 
     private var userLat = 0.0
@@ -112,9 +112,7 @@ class TitleFragment : Fragment() {
 
         // shared viewmodel
         val livePointsViewModel: ChargePointViewModel by activityViewModels()
-
         binding.livePointsViewModel = livePointsViewModel
-
         binding.lifecycleOwner = this
 
         // load advert banner
