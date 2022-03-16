@@ -20,7 +20,8 @@
             android:id="@+id/liveMap"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            map:layout_constraintBottom_toTopOf="@+id/liveMapAd"/>
 
         <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/liveMapAd"
