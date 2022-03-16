@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentAboutBinding
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
+import com.google.android.gms.ads.AdRequest
 
 
 /**
@@ -27,6 +28,10 @@ class AboutFragment : Fragment() {
 
         // set action bar title
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.about)
+
+        // load advert banner
+        val adRequest = AdRequest.Builder().build()
+        binding.aboutAd.loadAd(adRequest)
 
         return binding.root
     }

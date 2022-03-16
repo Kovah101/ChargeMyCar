@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentLiveListBinding
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
+import com.google.android.gms.ads.AdRequest
 import timber.log.Timber
 
 /**
@@ -45,6 +46,10 @@ class LiveListFragment : Fragment() {
         binding.livePointsViewModel = livePointsViewModel
 
         binding.lifecycleOwner = this
+
+        // load advert banner
+        val adRequest = AdRequest.Builder().build()
+        binding.liveListAd.loadAd(adRequest)
 
         // create adapter with maps intent and favourite handler
         val adapter = LivePointAdapter(livePointsViewModel.myLatitude.value,livePointsViewModel.myLongitude.value,LivePointAdapter.ChargePointListener { chargeLat, chargeLong ->

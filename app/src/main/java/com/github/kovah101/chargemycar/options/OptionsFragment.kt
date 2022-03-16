@@ -12,6 +12,7 @@ import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentOptionsBinding
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
+import com.google.android.gms.ads.AdRequest
 
 /**
  * Options for Charge Point Query, saved to preferences
@@ -36,6 +37,10 @@ class OptionsFragment : Fragment() {
         binding.livePointsViewModel = livePointsViewModel
 
         binding.lifecycleOwner = this
+
+        // load advert banner
+        val adRequest = AdRequest.Builder().build()
+        binding.optionsAd.loadAd(adRequest)
 
         return binding.root
     }
