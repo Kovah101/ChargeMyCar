@@ -3,6 +3,7 @@ package com.github.kovah101.chargemycar.title
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -22,6 +23,7 @@ import com.github.kovah101.chargemycar.postcodeChecker
 import com.github.kovah101.chargemycar.postcodeQueryString
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
 import com.google.android.gms.location.LocationServices
@@ -115,6 +117,21 @@ class TitleFragment : Fragment() {
         binding.livePointsViewModel = livePointsViewModel
         binding.lifecycleOwner = this
 
+        // calculate adWidth
+        val display = context?.display
+        val outMetrics = DisplayMetrics()
+        display?.getMetrics(outMetrics)
+
+        val density = outMetrics.density
+
+//        var adWidthPixels = title_ad_container.width.toFloat()
+//        if (adWidthPixels == 0) {
+            val adWidthPixels = outMetrics.widthPixels.toFloat()
+//        }
+
+        val adWidth = (adWidthPixels / density).toInt()
+
+        livePointsViewModel.adSize = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context as AppCompatActivity, adWidth)
         // load advert banner
         val adRequest = AdRequest.Builder().build()
         binding.titleAd.loadAd(adRequest)

@@ -10,6 +10,7 @@ import com.github.kovah101.chargemycar.network.ChargeApi
 import com.github.kovah101.chargemycar.network.ChargeQuery
 import com.github.kovah101.chargemycar.savedDatabase.ChargeDatabase
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
+import com.google.android.gms.ads.AdSize
 import com.google.android.gms.location.LocationRequest.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -25,6 +26,10 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
     //val database = dataSource
 
     val chargePoints = database.getAllPoints()
+
+    // advert constants
+    lateinit var adSize: AdSize
+    val adUnit = "ca-app-pub-3940256099942544/6300978111"
 
     private var dummyData = mutableListOf<ChargePoint>()
 
