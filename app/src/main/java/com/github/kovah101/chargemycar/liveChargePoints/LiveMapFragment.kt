@@ -14,10 +14,12 @@ import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentLiveMapBinding
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
+import com.github.kovah101.chargemycar.loadAdBanner
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import com.github.kovah101.chargemycar.viewModel.ChargeQueryAPIStatus
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -32,11 +34,14 @@ import timber.log.Timber
  */
 class LiveMapFragment : Fragment(), OnMapReadyCallback {
 
+    // Ad variables
+    private lateinit var adView: AdView
+    private var initialLayoutComplete = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val binding: FragmentLiveMapBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_live_map, container, false
@@ -56,8 +61,14 @@ class LiveMapFragment : Fragment(), OnMapReadyCallback {
         binding.lifecycleOwner = this
 
         // load advert banner
-        val adRequest = AdRequest.Builder().build()
-        binding.liveMapAd.loadAd(adRequest)
+        adView = AdView(context as AppCompatActivity)
+        binding.liveMapAdContainer.addView(adView)
+        binding.liveMapAdContainer.viewTreeObserver.addOnGlobalLayoutListener {
+            if (!initialLayoutComplete) {
+                initialLayoutComplete = true
+                loadAdBanner(adView, livePointViewModel)
+            }
+        }
 
         // observe live list of charge points and generate map when it is
         livePointViewModel.listOfChargePoints.observe(viewLifecycleOwner, Observer {

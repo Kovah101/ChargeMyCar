@@ -12,6 +12,9 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.github.kovah101.chargemycar.network.ChargeQueryPoint
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
+import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import java.util.regex.Pattern
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -125,4 +128,12 @@ fun convertChargePoints(chargeQueryPoints: List<ChargeQueryPoint>): List<ChargeP
         chargepoints.add(chargePoint)
     }
     return chargepoints
+}
+
+// takes adView & viewmodel and loads adaptive ad banner
+fun loadAdBanner(adView: AdView, viewModel: ChargePointViewModel) {
+    adView.adUnitId = viewModel.adUnit
+    adView.adSize = viewModel.adSize
+    val adRequest = AdRequest.Builder().build()
+    adView.loadAd(adRequest)
 }

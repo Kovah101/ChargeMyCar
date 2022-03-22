@@ -13,8 +13,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentLiveListBinding
+import com.github.kovah101.chargemycar.loadAdBanner
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import timber.log.Timber
 
 /**
@@ -22,11 +24,14 @@ import timber.log.Timber
  */
 class LiveListFragment : Fragment() {
 
+    // Ad variables
+    private lateinit var adView: AdView
+    private var initialLayoutComplete = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val binding: FragmentLiveListBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_live_list, container, false
@@ -46,19 +51,29 @@ class LiveListFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // load advert banner
-        val adRequest = AdRequest.Builder().build()
-        binding.liveListAd.loadAd(adRequest)
+        adView = AdView(context as AppCompatActivity)
+        binding.liveListAdContainer.addView(adView)
+        binding.liveListAdContainer.viewTreeObserver.addOnGlobalLayoutListener {
+            if (!initialLayoutComplete) {
+                initialLayoutComplete = true
+                loadAdBanner(adView, livePointsViewModel)
+            }
+        }
 
         // create adapter with maps intent and favourite handler
-        val adapter = LivePointAdapter(livePointsViewModel.myLatitude.value,livePointsViewModel.myLongitude.value,LivePointAdapter.ChargePointListener { chargeLat, chargeLong ->
-            Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
-            launchMapDirections(chargeLat.toFloat(), chargeLong.toFloat())
-        },LivePointAdapter.FavouriteListener { chargePoint, checked ->
-            if (checked) {
-                Timber.d("Add Item ID: ${chargePoint.chargePointId} from Database")
-                livePointsViewModel.addIfNewChargePoint(chargePoint)
-            }
-        })
+        val adapter = LivePointAdapter(
+            livePointsViewModel.myLatitude.value,
+            livePointsViewModel.myLongitude.value,
+            LivePointAdapter.ChargePointListener { chargeLat, chargeLong ->
+                Timber.d("Launching Google Maps Intent -> Lat:$chargeLat, Long:$chargeLong")
+                launchMapDirections(chargeLat.toFloat(), chargeLong.toFloat())
+            },
+            LivePointAdapter.FavouriteListener { chargePoint, checked ->
+                if (checked) {
+                    Timber.d("Add Item ID: ${chargePoint.chargePointId} from Database")
+                    livePointsViewModel.addIfNewChargePoint(chargePoint)
+                }
+            })
         // bind it to the live list
         binding.liveList.adapter = adapter
 
@@ -85,7 +100,7 @@ class LiveListFragment : Fragment() {
         // reload query if changed
         livePointsViewModel.postcode.observe(viewLifecycleOwner, Observer {
             Timber.d("Location string is: $it")
-           // livePointsViewModel.getChargePointQuery()
+            // livePointsViewModel.getChargePointQuery()
         })
 
         return binding.root
@@ -102,7 +117,7 @@ class LiveListFragment : Fragment() {
     }
 
     // function takes charge point location and launches driving directions in the maps app of your choice
-    private fun launchMapDirections(chargeLat : Float, chargeLong: Float){
+    private fun launchMapDirections(chargeLat: Float, chargeLong: Float) {
 
         val gmmIntentUri = Uri.parse("google.navigation:q=$chargeLat,$chargeLong&mode=d")
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)

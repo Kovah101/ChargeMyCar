@@ -21,32 +21,18 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            map:layout_constraintBottom_toTopOf="@+id/savedMapAd"/>
+            map:layout_constraintBottom_toTopOf="@+id/savedMapAdContainer"/>
 
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/savedMapAd"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:id="@+id/savedMapAdContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+
         <!--    TODO: Test different map settings & bind to options menu, try lite mode?-->
-
-        <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-        <!--        android:id="@+id/titleConstraint"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="match_parent">-->
-
-        <!--    &lt;!&ndash; TODO: Place Holder &ndash;&gt;-->
-        <!--    <TextView-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="match_parent"-->
-        <!--        android:text="@string/saved_map_fragment" />-->
-
-        <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

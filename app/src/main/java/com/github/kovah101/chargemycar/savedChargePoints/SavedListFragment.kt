@@ -13,8 +13,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentSavedListBinding
+import com.github.kovah101.chargemycar.loadAdBanner
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
 
@@ -23,10 +25,14 @@ import timber.log.Timber
  */
 class SavedListFragment : Fragment() {
 
+    // Ad variables
+    private lateinit var adView: AdView
+    private var initialLayoutComplete = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val binding: FragmentSavedListBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_saved_list, container, false
@@ -42,9 +48,15 @@ class SavedListFragment : Fragment() {
         binding.savedPointsViewModel = savedPointsViewModel
         binding.lifecycleOwner = this
 
-        // load advert banner
-        val adRequest = AdRequest.Builder().build()
-        binding.savedListAd.loadAd(adRequest)
+// load advert banner
+        adView = AdView(context as AppCompatActivity)
+        binding.savedListAdContainer.addView(adView)
+        binding.savedListAdContainer.viewTreeObserver.addOnGlobalLayoutListener {
+            if (!initialLayoutComplete) {
+                initialLayoutComplete = true
+                loadAdBanner(adView, savedPointsViewModel)
+            }
+        }
 
         // Add an Observer for the SnackBar variable to initiate message
         savedPointsViewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {

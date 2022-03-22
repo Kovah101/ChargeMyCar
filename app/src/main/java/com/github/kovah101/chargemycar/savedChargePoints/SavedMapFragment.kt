@@ -15,9 +15,11 @@ import androidx.navigation.ui.NavigationUI
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentSavedMapBinding
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
+import com.github.kovah101.chargemycar.loadAdBanner
 import com.github.kovah101.chargemycar.savedDatabase.ChargePoint
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import timber.log.Timber
@@ -31,10 +33,14 @@ import timber.log.Timber
 // implements OnMapReadyCallback
 class SavedMapFragment : Fragment(), OnMapReadyCallback {
 
+    // Ad variables
+    private lateinit var adView: AdView
+    private var initialLayoutComplete = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val binding: FragmentSavedMapBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_saved_map, container, false
@@ -50,9 +56,15 @@ class SavedMapFragment : Fragment(), OnMapReadyCallback {
         binding.savedPointsViewModel = savedPointsViewModel
         binding.lifecycleOwner = this
 
-        // load advert banner
-        val adRequest = AdRequest.Builder().build()
-        binding.savedMapAd.loadAd(adRequest)
+// load advert banner
+        adView = AdView(context as AppCompatActivity)
+        binding.savedMapAdContainer.addView(adView)
+        binding.savedMapAdContainer.viewTreeObserver.addOnGlobalLayoutListener {
+            if (!initialLayoutComplete) {
+                initialLayoutComplete = true
+                loadAdBanner(adView, savedPointsViewModel)
+            }
+        }
 
         // map fragment initialised after charge points have been observed
         savedPointsViewModel.chargePoints.observe(viewLifecycleOwner, Observer {

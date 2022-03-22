@@ -19,11 +19,13 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.github.kovah101.chargemycar.R
 import com.github.kovah101.chargemycar.databinding.FragmentTitleBinding
+import com.github.kovah101.chargemycar.loadAdBanner
 import com.github.kovah101.chargemycar.postcodeChecker
 import com.github.kovah101.chargemycar.postcodeQueryString
 import com.github.kovah101.chargemycar.viewModel.ChargePointViewModel
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
 import com.google.android.gms.location.LocationServices
@@ -87,14 +89,18 @@ class TitleFragment : Fragment() {
 
     // TOTAL TIME: 36 hours 30m
 
-    // TODO: Phase 5  - Polish & testing, remove add data from saved list, test large lists for null point errors in query result, custom map info windows, Refresh live list on pull down?
-    //  Add Google Adverts : Setup + test basic banner in title (20m), reproduce test ads in all fragments (15m+15m), turn basic banners to adaptive banners
+    // TODO: Phase 5  - Polish & testing, remove add data from saved list, test large lists for null point errors in query result, custom map info windows, Refresh live list on pull down, map options in options menu
+    //  Add Google Adverts : Setup + test basic banner in title (20m), reproduce test ads in all fragments (15m+15m), turn basic banners to adaptive banners (15m+15m), replace test ads
     //
 
     private var userLat = 0.0
     private var userLong = -0.0
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private lateinit var adView: AdView
+    private var initialLayoutComplete = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -117,24 +123,33 @@ class TitleFragment : Fragment() {
         binding.livePointsViewModel = livePointsViewModel
         binding.lifecycleOwner = this
 
-        // calculate adWidth
+        // calculate adWidth + set in viewmodel
         val display = context?.display
         val outMetrics = DisplayMetrics()
         display?.getMetrics(outMetrics)
 
         val density = outMetrics.density
 
-//        var adWidthPixels = title_ad_container.width.toFloat()
-//        if (adWidthPixels == 0) {
-            val adWidthPixels = outMetrics.widthPixels.toFloat()
-//        }
+        var adWidthPixels = binding.titleAdContainer.width.toFloat()
+        if (adWidthPixels == 0f) {
+            adWidthPixels = outMetrics.widthPixels.toFloat()
+        }
 
         val adWidth = (adWidthPixels / density).toInt()
 
-        livePointsViewModel.adSize = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context as AppCompatActivity, adWidth)
+        livePointsViewModel.adSize = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+            context as AppCompatActivity,
+            adWidth
+        )
         // load advert banner
-        val adRequest = AdRequest.Builder().build()
-        binding.titleAd.loadAd(adRequest)
+        adView = AdView(context as AppCompatActivity)
+        binding.titleAdContainer.addView(adView)
+        binding.titleAdContainer.viewTreeObserver.addOnGlobalLayoutListener {
+            if (!initialLayoutComplete) {
+                initialLayoutComplete = true
+                loadAdBanner(adView, livePointsViewModel)
+            }
+        }
 
         // register the permissions callback and handle the users response
         val requestPermissionLauncher =
