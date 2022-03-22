@@ -29,6 +29,9 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
 
     // advert constants
     lateinit var adSize: AdSize
+    // Production Ad Unit
+    //val adUnit = "ca-app-pub-1918620128802522/7153343934"
+    // Test Ad Unit
     val adUnit = "ca-app-pub-3940256099942544/6300978111"
 
     private var dummyData = mutableListOf<ChargePoint>()

@@ -89,8 +89,13 @@ class TitleFragment : Fragment() {
 
     // TOTAL TIME: 36 hours 30m
 
-    // TODO: Phase 5  - Polish & testing, remove add data from saved list, test large lists for null point errors in query result, custom map info windows, Refresh live list on pull down, map options in options menu
-    //  Add Google Adverts : Setup + test basic banner in title (20m), reproduce test ads in all fragments (15m+15m), turn basic banners to adaptive banners (15m+15m), replace test ads
+    // TODO: Phase 5  - Polish & testing
+    //  Remove add data from saved list, test large lists for null point errors in query result,
+    //  Custom map info windows,
+    //  Refresh live list on pull down,
+    //  Map options in options menu,
+    //  Go over UI & UX
+    //  Add Google Adverts (1h 25m) : Setup + test basic banner in title (20m), reproduce test ads in all fragments (15m+15m), turn basic banners to adaptive banners (15m+15m), replace test ads (5m)
     //
 
     private var userLat = 0.0
