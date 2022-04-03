@@ -71,6 +71,9 @@ Research into enabling adaptive ad banner on the bottom of each fragment - [Goog
 - Review Design -
 Rethink colours, UI, spacing, font, images, logos, buttons, navigation animations, map animations.
 
+- Update UI using Jetpack Compose -
+Implement design changes while learning a new framework
+
 - Market Research -
 Analyse competitiors to guage interest, usability, feature & design.
 
