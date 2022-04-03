@@ -3,7 +3,7 @@ An android app to find, save and navigate to Electric Car Charge Points!
 
 Written in Kotlin using databinding, lifecyle awareness, room-database, Retrofit REST API & MVVM Design Pattern in 36.5 hours.
 
-## INTRO - 36.5 HOURS DONE
+## INTRO - 20 Hours To MVP
 The inspiration for this project was to build an app and time myself from concept to completion. I am happy to say I have completed everything in 36.5 hours. 
 
 I knew I wanted to practise using databases & retrieving information from the internet so browsed through [UK Government Datasets](https://data.gov.uk/) and settled on their Electric Car Charge Point Registry. Data that people need filtering, visualising, saving locally and could let me explore some extra features. These additional features being geo-permissions, google map integration, Regex pattern recognition & advertising. 
@@ -22,11 +22,19 @@ Secondly each of the live and saved points fragments would be displayed in a lis
 ## 2 - NAVIGATION & STRUCTURE ~ 5 hours
 Knowing the basic structure I could create a navigation graph and implement the frame of the app and all the paths through it. Looking at the Android Material Design principles suggested a use for the navigation drawer which I obliged.
 
-INSERT NAV GRAPH & NAV DRAWER
+|**Nav Graph**|**Nav Drawer**|
+| ---| ---|
+|<img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/Navigation%20Graph.PNG" width="620">|<img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Nav%20Drawer.png" width="260">|
+
 
 In this phase I also designed the simple Title, About & Options fragments along with adding [Timber](https://github.com/JakeWharton/timber) to simplifiy my log messages in anticipation of bug fixing/feature finding.
 
-INSET TABLE OF TITLE, ABOUT & OPTIONS LAYOUT
+|**Title**|**About**|**Options**|
+
+|**Title**|**About**|**Options**|
+| ---| ---|
+|<img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Title%20Ad.png" width="260">|<img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20About.png" width="260">|<img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Options.png" width="260">|
+
 
 
 ## 3 - DATABASE & VIEWMODEL ~ 4 hours
