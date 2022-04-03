@@ -43,7 +43,7 @@ This section was reusable for both the live and saved lists, where a recyclervie
 <br/><br/>
 Finally adding the onClick behaviour for launching Google Maps intent and interacting with the database were added to complete a near MVP - just excluding live data.
 
-<img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Map%20Directions.png" width="260"> <img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Directions%202.png" width="260">
+<img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Map%20Directions.png" width="200"> <img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Directions%202.png" width="200">
 
 ## 5 - PERMISSIONS & REAL DATA ~ 9 hours
 Phase 5 included adding permissions for internet access, copying as much of the saved points architecture over to the live points and setting up the [Retrofit](https://square.github.io/retrofit/) API service. Once I could collect the raw JSON data I could then parse it into the recyclerview on the frontend. The Retrofit API was called again from a Coroutine to not stop the UI thread. Then I designed the Options fragment to alter the API Query to vary the distance & search limit and finally used an enum to handle any errors from the API call and deal with them dynamically on the frontend.
