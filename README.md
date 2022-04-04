@@ -77,7 +77,7 @@ Rethink colours, UI, spacing, font, images, logos, buttons, navigation animation
 Implement design changes while learning a new framework
 
 - Market Research -
-Analyse competitiors to guage interest, usability, feature & design.
+Analyse competitiors to gauge interest, usability, feature & design.
 
 ### LINKS & REFERENCES
 -[National Charge Point Registry](https://chargepoints.dft.gov.uk/api/help)
