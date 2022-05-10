@@ -1,6 +1,8 @@
 # ChargeMyCar
 An android app to find, save and navigate to Electric Car Charge Points!
 
+Currently in early access - [Charge My Car](https://play.google.com/store/apps/details?id=com.github.kovah101.chargemycar)
+
 Written in Kotlin using databinding, lifecyle awareness, room-database, Retrofit REST API & MVVM Design Pattern in 36.5 hours.
 
 ## INTRO - 20 Hours To MVP
