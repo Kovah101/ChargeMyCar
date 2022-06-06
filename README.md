@@ -44,7 +44,7 @@ This section was reusable for both the live and saved lists, where a recyclervie
 
 <br/><br/>
 Finally adding the onClick behaviour for launching Google Maps intent and interacting with the database were added to complete a near MVP - just excluding live data.
-<img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Map%20Directions.png" width="200">    <img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Directions%202.png" width="200">
+<img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Map%20Directions.png" width="200">   <img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Directions%202.png" width="200">
 
 <br/>
 
