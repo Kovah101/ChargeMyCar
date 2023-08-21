@@ -133,7 +133,7 @@ fun convertChargePoints(chargeQueryPoints: List<ChargeQueryPoint>): List<ChargeP
 // takes adView & viewmodel and loads adaptive ad banner
 fun loadAdBanner(adView: AdView, viewModel: ChargePointViewModel) {
     adView.adUnitId = viewModel.adUnit
-    adView.adSize = viewModel.adSize
+    adView.setAdSize(viewModel.adSize)
     val adRequest = AdRequest.Builder().build()
     adView.loadAd(adRequest)
 }

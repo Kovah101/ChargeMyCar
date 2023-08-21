@@ -69,6 +69,7 @@ fun bindStatus(view: View, status: ChargeQueryAPIStatus?){
                 R.id.liveMap -> view.visibility = View.VISIBLE
                 R.id.chargeStringMap -> view.visibility = View.GONE
                 R.id.statusImageMap -> view.visibility = View.GONE
+                else -> Unit
             }
         }
         ChargeQueryAPIStatus.ERROR -> {
@@ -79,6 +80,7 @@ fun bindStatus(view: View, status: ChargeQueryAPIStatus?){
                 R.id.liveMap -> view.visibility = View.GONE
                 R.id.chargeStringMap -> view.visibility = View.VISIBLE
                 R.id.statusImageMap -> view.visibility = View.VISIBLE
+                else -> Unit
             }
         }
         ChargeQueryAPIStatus.LOADING -> {
@@ -89,9 +91,10 @@ fun bindStatus(view: View, status: ChargeQueryAPIStatus?){
                 R.id.liveMap -> view.visibility = View.GONE
                 R.id.chargeStringMap -> view.visibility = View.VISIBLE
                 R.id.statusImageMap -> view.visibility = View.VISIBLE
-
+                else -> Unit
             }
         }
+        else -> Unit
     }
 }
 
@@ -103,5 +106,6 @@ fun bindImage(view: ImageView, status: ChargeQueryAPIStatus?){
         ChargeQueryAPIStatus.ERROR ->
             view.setImageResource(R.drawable.connection_error)
         ChargeQueryAPIStatus.DONE -> Unit
+        else -> Unit
     }
 }
