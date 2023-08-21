@@ -50,7 +50,7 @@ class ChargePointViewModel(application: Application) : AndroidViewModel(applicat
 
 
     //convert all favourite charge points to string for ScrollView
-    val chargePointsString = Transformations.map(chargePoints) { chargePoints ->
+    val chargePointsString = chargePoints.map { chargePoints ->
         formatChargePoints(chargePoints, application.resources)
     }
 

@@ -41,7 +41,7 @@ class ChargeDatabaseTest {
     // simple test to check insert & getPointByPostcode Queries
     @Test
     @Throws(Exception::class)
-    fun insertAndGetPoint(){
+    suspend fun insertAndGetPoint(){
         val point = ChargePoint(postcode = "Tester")
         chargeDao.insert(point)
         val currentPoint = chargeDao.getPointByPostcode("Tester")
