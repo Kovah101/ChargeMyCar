@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.kovah101.chargemycar">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- In order for our app to access the Internet, we need to define this permission. -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -8,6 +7,7 @@
     <!-- In order for our app to access the users Location, we need to define these permissions. -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
 
     <!-- In order for our app to see other geo apps in Android 11+, could also try scheme="navigation" -->
     <queries>

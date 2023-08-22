@@ -3,7 +3,7 @@ An android app to find, save and navigate to Electric Car Charge Points!
 
 Currently in early access - [Charge My Car](https://play.google.com/store/apps/details?id=com.github.kovah101.chargemycar)
 
-Written in Kotlin using databinding, lifecyle awareness, room-database, Retrofit REST API & MVVM Design Pattern in 36.5 hours.
+Written in Kotlin using data-binding, lifecycle awareness, room-database, Retrofit REST API & MVVM Design Pattern in 36.5 hours.
 
 ## INTRO - 20 Hours To MVP
 The inspiration for this project was to build an app and time myself from concept to completion. I am happy to say I have completed everything in 36.5 hours. 
@@ -29,14 +29,14 @@ Knowing the basic structure I could create a navigation graph and implement the 
 |<img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/Navigation%20Graph.PNG" width="620">|<img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Nav%20Drawer.png" width="260">|
 
 
-In this phase I also designed the simple Title, About & Options fragments along with adding [Timber](https://github.com/JakeWharton/timber) to simplifiy my log messages in anticipation of bug fixing/feature finding.
+In this phase I also designed the simple Title, About & Options fragments along with adding [Timber](https://github.com/JakeWharton/timber) to simplify my log messages in anticipation of bug fixing/feature finding.
 
 | Title | About | Options |
 | --- | --- | --- |
 | <img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Title%20Ad.png" width="260"> | <img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20About.png" width="260"> | <img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Options.png" width="260"> |
 
 ## 3 - DATABASE & VIEWMODEL ~ 4 hours
-Started by creating the Charge Point entitiy to represent the electric car charging points and all their data. Then creating the room + database to run Junit tests the ChargePointDatabaseDAO. Then designing the shared ViewModel to hold & interact with the room database and link it to a simple listview. Noting the use of non blocking Kotlin Coroutines for room database interactions.
+Started by creating the Charge Point entity to represent the electric car charging points and all their data. Then creating the room + database to run Junit tests the ChargePointDatabaseDAO. Then designing the shared ViewModel to hold & interact with the room database and link it to a simple listview. Noting the use of non blocking Kotlin Coroutines for room database interactions.
 
 ## 4 - RECYCLERVIEW & INTERACTION ~ 8 hours
 <img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Saved%20List.png" width="320" align="left">
@@ -57,11 +57,11 @@ Phase 5 included adding permissions for internet access, copying as much of the 
 
 
 ## 6 - MAP FRAGMENTS ~ 10 hours
-The final phase was adding the geo permissions and rippling through the users location to the viewmodel along with finishing off the functionality of the Title fragment. This entailed enabling the postcode button, adding postcode mode for API query and checking the users input to see if it was a true postcode. I used kotlins built in pattern checker with the aid of this [Hero](https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes) on stackoverflow - improving on the regex pattern supplied by the UK government.
+The final phase was adding the geo permissions and rippling through the users location to the viewmodel along with finishing off the functionality of the Title fragment. This entailed enabling the postcode button, adding postcode mode for API query and checking the users input to see if it was a true postcode. I used Kotlin's built in pattern checker with the aid of this [Hero](https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes) on stackoverflow - improving on the regex pattern supplied by the UK government.
 
 <img align="center" src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/postcode%20Regex.PNG" width="650">
 
-I then finished the Options menu by adding a variety of options to alter the accuracy and power consumption ofthe GPS singal. After that was completed I could setup the maps SDK and cloud console, create an API key and start to design my map fragments. Observing the respective charge point lists from the viewmodel allowed me to populate the maps with custom markers displaying the key information about the charge points, along with direction intentions and an animation to zoom perfectly to fill the screen.
+I then finished the Options menu by adding a variety of options to alter the accuracy and power consumption of the GPS signal. After that was completed I could setup the maps SDK and cloud console, create an API key and start to design my map fragments. Observing the respective charge point lists from the viewmodel allowed me to populate the maps with custom markers displaying the key information about the charge points, along with direction intentions and an animation to zoom perfectly to fill the screen.
 
 <img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Live%20Map.png" width="260"> <img src="https://github.com/Kovah101/Kovah101/blob/main/CMC%20Screenshots/CMC%20Saved%20Map.png" width="260">
 
@@ -78,7 +78,7 @@ Rethink colours, UI, spacing, font, images, logos, buttons, navigation animation
 Implement design changes while learning a new framework
 
 - Market Research -
-Analyse competitiors to gauge interest, usability, feature & design.
+Analyse competitors to gauge interest, usability, feature & design.
 
 ### LINKS & REFERENCES
 -[National Charge Point Registry](https://chargepoints.dft.gov.uk/api/help)
